@@ -2,21 +2,18 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
 //Screen
-import ProfileScreen from '../screen/ProfileScreen';
+import ChatScreen from '../screen/ChatScreen';
 
 const Stack = createStackNavigator();
 
-const ProfileStack = () => {
+const ChatStack = () => {
   return (
-    <Stack.Navigator initialRouteName="ProfileScreen">
+    <Stack.Navigator initialRouteName="ChatScreen">
       <Stack.Screen
-        name="내 프로필"
-        component={ProfileScreen}
+        name="채팅"
+        component={ChatScreen}
         options={{
           headerLeft: null,
-          headerTitleStyle: {
-            alignSelf: 'center',
-          },
           headerStyle: {
             backgroundColor: '#AFDCBD',
           },
@@ -26,4 +23,4 @@ const ProfileStack = () => {
   );
 };
 
-export default ProfileStack;
+export default ChatStack;

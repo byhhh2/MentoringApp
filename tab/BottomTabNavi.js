@@ -5,6 +5,9 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 //Stacks
 import HomeStack from './home/navigation/HomeStack';
 import ProfileStack from './profile/navigation/ProfileStack';
+import ProgStack from './Progress/navigation/ProgStack';
+import ChatStack from './Chat/navigation/ChatStack';
+import UploadStack from './Upload/navigation/UploadStack';
 
 //Icon
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -36,6 +39,51 @@ const BottomTabNavi = () => {
           tabBarIcon: () => {
             return (
               <Ionicons name={'ios-home'} size={30} style={{color: 'black'}} />
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="진행중"
+        component={ProgStack}
+        options={{
+          tabBarIcon: () => {
+            return (
+              <Ionicons
+                name={'list-circle-sharp'}
+                size={30}
+                style={{color: 'black'}}
+              />
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="업로드"
+        component={UploadStack}
+        options={{
+          tabBarIcon: () => {
+            return (
+              <Ionicons
+                name={'add-circle-sharp'}
+                size={30}
+                style={{color: 'black'}}
+              />
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="채팅"
+        component={ChatStack}
+        options={{
+          tabBarIcon: () => {
+            return (
+              <Ionicons
+                name={'chatbubbles-sharp'}
+                size={30}
+                style={{color: 'black'}}
+              />
             );
           },
         }}

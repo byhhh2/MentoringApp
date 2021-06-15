@@ -2,16 +2,16 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
 //Screen
-import ProfileScreen from '../screen/ProfileScreen';
+import UploadScreen from '../screen/UploadScreen';
 
 const Stack = createStackNavigator();
 
-const ProfileStack = () => {
+const UploadStack = () => {
   return (
-    <Stack.Navigator initialRouteName="ProfileScreen">
+    <Stack.Navigator initialRouteName="UploadScreen">
       <Stack.Screen
-        name="내 프로필"
-        component={ProfileScreen}
+        name="게시글 업로드"
+        component={UploadScreen}
         options={{
           headerLeft: null,
           headerTitleStyle: {
@@ -26,4 +26,4 @@ const ProfileStack = () => {
   );
 };
 
-export default ProfileStack;
+export default UploadStack;

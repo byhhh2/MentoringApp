@@ -2,21 +2,18 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
 //Screen
-import ProfileScreen from '../screen/ProfileScreen';
+import ProgScreen from '../screen/ProgScreen';
 
 const Stack = createStackNavigator();
 
-const ProfileStack = () => {
+const ProgStack = () => {
   return (
-    <Stack.Navigator initialRouteName="ProfileScreen">
+    <Stack.Navigator initialRouteName="ProgScreen">
       <Stack.Screen
-        name="내 프로필"
-        component={ProfileScreen}
+        name="📝 진행 중인 멘토링"
+        component={ProgScreen}
         options={{
           headerLeft: null,
-          headerTitleStyle: {
-            alignSelf: 'center',
-          },
           headerStyle: {
             backgroundColor: '#AFDCBD',
           },
@@ -26,4 +23,4 @@ const ProfileStack = () => {
   );
 };
 
-export default ProfileStack;
+export default ProgStack;

@@ -14,7 +14,7 @@ export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isClicked: 0,
+      selected: [true, false, false],
       data: [
         {
           id: 1,
@@ -69,13 +69,38 @@ export default class HomeScreen extends Component {
   }
   render() {
     const filtering = buttons.map((type, i) => (
-      <FilterButton text={type} key={i} id={i} />
+      <FilterButton
+        text={type}
+        key={i}
+        id={i}
+        callback={(id) => {
+          /**filtering Button function
+           * 21.06.15 by 예리
+           **/
+          let array = this.state.selected;
+          if (array[id] == false) array[id] = !array[id];
+          for (let j = 0; j < 3; j++) {
+            if (id != j) {
+              if (array[j] == true) array[j] = false;
+            } else {
+              array[j] == true;
+            }
+          }
+          this.setState({selected: array});
+        }}
+        click={this.state.selected}
+      />
     ));
     return (
       <View style={styles.container}>
         <View style={styles.logoView}>
-          <Text style={{fontSize: 40, color: 'white', fontWeight: 'bold'}}>
-            꿍시렁꿍시렁
+          <Text
+            style={{
+              fontSize: 35,
+              color: 'white',
+              fontWeight: 'bold',
+            }}>
+            Sejong Mentoring
           </Text>
         </View>
         <View style={styles.mainView}>
@@ -121,21 +146,17 @@ class List extends Component {
 class FilterButton extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {isClicked: 0};
   }
   render() {
     return (
       <TouchableOpacity
         style={
-          /**filtering Button function not completed yet
-           * 21.06.10 by 예리
-           **/
-          this.state.isClicked == this.props.id
+          this.props.click[this.props.id]
             ? styles.filterButtonClicked
             : styles.filterButton
         }
         onPress={() => {
-          this.setState({isClicked: this.props.id});
+          this.props.callback(this.props.id);
         }}>
         <Text style={{fontSize: 20}}>{this.props.text}</Text>
       </TouchableOpacity>
