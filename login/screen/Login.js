@@ -8,6 +8,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import axios from 'axios';
+
 /**
  * Login Screen by 예리
  * 21.06.09
@@ -15,6 +17,28 @@ import {
 export default class Login extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      id: '',
+      pwd: '',
+    };
+  }
+  signin(id, pwd) {
+    /**
+     * signin with student_id
+     * 21.06.16 by 예리
+     */
+    axios
+      .post(`http://34.64.111.90:8080/api/v1/signin`, {
+        student_id: id,
+        password: pwd,
+      })
+      .then((response) => {
+        this.props.navigation.navigate('Home');
+      })
+      .catch((error) => {
+        console.log('wrong!');
+        console.log(error);
+      });
   }
   render() {
     return (
@@ -41,16 +65,25 @@ export default class Login extends Component {
               <TextInput
                 style={styles.textInput}
                 placeholder={'학번을 입력하세요.'}
+                onChangeText={(num) => {
+                  this.setState({id: num});
+                }}
               />
               <TextInput
                 style={styles.textInput}
                 placeholder={'비밀번호를 입력하세요.'}
+                onChangeText={(password) => {
+                  this.setState({pwd: password});
+                }}
               />
             </View>
             <Button
               title="로그인"
               color="#AFDCBD"
-              onPress={() => this.props.navigation.navigate('Home')}
+              onPress={() => {
+                //this.signin(this.state.id, this.state.pwd);
+                this.props.navigation.navigate('Home');
+              }}
             />
           </View>
         </View>
