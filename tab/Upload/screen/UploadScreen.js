@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import DatePicker from 'react-native-date-picker';
+import CalendarPicker from 'react-native-calendar-picker';
 
 /**
  * upload form
@@ -132,9 +133,19 @@ class TimeModal extends Component {
 class DateModal extends Component {
   constructor(props) {
     super(props);
-    this.state = {dateModalVisible: false, date: new Date()};
+    this.state = {dateModalVisible: false, start: null, end: null};
+    this.onDateChange = this.onDateChange.bind(this);
+  }
+  onDateChange(date, type) {
+    if (type === 'END_DATE') {
+      this.setState({end: date});
+    } else {
+      this.setState({start: date, end: null});
+    }
   }
   render() {
+    const minDate = new Date();
+    const maxDate = new Date(2021, 12, 31);
     return (
       <TouchableOpacity
         onPress={() => {
@@ -153,7 +164,16 @@ class DateModal extends Component {
             }}>
             <View style={styles.modalBack}>
               <View style={styles.modalCenter}>
-                <DatePicker date={this.state.date} mode={'date'} />
+                <CalendarPicker
+                  startFromMonday={true}
+                  allowRangeSelection={true}
+                  minDate={minDate}
+                  maxDate={maxDate}
+                  //todayBackgroundColor="orange"
+                  selectedDayColor="#AFDCBD"
+                  selectedDayTextColor="green"
+                  onDateChange={this.onDateChange}
+                />
                 <TouchableOpacity
                   style={styles.modalBtn}
                   onPress={() => {
@@ -423,7 +443,7 @@ const styles = StyleSheet.create({
   },
   modalCenter: {
     backgroundColor: 'white',
-    height: '40%',
+    height: '60%',
     paddingTop: '3%',
     display: 'flex',
     alignItems: 'center',
