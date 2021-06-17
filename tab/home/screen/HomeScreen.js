@@ -83,7 +83,7 @@ export default class HomeScreen extends Component {
             if (id != j) {
               if (array[j] == true) array[j] = false;
             } else {
-              array[j] == true;
+              array[j] = true;
             }
           }
           this.setState({selected: array});

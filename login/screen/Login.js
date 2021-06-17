@@ -7,7 +7,7 @@ import {
   Button,
   TouchableOpacity,
 } from 'react-native';
-
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import axios from 'axios';
 
 /**
@@ -42,7 +42,7 @@ export default class Login extends Component {
   }
   render() {
     return (
-      <View style={styles.container}>
+      <KeyboardAwareScrollView contentContainerStyle={styles.container}>
         <View style={styles.centerView}>
           <View
             style={{
@@ -87,14 +87,14 @@ export default class Login extends Component {
             />
           </View>
         </View>
-      </View>
+      </KeyboardAwareScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: 730,
     backgroundColor: 'white',
     display: 'flex',
     alignItems: 'center',

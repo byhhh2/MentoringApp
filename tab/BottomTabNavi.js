@@ -27,6 +27,7 @@ const BottomTabNavi = () => {
         activeBackgroundColor: '#99bfa5',
         inactiveTintColor: 'black',
         activeTintColor: 'black',
+        keyboardHidesTabBar: true,
       }}>
       <Tab.Screen
         name="홈"
