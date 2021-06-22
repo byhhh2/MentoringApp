@@ -31,7 +31,7 @@ const BottomTabNavi = () => {
       }}>
       <Tab.Screen
         name="홈"
-        component={HomeStack}
+        //component={HomeStack}
         options={{
           /**
            * Bottom Tab Icon
@@ -42,8 +42,9 @@ const BottomTabNavi = () => {
               <Ionicons name={'ios-home'} size={30} style={{color: 'black'}} />
             );
           },
-        }}
-      />
+        }}>
+        {({navigation}) => <HomeStack TabNavigation={navigation} />}
+      </Tab.Screen>
       <Tab.Screen
         name="진행중"
         component={ProgStack}
