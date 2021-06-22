@@ -3,6 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 //Screen
 import HomeScreen from '../screen/HomeScreen';
+import Contents from '../components/Contents';
 
 const Stack = createStackNavigator();
 /**
@@ -21,6 +22,20 @@ const HomeStack = () => {
         options={{
           headerLeft: null,
           headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Contents"
+        component={Contents}
+        options={{
+          title: '',
+          headerStyle: {
+            backgroundColor: '#AFDCBD',
+          },
+          headerTintColor: '#498C5A',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
         }}
       />
     </Stack.Navigator>

@@ -2,6 +2,8 @@ import React, {Component, PureComponent} from 'react';
 import {useEffect} from 'react';
 import {useState} from 'react';
 import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
+
+import {useNavigation} from '@react-navigation/native';
 /**
  * HomeScreen
  * Mentor, Mentee List
@@ -21,48 +23,96 @@ export default class HomeScreen extends Component {
           name: '김익명1',
           lecture: '알고리즘',
           score: 'A',
+          gender: '여성',
+          time: '15시 00분',
+          term: '2021월 6월 23일 - 2021년 6월 30일',
+          category: '멘토',
+          text: '같이 알고리즘 알아봐요~',
+          level: '상',
         },
         {
           id: 2,
           name: '김익명2',
           lecture: '알고리즘',
           score: 'B',
+          gender: '남성',
+          time: '15시 00분',
+          term: '2021월 6월 23일 - 2021년 6월 30일',
+          category: '멘토',
+          text: '알고리즘 너무 재밌어요.',
+          level: '상',
         },
         {
           id: 3,
           name: '김익명3',
           lecture: '알고리즘',
           score: 'C',
+          gender: '여성',
+          time: '15시 00분',
+          term: '2021월 6월 23일 - 2021년 6월 30일',
+          category: '멘티',
+          text: '알고리즘 알고싶다',
+          level: '하',
         },
         {
           id: 4,
           name: '김익명4',
           lecture: '알고리즘',
           score: 'D',
+          gender: '남성',
+          time: '15시 00분',
+          term: '2021월 6월 23일 - 2021년 6월 30일',
+          category: '멘티',
+          text: '알고리즘 알려주세요 ㅠㅠ',
+          level: '하',
         },
         {
           id: 5,
           name: '김익명5',
           lecture: '알고리즘',
           score: 'D',
+          gender: '여성',
+          time: '15시 00분',
+          term: '2021월 6월 23일 - 2021년 6월 30일',
+          category: '멘티',
+          text: '알고리즘 ㅗ~',
+          level: '하',
         },
         {
           id: 6,
           name: '김익명6',
           lecture: '알고리즘',
           score: 'D',
+          gender: '남성',
+          time: '15시 00분',
+          term: '2021월 6월 23일 - 2021년 6월 30일',
+          category: '멘티',
+          text: '알고리즘이 뭐에요?',
+          level: '하',
         },
         {
           id: 7,
           name: '김익명7',
           lecture: '알고리즘',
           score: 'D',
+          gender: '여성',
+          time: '15시 00분',
+          term: '2021월 6월 23일 - 2021년 6월 30일',
+          category: '멘티',
+          text: '같이 알고리즘 알아봐요~',
+          level: '하',
         },
         {
           id: 8,
           name: '김익명8',
           lecture: '알고리즘',
           score: 'D',
+          gender: '여성',
+          time: '15시 00분',
+          term: '2021월 6월 23일 - 2021년 6월 30일',
+          category: '멘티',
+          text: '알고리즘 거져~',
+          level: '하',
         },
       ],
     };
@@ -126,22 +176,26 @@ const renderList = ({item}) => {
   return <List item={item} />;
 };
 
-class List extends Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return (
-      <TouchableOpacity>
-        <View style={styles.list}>
-          <Text>과목 : {this.props.item.item.lecture}</Text>
-          <Text>이름 : {this.props.item.item.name}</Text>
-          <Text>학점 : {this.props.item.item.score}</Text>
-        </View>
-      </TouchableOpacity>
-    );
-  }
-}
+const List = ({item}) => {
+  const navigation = useNavigation();
+  return (
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('Contents', {
+          lecture: item.item.lecture,
+          name: item.item.name,
+          score: item.item.score,
+          user_info: item.item,
+        });
+      }}>
+      <View style={styles.list}>
+        <Text>과목 : {item.item.lecture}</Text>
+        <Text>이름 : {item.item.name}</Text>
+        <Text>학점 : {item.item.score}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
 
 class FilterButton extends PureComponent {
   constructor(props) {
