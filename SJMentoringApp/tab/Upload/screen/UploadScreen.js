@@ -82,6 +82,7 @@ export default class UploadScreen extends PureComponent {
 const styles = StyleSheet.create({
   container: {
     height: 630,
+    backgroundColor:'white'
   },
   settingView: {
     marginTop: '2%',

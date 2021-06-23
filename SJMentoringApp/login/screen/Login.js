@@ -50,21 +50,22 @@ export default class Login extends Component {
               display: 'flex',
               alignItems: 'center',
             }}>
-            <Text style={styles.title}>세 멘 토</Text>
+            <Text style={styles.title}>멘 토 스</Text>
             <Text
               style={{
-                fontSize: 17,
+                fontSize: 16,
                 color: '#AFDCBD',
                 fontWeight: 'bold',
+                textAlign:'center'
               }}>
-              Sejong University Mentoring Service
+              Sejong University {'\n'} Mentoring Matching Service
             </Text>
           </View>
           <View style={styles.login}>
             <View style={styles.inputView}>
               <TextInput
                 style={styles.textInput}
-                placeholder={'학번을 입력하세요.'}
+                placeholder={'세종대학교 포털 아이디를 입력하세요.'}
                 onChangeText={(num) => {
                   this.setState({id: num});
                 }}
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: 50,
+    fontSize: 60,
     fontWeight: 'bold',
     marginBottom: '7%',
     marginTop: '8%',
