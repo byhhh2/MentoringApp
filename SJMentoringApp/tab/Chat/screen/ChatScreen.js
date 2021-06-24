@@ -12,21 +12,30 @@ export default class ChatScreen extends PureComponent {
       data: [
         {
           id: 0,
-          name: '익명이에오~',
-          text: '어쩌구저쩌구',
+          name: '김멘토',
+          role: '멘토',
+          text: '알고리즘 알려드려요~',
           time: '21.06.15',
+          lecture: '알고리즘',
+          matched: true,
         },
         {
           id: 1,
-          name: '익명이에오~1',
-          text: '어쩌구저쩌구',
+          name: '김멘티',
+          role: '멘티',
+          text: '자료구조 너무 어려워요 알려주세요~!',
           time: '21.06.15',
+          lecture: '자료구조',
+          matched: false,
         },
         {
           id: 2,
-          name: '익명이에오~2',
+          name: '김익명',
+          role: '멘티',
           text: '어쩌구저쩌구',
           time: '21.06.15',
+          lecture: '일반c프로그래밍',
+          matched: true,
         },
       ],
     };
@@ -37,7 +46,7 @@ export default class ChatScreen extends PureComponent {
         <FlatList
           data={this.state.data}
           renderItem={(item) => {
-            return renderList({item});
+            return renderList({item}, this.props.navigation);
           }}
           keyExtractor={(item) => item.id}
         />
@@ -46,8 +55,8 @@ export default class ChatScreen extends PureComponent {
   }
 }
 
-const renderList = ({item}) => {
-  return <ChatList item={item} />;
+const renderList = ({item}, navigation) => {
+  return <ChatList item={item} navi={navigation} />;
 };
 
 class ChatList extends PureComponent {
@@ -56,7 +65,16 @@ class ChatList extends PureComponent {
   }
   render() {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          this.props.navi.navigate('Chat', {
+            lecture: this.props.item.item.lecture,
+            name: this.props.item.item.name,
+            role: this.props.item.item.role,
+            text: this.props.item.item.text,
+            matched: this.props.item.item.matched,
+          });
+        }}>
         <View style={styles.list}>
           <View style={styles.contentView}>
             <Text style={styles.nameText}>{this.props.item.item.name}</Text>
