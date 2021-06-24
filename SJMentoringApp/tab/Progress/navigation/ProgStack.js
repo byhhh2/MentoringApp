@@ -4,6 +4,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 //Screen
 import ProgScreen from '../screen/ProgScreen';
 
+import MentoringDiary from '../component/MentoringDiary';
+
 const Stack = createStackNavigator();
 
 const ProgStack = () => {
@@ -16,6 +18,20 @@ const ProgStack = () => {
           headerLeft: null,
           headerStyle: {
             backgroundColor: '#AFDCBD',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="멘토링일지"
+        component={MentoringDiary}
+        options={{
+          headerLeft: null,
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: '#AFDCBD',
+          },
+          headerTitleStyle: {
+            alignSelf: 'center',
           },
         }}
       />
