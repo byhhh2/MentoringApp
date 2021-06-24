@@ -11,7 +11,7 @@ import CalendarPicker from 'react-native-calendar-picker';
 
 /**
  * DatePick Modal
- * 21.06.17 by 예리
+ * by 예리
  */
 export default class DateModal extends Component {
   constructor(props) {

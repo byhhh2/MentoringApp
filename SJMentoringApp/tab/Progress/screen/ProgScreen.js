@@ -1,10 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
 
-/**
- * ChatList Screen
- * 21.06.15 by 예리
- */
 export default class ProgScreen extends PureComponent {
   constructor(props) {
     super(props);

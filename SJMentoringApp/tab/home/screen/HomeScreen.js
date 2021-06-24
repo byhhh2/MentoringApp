@@ -4,12 +4,6 @@ import {useState} from 'react';
 import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
-/**
- * HomeScreen
- * Mentor, Mentee List
- * by 예리
- * 21.06.09
- */
 
 const buttons = ['인기', '멘토', '멘티'];
 export default class HomeScreen extends Component {
@@ -125,7 +119,7 @@ export default class HomeScreen extends Component {
         id={i}
         callback={(id) => {
           /**filtering Button function
-           * 21.06.15 by 예리
+           * by 예리
            **/
           let array = this.state.selected;
           if (array[id] == false) array[id] = !array[id];

@@ -3,7 +3,7 @@ import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 
 /**
  * Days Button
- * 21.06.17 by 예리
+ * by 예리
  */
 export default class DaysButton extends Component {
   constructor(props) {

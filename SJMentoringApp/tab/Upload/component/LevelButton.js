@@ -3,7 +3,7 @@ import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 
 /**
  * Level Button
- * 21.06.17 by 예리
+ * by 예리
  */
 export default class LevelButton extends Component {
   constructor(props) {

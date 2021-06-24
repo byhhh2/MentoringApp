@@ -6,12 +6,6 @@ import HomeScreen from '../screen/HomeScreen';
 import Contents from '../components/Contents';
 
 const Stack = createStackNavigator();
-/**
- * HomeStack Navigation
- * Home에서 쓰이는 화면들 Stack
- * by 예리
- * 21.06.09
- */
 
 const HomeStack = () => {
   return (

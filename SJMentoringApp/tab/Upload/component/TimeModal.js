@@ -1,19 +1,10 @@
 import React, {Component, PureComponent} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  Modal,
-  TouchableOpacity,
-} from 'react-native';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {StyleSheet, Text, View, Modal, TouchableOpacity} from 'react-native';
 import DatePicker from 'react-native-date-picker';
-import CalendarPicker from 'react-native-calendar-picker';
 
 /**
  * TimePick Modal
- * 21.06.17 by 예리
+ * by 예리
  */
 export default class TimeModal extends Component {
   constructor(props) {

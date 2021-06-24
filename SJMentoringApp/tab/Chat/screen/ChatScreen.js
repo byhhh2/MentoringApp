@@ -1,10 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
 
-/**
- * ChatList Screen
- * 21.06.15 by 예리
- */
 export default class ChatScreen extends PureComponent {
   constructor(props) {
     super(props);
@@ -76,6 +72,11 @@ class ChatList extends PureComponent {
           });
         }}>
         <View style={styles.list}>
+          <View style={styles.matchedView}>
+            <Text style={{fontSize: 12, fontWeight: 'bold'}}>
+              {this.props.item.item.matched ? '매칭 완료' : '모집중'}
+            </Text>
+          </View>
           <View style={styles.contentView}>
             <Text style={styles.nameText}>{this.props.item.item.name}</Text>
             <Text>{this.props.item.item.text}</Text>
@@ -98,18 +99,30 @@ const styles = StyleSheet.create({
     height: 70,
     borderBottomColor: 'lightgray',
     borderBottomWidth: 1,
-    paddingLeft: '3%',
-    paddingRight: '3%',
+    marginLeft: '3%',
+    marginRight: '3%',
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  matchedView: {
+    width: '15%',
+    height: '80%',
+    marginRight: '2%',
+    borderRadius: 100,
+    borderColor: '#AFDCBD',
+    borderWidth: 2,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   contentView: {
-    width: '80%',
+    width: '63%',
+    marginRight: '1%',
   },
   timeView: {
-    width: '18%',
+    width: '15%',
   },
   nameText: {
     fontWeight: 'bold',
