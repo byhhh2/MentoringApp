@@ -47,7 +47,7 @@ const MyContentsList = () => {
   });
 
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
         data={contentList}
         renderItem={({item}) => {
@@ -76,6 +76,10 @@ const MyContentsList = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
   content_container: {
     padding: '5%',
     borderBottomWidth: 1,
