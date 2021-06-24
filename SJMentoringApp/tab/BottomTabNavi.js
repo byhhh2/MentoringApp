@@ -10,12 +10,6 @@ import UploadStack from './Upload/navigation/UploadStack';
 
 //Icon
 import Ionicons from 'react-native-vector-icons/Ionicons';
-/**
- * Bottom Tab Navigation
- * Home, Profile 추가
- * by 예리
- * 21.06.09
- */
 
 const Tab = createBottomTabNavigator();
 const BottomTabNavi = () => {

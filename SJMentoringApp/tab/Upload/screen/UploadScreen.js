@@ -12,11 +12,6 @@ import UploadInput from '../component/UploadInput';
 
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
-/**
- * upload form
- * 21.06.16 by 예리
- */
-
 export default class UploadScreen extends PureComponent {
   constructor(props) {
     super(props);
@@ -82,7 +77,7 @@ export default class UploadScreen extends PureComponent {
 const styles = StyleSheet.create({
   container: {
     height: 630,
-    backgroundColor:'white'
+    backgroundColor: 'white',
   },
   settingView: {
     marginTop: '2%',

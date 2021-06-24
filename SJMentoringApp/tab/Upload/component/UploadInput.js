@@ -6,10 +6,7 @@ import TimeModal from './TimeModal';
 import DateModal from './DateModal';
 import LevelButton from './LevelButton';
 import DaysButton from './DaysButton';
-/**
- * Inputs
- * 21.06.17 by 예리
- */
+
 const buttons = ['상', '중', '하'];
 const days = ['월', '화', '수', '목', '금', '토', '일'];
 export default class UploadInput extends Component {

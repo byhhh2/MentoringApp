@@ -18,7 +18,6 @@ export default class Chat extends Component {
               <Text
                 style={{
                   fontWeight: 'bold',
-                  //color: '#498C5A',
                   marginRight: '2%',
                   fontSize: 20,
                 }}>
@@ -68,7 +67,11 @@ export default class Chat extends Component {
           </View>
         </View>
         {/* 채팅화면 */}
-        <View style={{flex: 1}}></View>
+        <View style={styles.chatView}>
+          <Text style={{textAlign: 'center', color: 'gray'}}>
+            채팅을 통해서{'\n'}멘토 멘티 매칭을 이루어보세요 !
+          </Text>
+        </View>
       </View>
     );
   }
@@ -100,6 +103,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: 'lightgray',
     borderWidth: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  chatView: {
+    flex: 1,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
