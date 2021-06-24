@@ -11,7 +11,8 @@ export default class ProgScreen extends PureComponent {
           lecture: '알고리즘',
           mentor: '김멘토',
           mentee: '이멘티',
-          period: '21.06.01-21.06.15',
+          period: '21.06.25-21.06.30',
+          finished: false,
         },
         {
           id: 1,
@@ -19,13 +20,15 @@ export default class ProgScreen extends PureComponent {
           mentor: '김멘토',
           mentee: '이멘티',
           period: '21.06.01-21.06.15',
+          finished: true,
         },
         {
           id: 2,
           lecture: '일반C프로그래밍',
           mentor: '김멘토',
           mentee: '이멘티',
-          period: '21.06.01-21.06.15',
+          period: '21.06.11-21.06.17',
+          finished: false,
         },
       ],
     };
@@ -36,7 +39,7 @@ export default class ProgScreen extends PureComponent {
         <FlatList
           data={this.state.data}
           renderItem={(item) => {
-            return renderList({item});
+            return renderList({item}, this.props.navigation);
           }}
           keyExtractor={(item) => item.id}
         />
@@ -45,8 +48,8 @@ export default class ProgScreen extends PureComponent {
   }
 }
 
-const renderList = ({item}) => {
-  return <ChatList item={item} />;
+const renderList = ({item}, navigation) => {
+  return <ChatList item={item} navi={navigation} />;
 };
 
 class ChatList extends PureComponent {
@@ -55,7 +58,16 @@ class ChatList extends PureComponent {
   }
   render() {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() =>
+          this.props.navi.navigate('멘토링일지', {
+            lecture: this.props.item.item.lecture,
+            mentor: this.props.item.item.mentor,
+            mentee: this.props.item.item.mentee,
+            period: this.props.item.item.period,
+            finished: this.props.item.item.finished,
+          })
+        }>
         <View style={styles.list}>
           <View style={styles.contentView}>
             <Text style={styles.nameText}>{this.props.item.item.lecture}</Text>
@@ -63,7 +75,11 @@ class ChatList extends PureComponent {
             <Text>멘티 : {this.props.item.item.mentee}</Text>
           </View>
           <View style={styles.timeView}>
-            <Text>{this.props.item.item.period}</Text>
+            <Text style={{textAlign: 'center'}}>
+              {this.props.item.item.finished
+                ? '완료'
+                : this.props.item.item.period}
+            </Text>
           </View>
         </View>
       </TouchableOpacity>

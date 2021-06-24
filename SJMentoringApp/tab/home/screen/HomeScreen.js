@@ -140,11 +140,11 @@ export default class HomeScreen extends Component {
         <View style={styles.logoView}>
           <Text
             style={{
-              fontSize: 35,
+              fontSize: 40,
               color: 'white',
               fontWeight: 'bold',
             }}>
-            Sejong Mentoring
+            멘 토 스
           </Text>
         </View>
         <View style={styles.mainView}>

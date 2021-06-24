@@ -23,12 +23,15 @@ const ChatStack = () => {
         }}
       />
       <Stack.Screen
-        name="Chat"
+        name="채팅방"
         component={Chat}
         options={{
           headerLeft: null,
           headerStyle: {
             backgroundColor: '#AFDCBD',
+          },
+          headerTitleStyle: {
+            alignSelf: 'center',
           },
         }}
       />

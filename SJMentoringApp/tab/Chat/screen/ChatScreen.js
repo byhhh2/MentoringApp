@@ -63,7 +63,7 @@ class ChatList extends PureComponent {
     return (
       <TouchableOpacity
         onPress={() => {
-          this.props.navi.navigate('Chat', {
+          this.props.navi.navigate('채팅방', {
             lecture: this.props.item.item.lecture,
             name: this.props.item.item.name,
             role: this.props.item.item.role,
