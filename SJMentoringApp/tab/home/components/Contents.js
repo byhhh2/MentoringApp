@@ -85,6 +85,8 @@ const Contents = (props) => {
 const styles = StyleSheet.create({
   container: {
     //margin: 10,
+    flex: 1,
+    backgroundColor: 'white',
   },
   base_font: {
     fontSize: 20,
