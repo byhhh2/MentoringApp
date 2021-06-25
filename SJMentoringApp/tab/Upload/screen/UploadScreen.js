@@ -68,8 +68,12 @@ export default class UploadScreen extends PureComponent {
     let stringEnd = '';
     tmpStart = start;
     tmpEnd = end;
-    stringStart = `${tmpStart.getFullYear()}-${tmpStart.getMonth()}-${tmpStart.getDate()}`;
-    stringEnd = `${tmpEnd.getFullYear()}-${tmpEnd.getMonth()}-${tmpEnd.getDate()}`;
+    stringStart = `${tmpStart.getFullYear()}-${
+      tmpStart.getMonth() + 1
+    }-${tmpStart.getDate()}`;
+    stringEnd = `${tmpEnd.getFullYear()}-${
+      tmpEnd.getMonth() + 1
+    }-${tmpEnd.getDate()}`;
     //console.log(stringStart, stringEnd);
     this.setState({start: stringStart, end: stringEnd});
   }
@@ -162,6 +166,16 @@ export default class UploadScreen extends PureComponent {
                 this.state.selectedDays,
                 this.state.value,
               );
+              this.props.navigation.navigate('업로드한 게시물', {
+                role: this.state.selected,
+                subject: this.state.lecture,
+                level: this.state.selectedLevel,
+                start_date: this.state.start,
+                end_date: this.state.end,
+                time: this.state.time,
+                day: this.state.selectedDays,
+                content: this.state.value,
+              });
             }}>
             <Text style={{fontSize: 17}}>등록하기</Text>
           </TouchableOpacity>

@@ -21,7 +21,6 @@ const Contents = (props) => {
   //       tabBarVisible,
   //     };
   //   };
-
   useEffect(() => {
     //props.navigation.setOptions({tabBarVisible: false});
   });
@@ -31,14 +30,15 @@ const Contents = (props) => {
       {/* user info */}
       <View style={styles.user_info_view}>
         <Text style={styles.green_font}>
-          {props.route.params.user_info.category}
+          {props.route.params.user_info.subject}
           {'   ✔'}
         </Text>
         <Text style={styles.base_font}>
           {props.route.params.user_info.name}
           <Text style={styles.white_font}>
             {'     '}
-            {props.route.params.user_info.gender}
+            {/*{props.route.params.user_info.gender}*/}
+            여성
           </Text>
         </Text>
       </View>
@@ -54,14 +54,15 @@ const Contents = (props) => {
           </Text>
           <Text style={styles.small_font}>학점</Text>
           <Text style={styles.green_font}>
-            {props.route.params.user_info.score}
+            {/*{props.route.params.user_info.score}*/}A
           </Text>
         </View>
         <View>
           <View style={styles.flex_direction_row}>
             <Text style={styles.green_font}>기간 </Text>
             <Text style={styles.small_font}>
-              {props.route.params.user_info.term}
+              {props.route.params.user_info.start_date.toString().slice(0, 10)}~
+              {props.route.params.user_info.end_date.toString().slice(0, 10)}
             </Text>
           </View>
           <View style={styles.flex_direction_row}>
@@ -75,7 +76,7 @@ const Contents = (props) => {
       {/* text */}
       <View style={styles.text_view}>
         <Text style={styles.base_font}>
-          {props.route.params.user_info.text}
+          {props.route.params.user_info.content}
         </Text>
       </View>
     </View>
