@@ -56,6 +56,7 @@ export default class TimeModal extends Component {
                       timeModalVisible: !this.state.timeModalVisible,
                       setTime: true,
                     });
+                    this.props.info(this.state.time);
                   }}>
                   <Text>확인</Text>
                 </TouchableOpacity>

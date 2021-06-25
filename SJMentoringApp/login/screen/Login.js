@@ -23,16 +23,14 @@ export default class Login extends Component {
     };
   }
   signin(id, pwd) {
-    /**
-     * signin with student_id
-     * 21.06.16 by 예리
-     */
     axios
       .post(`http://34.64.111.90:8080/api/v1/signin`, {
         student_id: id,
         password: pwd,
       })
       .then((response) => {
+        const token = response.data.token;
+        axios.defaults.headers.common['Authorization'] = token;
         this.props.navigation.navigate('Home');
       })
       .catch((error) => {
@@ -56,7 +54,7 @@ export default class Login extends Component {
                 fontSize: 16,
                 color: '#AFDCBD',
                 fontWeight: 'bold',
-                textAlign:'center'
+                textAlign: 'center',
               }}>
               Sejong University {'\n'} Mentoring Matching Service
             </Text>
@@ -72,6 +70,7 @@ export default class Login extends Component {
               />
               <TextInput
                 style={styles.textInput}
+                secureTextEntry={true}
                 placeholder={'비밀번호를 입력하세요.'}
                 onChangeText={(password) => {
                   this.setState({pwd: password});
@@ -82,8 +81,8 @@ export default class Login extends Component {
               title="로그인"
               color="#AFDCBD"
               onPress={() => {
-                //this.signin(this.state.id, this.state.pwd);
-                this.props.navigation.navigate('Home');
+                this.signin(this.state.id, this.state.pwd);
+                //this.props.navigation.navigate('Home');
               }}
             />
           </View>

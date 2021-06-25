@@ -28,7 +28,7 @@ export default class MentoringDiary extends Component {
           </Text>
           <Text style={{fontWeight: 'bold', fontSize: 17}}>💡 21.06.02</Text>
           <Text style={{paddingLeft: '5%', fontSize: 17, marginBottom: '2%'}}>
-            백준 코드 풀어보기
+            백준 문제 풀어보기
           </Text>
         </View>
       </View>
