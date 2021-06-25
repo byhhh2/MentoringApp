@@ -5,111 +5,38 @@ import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 
+import axios from 'axios';
+
 const buttons = ['인기', '멘토', '멘티'];
 export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
+    this.getPost = this.getPost.bind(this);
     this.state = {
       selected: [true, false, false],
-      data: [
-        {
-          id: 1,
-          name: '김익명1',
-          lecture: '알고리즘',
-          score: 'A',
-          gender: '여성',
-          time: '15시 00분',
-          term: '2021월 6월 23일 - 2021년 6월 30일',
-          category: '멘토',
-          text: '같이 알고리즘 알아봐요~',
-          level: '상',
-        },
-        {
-          id: 2,
-          name: '김익명2',
-          lecture: '알고리즘',
-          score: 'B',
-          gender: '남성',
-          time: '15시 00분',
-          term: '2021월 6월 23일 - 2021년 6월 30일',
-          category: '멘토',
-          text: '알고리즘 너무 재밌어요.',
-          level: '상',
-        },
-        {
-          id: 3,
-          name: '김익명3',
-          lecture: '알고리즘',
-          score: 'C',
-          gender: '여성',
-          time: '15시 00분',
-          term: '2021월 6월 23일 - 2021년 6월 30일',
-          category: '멘티',
-          text: '알고리즘 알고싶다',
-          level: '하',
-        },
-        {
-          id: 4,
-          name: '김익명4',
-          lecture: '알고리즘',
-          score: 'D',
-          gender: '남성',
-          time: '15시 00분',
-          term: '2021월 6월 23일 - 2021년 6월 30일',
-          category: '멘티',
-          text: '알고리즘 알려주세요 ㅠㅠ',
-          level: '하',
-        },
-        {
-          id: 5,
-          name: '김익명5',
-          lecture: '알고리즘',
-          score: 'D',
-          gender: '여성',
-          time: '15시 00분',
-          term: '2021월 6월 23일 - 2021년 6월 30일',
-          category: '멘티',
-          text: '알고리즘 ㅗ~',
-          level: '하',
-        },
-        {
-          id: 6,
-          name: '김익명6',
-          lecture: '알고리즘',
-          score: 'D',
-          gender: '남성',
-          time: '15시 00분',
-          term: '2021월 6월 23일 - 2021년 6월 30일',
-          category: '멘티',
-          text: '알고리즘이 뭐에요?',
-          level: '하',
-        },
-        {
-          id: 7,
-          name: '김익명7',
-          lecture: '알고리즘',
-          score: 'D',
-          gender: '여성',
-          time: '15시 00분',
-          term: '2021월 6월 23일 - 2021년 6월 30일',
-          category: '멘티',
-          text: '같이 알고리즘 알아봐요~',
-          level: '하',
-        },
-        {
-          id: 8,
-          name: '김익명8',
-          lecture: '알고리즘',
-          score: 'D',
-          gender: '여성',
-          time: '15시 00분',
-          term: '2021월 6월 23일 - 2021년 6월 30일',
-          category: '멘티',
-          text: '알고리즘 거져~',
-          level: '하',
-        },
-      ],
+      DATA: [],
     };
+  }
+  componentDidMount() {
+    this.getPost('popular');
+  }
+  getPost(role) {
+    this.setState({DATA: []});
+    let page = 1;
+    axios
+      .get(`http://34.64.111.90:8080/api/v1/post/${role}/list?page=${page}`, {
+        headers: {
+          Authorization: axios.defaults.headers.common['Authorization'],
+        },
+      })
+      .then((response) => {
+        //console.log(response.data);
+        this.setState({DATA: this.state.DATA.concat(response.data.data)});
+        page++;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
   render() {
     const filtering = buttons.map((type, i) => (
@@ -121,6 +48,7 @@ export default class HomeScreen extends Component {
           /**filtering Button function
            * by 예리
            **/
+          let role = '';
           let array = this.state.selected;
           if (array[id] == false) array[id] = !array[id];
           for (let j = 0; j < 3; j++) {
@@ -128,6 +56,10 @@ export default class HomeScreen extends Component {
               if (array[j] == true) array[j] = false;
             } else {
               array[j] = true;
+              if (buttons[id] === '인기') role = 'popular';
+              else if (buttons[id] === '멘토') role = 'mentor';
+              else role = 'mentee';
+              this.getPost(role);
             }
           }
           this.setState({selected: array});
@@ -151,7 +83,7 @@ export default class HomeScreen extends Component {
           <View style={styles.filterView}>{filtering}</View>
           <View style={styles.listView}>
             <FlatList
-              data={this.state.data}
+              data={this.state.DATA}
               renderItem={(item) => {
                 return renderList({item});
               }}
@@ -178,14 +110,14 @@ const List = ({item}) => {
         navigation.navigate('Contents', {
           lecture: item.item.lecture,
           name: item.item.name,
-          score: item.item.score,
+          level: item.item.level,
           user_info: item.item,
         });
       }}>
       <View style={styles.list}>
-        <Text>과목 : {item.item.lecture}</Text>
+        <Text>📝 과목 : {item.item.subject}</Text>
         <Text>이름 : {item.item.name}</Text>
-        <Text>학점 : {item.item.score}</Text>
+        <Text>수준 : {item.item.level}</Text>
       </View>
     </TouchableOpacity>
   );

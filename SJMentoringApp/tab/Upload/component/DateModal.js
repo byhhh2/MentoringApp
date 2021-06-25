@@ -50,7 +50,11 @@ export default class DateModal extends Component {
               color: 'black',
               fontSize: 15,
             }}>
-            {`${startDate.getFullYear()}년 ${startDate.getMonth()}월 ${startDate.getDate()}일 - ${endDate.getFullYear()}년 ${endDate.getMonth()}월 ${endDate.getDate()}일`}
+            {`${startDate.getFullYear()}년 ${
+              startDate.getMonth() + 1
+            }월 ${startDate.getDate()}일 - ${endDate.getFullYear()}년 ${
+              endDate.getMonth() + 1
+            }월 ${endDate.getDate()}일`}
           </Text>
         ) : (
           <Text style={{color: 'gray'}}>여기를 클릭하세요.</Text>
