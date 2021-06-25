@@ -28,7 +28,11 @@ export default class UploadInput extends Component {
             }}>
             <TextInput
               placeholder={`과목을 입력하세요.`}
-              onChangeText={(text) => this.setState({value: text})}
+              onChangeText={(text) => {
+                this.setState({value: text});
+                //this.props.info(this.state.value);
+              }}
+              onEndEditing={() => this.props.info(this.state.value)}
             />
           </View>
         );
@@ -58,6 +62,7 @@ export default class UploadInput extends Component {
                     }
                   }
                   this.setState({selectedLevel: array});
+                  this.props.info(this.state.selectedLevel);
                 }}
                 click={this.state.selectedLevel}
               />
@@ -66,10 +71,10 @@ export default class UploadInput extends Component {
         );
         break;
       case '기간':
-        return <DateModal />;
+        return <DateModal info={this.props.info} />;
         break;
       case '시간대':
-        return <TimeModal />;
+        return <TimeModal info={this.props.info} />;
         break;
       case '요일':
         return (
@@ -87,8 +92,9 @@ export default class UploadInput extends Component {
                 id={i}
                 callback={(id) => {
                   let array = this.state.selectedDays;
-                  array[id] = !array[id];
+                  array[id] = days[id];
                   this.setState({selectedDays: array});
+                  this.props.info(this.state.selectedDays);
                 }}
                 click={this.state.selectedDays}
               />

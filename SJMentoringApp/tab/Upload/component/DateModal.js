@@ -84,6 +84,7 @@ export default class DateModal extends Component {
                       dateModalVisible: !this.state.dateModalVisible,
                       setTime: true,
                     });
+                    this.props.info(startDate, endDate);
                   }}>
                   <Text>확인</Text>
                 </TouchableOpacity>
