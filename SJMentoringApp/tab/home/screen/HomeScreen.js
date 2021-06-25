@@ -5,7 +5,11 @@ import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 
+//Icon
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+//axios
 import axios from 'axios';
+import {TextInput} from 'react-native-gesture-handler';
 
 const buttons = ['인기', '멘토', '멘티'];
 export default class HomeScreen extends Component {
@@ -15,6 +19,7 @@ export default class HomeScreen extends Component {
     this.state = {
       selected: [true, false, false],
       DATA: [],
+      findValue: '',
     };
   }
   componentDidMount() {
@@ -80,6 +85,26 @@ export default class HomeScreen extends Component {
           </Text>
         </View>
         <View style={styles.mainView}>
+          <View style={styles.find}>
+            <TextInput
+              placeholder={'전체 게시물 검색'}
+              style={{
+                width: '90%',
+                marginRight: '2%',
+              }}
+              value={this.state.findValue}
+              onChangeText={(text) => this.setState({findValue: text})}
+            />
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate('FindList', {
+                  findThis: this.state.findValue,
+                });
+                this.setState({findValue: ''});
+              }}>
+              <MaterialCommunityIcons name={'magnify'} size={25} />
+            </TouchableOpacity>
+          </View>
           <View style={styles.filterView}>{filtering}</View>
           <View style={styles.listView}>
             <FlatList
@@ -146,7 +171,8 @@ class FilterButton extends PureComponent {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    //flex: 1,
+    height: 700,
     backgroundColor: '#AFDCBD',
     display: 'flex',
     justifyContent: 'flex-end',
@@ -217,5 +243,18 @@ const styles = StyleSheet.create({
     flexGrow: 0,
     marginHorizontal: 10,
     elevation: 3,
+  },
+  find: {
+    width: '85%',
+    height: '10%',
+    marginBottom: '4%',
+    borderColor: '#AFDCBD',
+    borderWidth: 2,
+    borderRadius: 15,
+    display: 'flex',
+    alignItems: 'center',
+    paddingLeft: '6%',
+    paddingRight: '3%',
+    flexDirection: 'row',
   },
 });
