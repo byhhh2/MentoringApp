@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 //Screen
 import HomeScreen from '../screen/HomeScreen';
 import Contents from '../components/Contents';
+import FindList from '../components/FindList';
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,19 @@ const HomeStack = () => {
         component={Contents}
         options={{
           title: '',
+          headerStyle: {
+            backgroundColor: '#AFDCBD',
+          },
+          headerTintColor: '#498C5A',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="FindList"
+        component={FindList}
+        options={{
           headerStyle: {
             backgroundColor: '#AFDCBD',
           },
