@@ -29,9 +29,16 @@ export default class Login extends Component {
         password: pwd,
       })
       .then((response) => {
+        const student_id = response.data.data[0].student_id;
+        const major = response.data.data[0].major;
+        const name = response.data.data[0].name;
         const token = response.data.token;
         axios.defaults.headers.common['Authorization'] = token;
-        this.props.navigation.navigate('Home');
+        this.props.navigation.navigate('Home', {
+          student_id: student_id,
+          major: major,
+          name: name,
+        });
       })
       .catch((error) => {
         console.log('wrong!');

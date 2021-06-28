@@ -1,36 +1,105 @@
-import React from 'react';
-import {StyleSheet, View, Text, ScrollView, Image} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {useEffect} from 'react';
+import React, {useState} from 'react';
+import {StyleSheet, View, Text, TouchableOpacity, Modal} from 'react-native';
+import axios from 'axios';
 
 const Contents = (props) => {
-  //console.log(props);
-  //props.navigation.setOptions({tabBarVisible: false});
-  //tabBarVisible = false;
-  //const navigation = useNavigation();
-  //   navigation.navigationOptions = ({navigation}) => {
-  //     let tabBarVisible = true;
-
-  //     let routeName = navigation.state.routes[navigation.state.index].routeName;
-
-  //     if (routeName == 'Contents') {
-  //       tabBarVisible = false;
-  //     }
-
-  //     return {
-  //       tabBarVisible,
-  //     };
-  //   };
-  useEffect(() => {
-    //props.navigation.setOptions({tabBarVisible: false});
-  });
+  const [deleted, setDeleted] = useState(false);
+  const deletePost = () => {
+    axios
+      .delete(
+        `http://34.64.111.90:8080/api/v1/post/${props.route.params.user_info.id}`,
+        {
+          headers: {
+            Authorization: axios.defaults.headers.common['Authorization'],
+          },
+        },
+      )
+      .then((response) => {
+        if (
+          response.data.message ===
+          `Post ID: '${props.route.params.user_info.id}' has been deleted successfully.`
+        ) {
+          props.navigation.navigate('Home');
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <View style={styles.container}>
+      {deleted ? (
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={deleted}
+          onRequestClose={() => {
+            setDeleted(!deleted);
+          }}>
+          <View style={styles.modalBack}>
+            <View style={styles.modalCenter}>
+              <View style={{marginBottom: '10%'}}>
+                <Text>이 게시물을 삭제하시겠습니까?</Text>
+              </View>
+              <View style={{flexDirection: 'row'}}>
+                <TouchableOpacity
+                  style={styles.modalLeftBtn}
+                  onPress={() => {
+                    setDeleted(false);
+                  }}>
+                  <Text>취소</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.modalRightBtn}
+                  onPress={() => {
+                    deletePost();
+                    setDeleted(false);
+                  }}>
+                  <Text>확인</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal>
+      ) : (
+        <></>
+      )}
       {/* user info */}
       <View style={styles.user_info_view}>
+        {props.route.params.user_id ===
+        props.route.params.user_info.student_id ? (
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+              backgroundColor: '#AFDCBD',
+              width: '100%',
+            }}>
+            <TouchableOpacity>
+              <Text style={{color: 'black', fontSize: 18}}>수정</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{marginLeft: '7%'}}
+              onPress={() => {
+                setDeleted(true);
+              }}>
+              <Text
+                style={{
+                  color: 'red',
+                  fontSize: 18,
+                  fontWeight: 'bold',
+                }}>
+                삭제
+              </Text>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <></>
+        )}
+
         <Text style={styles.green_font}>
-          {props.route.params.user_info.subject}
+          {props.route.params.user_info.role === 1 ? '멘토' : '멘티'}
           {'   ✔'}
         </Text>
         <Text style={styles.base_font}>
@@ -46,7 +115,7 @@ const Contents = (props) => {
       <View style={styles.base_view}>
         <View style={styles.flex_direction_row}>
           <Text style={styles.class_font}>
-            {props.route.params.user_info.lecture}
+            {props.route.params.user_info.subject}
           </Text>
           <Text style={styles.small_font}>수준</Text>
           <Text style={styles.green_font}>
@@ -144,6 +213,48 @@ const styles = StyleSheet.create({
     height: '40%',
     marginLeft: 5,
     marginRight: 5,
+  },
+  modalBack: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  modalCenter: {
+    backgroundColor: 'white',
+    height: '25%',
+    width: '60%',
+    paddingTop: '3%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    paddingBottom: '5%',
+    borderRadius: 30,
+  },
+  modalLeftBtn: {
+    marginTop: '7%',
+    backgroundColor: '#AFDCBD',
+    borderTopLeftRadius: 30,
+    borderBottomLeftRadius: 30,
+    borderRightColor: 'gray',
+    borderRightWidth: 1,
+    width: 100,
+    height: 40,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalRightBtn: {
+    marginTop: '7%',
+    backgroundColor: '#AFDCBD',
+    borderTopRightRadius: 30,
+    borderBottomRightRadius: 30,
+    width: 100,
+    height: 40,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

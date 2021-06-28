@@ -167,14 +167,17 @@ export default class UploadScreen extends PureComponent {
                 this.state.value,
               );
               this.props.navigation.navigate('업로드한 게시물', {
-                role: this.state.selected,
-                subject: this.state.lecture,
-                level: this.state.selectedLevel,
-                start_date: this.state.start,
-                end_date: this.state.end,
-                time: this.state.time,
-                day: this.state.selectedDays,
-                content: this.state.value,
+                user_info: {
+                  name: this.props.name,
+                  level: this.state.selectedLevel,
+                  subject: this.state.lecture,
+                  role: this.state.selected,
+                  start_date: this.state.start,
+                  end_date: this.state.end,
+                  time: this.state.time,
+                  day: this.state.selectedDays,
+                  content: this.state.value,
+                },
               });
             }}>
             <Text style={{fontSize: 17}}>등록하기</Text>
