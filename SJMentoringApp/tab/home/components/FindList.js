@@ -45,17 +45,26 @@ export default class FindList extends Component {
         <View style={styles.findThisView}>
           <Text style={{fontSize: 18, marginRight: '2%'}}>💡 검색결과 : </Text>
           <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-            ' {this.props.route.params.findThis} '
+            " {this.props.route.params.findThis} "
           </Text>
         </View>
         <View style={styles.listView}>
-          <FlatList
-            data={this.state.DATA}
-            renderItem={(item) => {
-              return renderList({item});
-            }}
-            keyExtractor={(item) => item.id}
-          />
+          {this.state.DATA.length === 0 ? (
+            <View style={styles.noneView}>
+              <Text style={{fontWeight: 'bold', fontSize: 18, color: 'gray'}}>
+                " {this.props.route.params.findThis} "
+              </Text>
+              <Text style={{color: 'gray'}}>검색결과 없음.</Text>
+            </View>
+          ) : (
+            <FlatList
+              data={this.state.DATA}
+              renderItem={(item) => {
+                return renderList({item});
+              }}
+              keyExtractor={(item) => item.id}
+            />
+          )}
         </View>
       </View>
     );
@@ -116,7 +125,6 @@ const styles = StyleSheet.create({
   },
   findThisView: {
     height: '8%',
-    //backgroundColor: 'orange',
     flexDirection: 'row',
     display: 'flex',
     alignItems: 'center',
@@ -128,6 +136,13 @@ const styles = StyleSheet.create({
   listView: {
     marginTop: '2%',
     height: '91%',
+  },
+  noneView: {
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
   },
   list: {
     height: 90,
