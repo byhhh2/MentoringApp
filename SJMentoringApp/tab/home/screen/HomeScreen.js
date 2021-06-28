@@ -1,5 +1,4 @@
 import React, {Component, PureComponent} from 'react';
-import {useEffect} from 'react';
 import {useState} from 'react';
 import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
 
@@ -109,8 +108,8 @@ export default class HomeScreen extends Component {
           <View style={styles.listView}>
             <FlatList
               data={this.state.DATA}
-              renderItem={(item) => {
-                return renderList({item});
+              renderItem={({item}) => {
+                return renderList({item}, this.props.student_id);
               }}
               numColumns={2} //한줄에 두개
               keyExtractor={(item) => item.id}
@@ -123,26 +122,27 @@ export default class HomeScreen extends Component {
   }
 }
 
-const renderList = ({item}) => {
-  return <List item={item} />;
+const renderList = ({item}, student_id) => {
+  return <List item={item} id={student_id} />;
 };
 
-const List = ({item}) => {
+const List = (props) => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
       onPress={() => {
         navigation.navigate('Contents', {
-          lecture: item.item.lecture,
-          name: item.item.name,
-          level: item.item.level,
-          user_info: item.item,
+          lecture: props.item.lecture,
+          name: props.item.name,
+          level: props.item.level,
+          user_info: props.item,
+          user_id: props.id,
         });
       }}>
       <View style={styles.list}>
-        <Text>📝 과목 : {item.item.subject}</Text>
-        <Text>이름 : {item.item.name}</Text>
-        <Text>수준 : {item.item.level}</Text>
+        <Text>📝 과목 : {props.item.subject}</Text>
+        <Text>이름 : {props.item.name}</Text>
+        <Text>수준 : {props.item.level}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
   },
   listView: {
     //backgroundColor: 'orange',
-    height: '84%',
+    height: '68%',
     width: '100%',
     display: 'flex',
     alignItems: 'center',
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
   list: {
     backgroundColor: 'white',
     width: 160,
-    height: 130,
+    height: 120,
     borderRadius: 20,
     borderWidth: 1,
     borderColor: 'grey',

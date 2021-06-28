@@ -12,7 +12,7 @@ import UploadStack from './Upload/navigation/UploadStack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();
-const BottomTabNavi = () => {
+const BottomTabNavi = (props) => {
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -32,7 +32,14 @@ const BottomTabNavi = () => {
             );
           },
         }}>
-        {({navigation}) => <HomeStack TabNavigation={navigation} />}
+        {({navigation}) => (
+          <HomeStack
+            TabNavigation={navigation}
+            student_id={props.route.params.student_id}
+            major={props.route.params.major}
+            name={props.route.params.name}
+          />
+        )}
       </Tab.Screen>
       <Tab.Screen
         name="진행중"
@@ -51,7 +58,7 @@ const BottomTabNavi = () => {
       />
       <Tab.Screen
         name="업로드"
-        component={UploadStack}
+        //component={UploadStack}
         options={{
           tabBarIcon: () => {
             return (
@@ -62,8 +69,16 @@ const BottomTabNavi = () => {
               />
             );
           },
-        }}
-      />
+        }}>
+        {({navigation}) => (
+          <UploadStack
+            TabNavigation={navigation}
+            student_id={props.route.params.student_id}
+            major={props.route.params.major}
+            name={props.route.params.name}
+          />
+        )}
+      </Tab.Screen>
       <Tab.Screen
         name="채팅"
         component={ChatStack}
