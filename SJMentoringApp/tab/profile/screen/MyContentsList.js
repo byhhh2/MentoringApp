@@ -9,7 +9,11 @@ import {
   FlatList,
 } from 'react-native';
 
+//navigation
 import {useNavigation} from '@react-navigation/native';
+
+//axios
+import axios from 'axios';
 
 const data = [
   {
@@ -38,32 +42,56 @@ const data = [
   },
 ];
 
-const MyContentsList = () => {
+const MyContentsList = (props) => {
   const [contentList, setContentList] = useState([]);
   const navigation = useNavigation();
+  const [student_id, setStudent_id] = useState('');
+  const [myContents, setMyContents] = useState([]);
 
   useEffect(() => {
-    setContentList(data);
-  });
+    getProfile();
+  }, []);
+
+  const getProfile = () => {
+    axios
+      .get(
+        `http://34.64.111.90:8080/api/v1/profile/${props.route.params.student_id}/posts`,
+        {
+          headers: {
+            Authorization: axios.defaults.headers.common['Authorization'],
+          },
+        },
+      )
+      .then((response) => {
+        setMyContents(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={contentList}
+        data={myContents}
         renderItem={({item}) => {
           return (
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate('Contents', {
+                  user_id: student_id,
                   user_info: item,
                 });
               }}>
               <View style={styles.content_container}>
                 <Text style={styles.bold_font}>
                   <Text style={{color: '#498C5A'}}>{item.id} | </Text>
-                  {item.lecture} {item.category}
+                  {item.subject} {item.role == 1 ? '멘토' : '멘티'}
                 </Text>
-                <Text>{item.term}</Text>
+                <Text>
+                  {item.start_date.replace('T15:00:00.000Z', '')} ~{' '}
+                  {item.end_date.replace('T15:00:00.000Z', '')}
+                </Text>
               </View>
             </TouchableOpacity>
           );

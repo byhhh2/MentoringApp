@@ -11,6 +11,8 @@ import UploadStack from './Upload/navigation/UploadStack';
 //Icon
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+var student_id;
+
 const Tab = createBottomTabNavigator();
 const BottomTabNavi = (props) => {
   return (
@@ -32,14 +34,18 @@ const BottomTabNavi = (props) => {
             );
           },
         }}>
-        {({navigation}) => (
-          <HomeStack
-            TabNavigation={navigation}
-            student_id={props.route.params.student_id}
-            major={props.route.params.major}
-            name={props.route.params.name}
-          />
-        )}
+        {({navigation}) => {
+          student_id = props.route.params.student_id;
+
+          return (
+            <HomeStack
+              TabNavigation={navigation}
+              student_id={props.route.params.student_id}
+              major={props.route.params.major}
+              name={props.route.params.name}
+            />
+          );
+        }}
       </Tab.Screen>
       <Tab.Screen
         name="진행중"
@@ -96,7 +102,7 @@ const BottomTabNavi = (props) => {
       />
       <Tab.Screen
         name="프로필"
-        component={ProfileStack}
+        //component={ProfileStack}
         options={{
           tabBarIcon: () => {
             return (
@@ -107,8 +113,9 @@ const BottomTabNavi = (props) => {
               />
             );
           },
-        }}
-      />
+        }}>
+        {({navigation}) => <ProfileStack student_id={student_id} />}
+      </Tab.Screen>
     </Tab.Navigator>
   );
 };

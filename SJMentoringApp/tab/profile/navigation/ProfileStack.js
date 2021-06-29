@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -18,12 +18,14 @@ import NewProfileForm from '../screen/NewProfileForm';
 
 const Stack = createStackNavigator();
 
-const ProfileStack = () => {
+const ProfileStack = (props) => {
+  const student_id = props.student_id;
+  const [flag, setFlag] = useState(false);
+
   return (
     <Stack.Navigator initialRouteName="ProfileScreen">
       <Stack.Screen
         name="내 프로필"
-        component={ProfileScreen}
         options={({navigation}) => ({
           headerLeft: null,
           headerTitleStyle: {
@@ -36,7 +38,10 @@ const ProfileStack = () => {
           headerRight: () => (
             <View style={styles.edit}>
               <TouchableOpacity
-                onPress={() => navigation.navigate('NewProfileForm')}>
+                onPress={() => {
+                  //navigation.navigate('NewProfileForm')
+                  setFlag(!flag);
+                }}>
                 <Text
                   style={{fontSize: 17, color: '#498C5A', fontWeight: 'bold'}}>
                   편집
@@ -44,8 +49,15 @@ const ProfileStack = () => {
               </TouchableOpacity>
             </View>
           ),
-        })}
-      />
+        })}>
+        {({navigation}) => (
+          <ProfileScreen
+            student_id={student_id}
+            flag={flag}
+            setFlag={setFlag}
+          />
+        )}
+      </Stack.Screen>
       <Stack.Screen
         name="내 게시물"
         component={MyContentsList}
