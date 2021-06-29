@@ -26,7 +26,6 @@ const Contents = (props) => {
         console.log(error);
       });
   };
-
   return (
     <View style={styles.container}>
       {deleted ? (
@@ -76,7 +75,23 @@ const Contents = (props) => {
               backgroundColor: '#AFDCBD',
               width: '100%',
             }}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                props.navigation.navigate('수정하기', {
+                  user_info: {
+                    level: props.route.params.user_info.level,
+                    subject: props.route.params.user_info.subject,
+                    role: props.route.params.user_info.role,
+                    start_date: props.route.params.user_info.start_date,
+                    end_date: props.route.params.user_info.end_date,
+                    time: props.route.params.user_info.time,
+                    day: props.route.params.user_info.day,
+                    content: props.route.params.user_info.content,
+                    id: props.route.params.user_info.id,
+                    name: props.route.params.user_info.name,
+                  },
+                });
+              }}>
               <Text style={{color: 'black', fontSize: 18}}>수정</Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -128,6 +143,12 @@ const Contents = (props) => {
             <Text style={styles.small_font}>
               {props.route.params.user_info.start_date.toString().slice(0, 10)}~
               {props.route.params.user_info.end_date.toString().slice(0, 10)}
+            </Text>
+          </View>
+          <View style={styles.flex_direction_row}>
+            <Text style={styles.green_font}>요일 </Text>
+            <Text style={styles.small_font}>
+              {props.route.params.user_info.day}
             </Text>
           </View>
           <View style={styles.flex_direction_row}>
@@ -206,7 +227,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     //backgroundColor: '#F0F2AE',
     width: '97%',
-    height: '40%',
+    height: '30%',
     marginLeft: 5,
     marginRight: 5,
   },

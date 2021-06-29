@@ -10,10 +10,14 @@ export default class LevelButton extends Component {
     super(props);
   }
   render() {
+    let index = [false, false, false];
+    if (this.props.selectedAlready === '상') index = [true, false, false];
+    else if (this.props.selectedAlready === '중') index = [false, true, false];
+    else if (this.props.selectedAlready === '하') index = [false, false, true];
     return (
       <TouchableOpacity
         style={
-          this.props.click[this.props.id]
+          this.props.click[this.props.id] || index[this.props.id]
             ? styles.levelButtonSelected
             : styles.levelButton
         }

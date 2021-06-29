@@ -27,7 +27,11 @@ export default class TimeModal extends Component {
               fontSize: 18,
             }}>{`${this.state.time.getHours()}시 ${this.state.time.getMinutes()}분`}</Text>
         ) : (
-          <Text style={{color: 'gray'}}>여기를 클릭하세요.</Text>
+          <Text style={{color: 'gray'}}>
+            {this.props.initValue
+              ? `${this.props.initValue}`
+              : `여기를 클릭하세요.`}
+          </Text>
         )}
 
         {this.state.timeModalVisible ? (

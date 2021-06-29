@@ -5,6 +5,7 @@ import {TouchableOpacity, Text, View} from 'react-native';
 import HomeScreen from '../screen/HomeScreen';
 import Contents from '../components/Contents';
 import FindList from '../components/FindList';
+import UpdatePost from '../components/UpdatePost';
 
 const Stack = createStackNavigator();
 
@@ -50,6 +51,21 @@ const HomeStack = (props) => {
           headerTintColor: '#498C5A',
           headerTitleStyle: {
             fontWeight: 'bold',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="수정하기"
+        component={UpdatePost}
+        options={{
+          title: '게시물 수정하기',
+          headerStyle: {
+            backgroundColor: '#AFDCBD',
+          },
+          headerTintColor: '#498C5A',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            marginLeft: '20%',
           },
         }}
       />
