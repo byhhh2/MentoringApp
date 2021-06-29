@@ -10,10 +10,19 @@ export default class DaysButton extends Component {
     super(props);
   }
   render() {
+    let array = [false, false, false, false, false, false, false];
+    const days = ['월', '화', '수', '목', '금', '토', '일'];
+    let selectedDays = this.props.selectedAlready.trim();
+    let dayArray = Array.from(selectedDays);
+    console.log(dayArray);
+    days.map((e, i) => {
+      if (e === dayArray.shift()) array[i] = true;
+    });
+    console.log(array);
     return (
       <TouchableOpacity
         style={
-          this.props.click[this.props.id]
+          this.props.click[this.props.id] || array[this.props.id]
             ? styles.daysButtonSelected
             : styles.daysButton
         }

@@ -17,6 +17,7 @@ export default class UploadInput extends Component {
       selectedLevel: [false, false, false],
       selectedDays: [false, false, false, false, false, false, false],
     };
+    this.inputType = this.inputType.bind(this);
   }
   inputType(type) {
     switch (type) {
@@ -27,7 +28,9 @@ export default class UploadInput extends Component {
               width: '85%',
             }}>
             <TextInput
-              placeholder={`과목을 입력하세요.`}
+              placeholder={
+                this.props.value ? `${this.props.value}` : `과목을 입력하세요.`
+              }
               onChangeText={(text) => {
                 this.setState({value: text});
                 //this.props.info(this.state.value);
@@ -51,6 +54,7 @@ export default class UploadInput extends Component {
                 level={type}
                 key={i}
                 id={i}
+                selectedAlready={this.props.value}
                 callback={(id) => {
                   let array = this.state.selectedLevel;
                   if (array[id] == false) array[id] = !array[id];
@@ -71,10 +75,18 @@ export default class UploadInput extends Component {
         );
         break;
       case '기간':
-        return <DateModal info={this.props.info} />;
+        return (
+          <DateModal
+            info={this.props.info}
+            startValue={this.props.startValue}
+            endValue={this.props.endValue}
+          />
+        );
         break;
       case '시간대':
-        return <TimeModal info={this.props.info} />;
+        return (
+          <TimeModal info={this.props.info} initValue={this.props.value} />
+        );
         break;
       case '요일':
         return (
@@ -90,6 +102,7 @@ export default class UploadInput extends Component {
                 day={type}
                 key={i}
                 id={i}
+                selectedAlready={this.props.value}
                 callback={(id) => {
                   let array = this.state.selectedDays;
                   array[id] = days[id];
