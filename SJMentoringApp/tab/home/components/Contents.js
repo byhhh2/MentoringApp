@@ -121,10 +121,6 @@ const Contents = (props) => {
           <Text style={styles.green_font}>
             {props.route.params.user_info.level}
           </Text>
-          <Text style={styles.small_font}>학점</Text>
-          <Text style={styles.green_font}>
-            {/*{props.route.params.user_info.score}*/}A
-          </Text>
         </View>
         <View>
           <View style={styles.flex_direction_row}>
