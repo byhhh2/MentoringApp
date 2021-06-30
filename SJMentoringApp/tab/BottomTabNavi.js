@@ -90,7 +90,7 @@ const BottomTabNavi = (props) => {
       </Tab.Screen>
       <Tab.Screen
         name="채팅"
-        component={ChatStack}
+        //component={ChatStack}
         options={{
           unmountOnBlur: true,
           tabBarIcon: () => {
@@ -102,8 +102,16 @@ const BottomTabNavi = (props) => {
               />
             );
           },
+        }}>
+        {() => {
+          return (
+            <ChatStack
+              student_id={props.route.params.student_id}
+              name={props.route.params.name}
+            />
+          );
         }}
-      />
+      </Tab.Screen>
       <Tab.Screen
         name="프로필"
         //component={ProfileStack}
