@@ -28,6 +28,7 @@ const BottomTabNavi = (props) => {
         name="홈"
         //component={HomeStack}
         options={{
+          unmountOnBlur: true, //홈 화면 올때마다 새로고침
           tabBarIcon: () => {
             return (
               <Ionicons name={'ios-home'} size={30} style={{color: 'black'}} />
@@ -51,6 +52,7 @@ const BottomTabNavi = (props) => {
         name="진행중"
         component={ProgStack}
         options={{
+          unmountOnBlur: true,
           tabBarIcon: () => {
             return (
               <Ionicons
@@ -66,6 +68,7 @@ const BottomTabNavi = (props) => {
         name="업로드"
         //component={UploadStack}
         options={{
+          unmountOnBlur: true,
           tabBarIcon: () => {
             return (
               <Ionicons
@@ -89,6 +92,7 @@ const BottomTabNavi = (props) => {
         name="채팅"
         component={ChatStack}
         options={{
+          unmountOnBlur: true,
           tabBarIcon: () => {
             return (
               <Ionicons
@@ -104,6 +108,7 @@ const BottomTabNavi = (props) => {
         name="프로필"
         //component={ProfileStack}
         options={{
+          unmountOnBlur: true,
           tabBarIcon: () => {
             return (
               <Ionicons

@@ -97,12 +97,14 @@ export default class UploadScreen extends PureComponent {
   update(role, lecture, level, start, end, time, day, text) {
     let dayArray = Array.from(day);
     dayArray = dayArray.filter((e) => e != ' ');
-    let tmpStart = `${new Date(start).getFullYear()}-${
-      new Date(start).getMonth() + 1
-    }-${new Date(start).getDate()}`;
-    let tmpEnd = `${new Date(end).getFullYear()}-${
-      new Date(end).getMonth() + 1
-    }-${new Date(end).getDate()}`;
+    if (start.length > 10 && end.length > 10) {
+      start = `${new Date(start).getFullYear()}-${
+        new Date(start).getMonth() + 1
+      }-${new Date(start).getDate()}`;
+      end = `${new Date(end).getFullYear()}-${
+        new Date(end).getMonth() + 1
+      }-${new Date(end).getDate()}`;
+    }
     axios
       .put(
         `http://34.64.111.90:8080/api/v1/post/${this.props.route.params.user_info.id}`,
@@ -110,8 +112,8 @@ export default class UploadScreen extends PureComponent {
           role: role,
           subject: lecture,
           level: level,
-          start_date: tmpStart,
-          end_date: tmpEnd,
+          start_date: start,
+          end_date: end,
           time: time,
           day: dayArray,
           content: text,
@@ -128,19 +130,7 @@ export default class UploadScreen extends PureComponent {
           response.data.message ===
           `Post ID: '${this.props.route.params.user_info.id}' has been updated successfully.`
         ) {
-          this.props.navigation.navigate('Contents', {
-            user_info: {
-              name: this.props.route.params.user_info.name,
-              level: this.state.selectedLevel,
-              subject: this.state.lecture,
-              role: this.state.selected,
-              start_date: this.state.start,
-              end_date: this.state.end,
-              time: this.state.time,
-              day: this.state.selectedDays,
-              content: this.state.value,
-            },
-          });
+          this.props.navigation.navigate('Home');
         }
       })
       .catch((error) => {

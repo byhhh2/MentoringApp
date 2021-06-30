@@ -26,6 +26,7 @@ const Contents = (props) => {
         console.log(error);
       });
   };
+  console.log(props.route.params.user_info);
   return (
     <View style={styles.container}>
       {deleted ? (
@@ -141,8 +142,8 @@ const Contents = (props) => {
           <View style={styles.flex_direction_row}>
             <Text style={styles.green_font}>기간 </Text>
             <Text style={styles.small_font}>
-              {props.route.params.user_info.start_date.toString().slice(0, 10)}~
-              {props.route.params.user_info.end_date.toString().slice(0, 10)}
+              {props.route.params.user_info.start_date.toString().slice(0, 10)}{' '}
+              ~ {props.route.params.user_info.end_date.toString().slice(0, 10)}
             </Text>
           </View>
           <View style={styles.flex_direction_row}>
