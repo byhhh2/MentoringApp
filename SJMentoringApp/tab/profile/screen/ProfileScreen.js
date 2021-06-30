@@ -110,7 +110,12 @@ const ProfileScreen = (props) => {
         </View>
       </ScrollView>
       {props.flag == true ? (
-        <EditBio flag={props.flag} setFlag={props.setFlag} />
+        <EditBio
+          flag={props.flag}
+          setFlag={props.setFlag}
+          student_id={student_id}
+          setBio={setBio}
+        />
       ) : (
         <></>
       )}
