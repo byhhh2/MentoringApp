@@ -6,11 +6,37 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
+  ToastAndroid,
 } from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 
+import axios from 'axios';
+
 const EditBio = (props) => {
+  const [bio, setBio] = useState();
+
+  const editClick = () => {
+    axios
+      .put(
+        `http://34.64.111.90:8080/api/v1/profile/${props.student_id}/bio`,
+        {
+          bio: bio,
+        },
+        {
+          headers: {
+            Authorization: axios.defaults.headers.common['Authorization'],
+          },
+        },
+      )
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -21,10 +47,29 @@ const EditBio = (props) => {
       />
       <View style={styles.modal}>
         <Text style={styles.titleText}>소개글 변경</Text>
-        <TextInput style={styles.textInput} multiline={true} />
+        <TextInput
+          style={styles.textInput}
+          multiline={true}
+          value={bio}
+          onChangeText={(text) => {
+            setBio(text);
+          }}
+        />
         <TouchableOpacity
           onPress={() => {
-            props.setFlag(!props.flag);
+            if (bio == null) {
+              ToastAndroid.showWithGravityAndOffset(
+                '소개를 입력하세요.',
+                ToastAndroid.SHORT,
+                ToastAndroid.BOTTOM,
+                0,
+                480,
+              );
+            } else {
+              props.setFlag(!props.flag);
+              editClick();
+              props.setBio(bio);
+            }
           }}>
           <Text style={styles.doneText}>완료</Text>
         </TouchableOpacity>
@@ -54,14 +99,14 @@ const styles = StyleSheet.create({
     height: 'auto',
     alignItems: 'center',
     marginTop: '30%',
-    //backgroundColor: 'white',
-    backgroundColor: '#AFDCBD',
+    backgroundColor: 'white',
     borderColor: 'white',
     borderWidth: 1,
     justifyContent: 'space-around',
+    elevation: 20,
   },
   doneText: {
-    color: 'white',
+    color: '#498C5A',
     fontSize: 18,
     margin: 40,
     fontWeight: 'bold',
@@ -76,11 +121,12 @@ const styles = StyleSheet.create({
     width: '80%',
     height: 'auto',
     backgroundColor: 'white',
-    //borderWidth: 2,
+    borderWidth: 2,
     borderRadius: 10,
+    borderStyle: 'dashed',
     borderColor: '#498C5A',
     padding: 10,
-    color: '#498C5A',
+    color: 'black',
   },
 });
 
