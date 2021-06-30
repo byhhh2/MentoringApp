@@ -98,7 +98,21 @@ export default class UploadScreen extends PureComponent {
         },
       )
       .then((response) => {
-        console.log(response.data);
+        //console.log(response.data.data[0].id);
+        this.props.navigation.navigate('업로드한 게시물', {
+          user_info: {
+            name: this.props.name,
+            level: this.state.selectedLevel,
+            subject: this.state.lecture,
+            role: this.state.selected,
+            start_date: this.state.start,
+            end_date: this.state.end,
+            time: this.state.time,
+            day: this.state.selectedDays,
+            content: this.state.value,
+            id: response.data.data[0].id,
+          },
+        });
       })
       .catch((error) => {
         console.log('wrong!');
@@ -148,6 +162,7 @@ export default class UploadScreen extends PureComponent {
                 height: '70%',
                 marginTop: '3%',
               }}
+              value={this.state.value}
               onChangeText={(text) => this.setState({value: text})}
             />
           </View>
@@ -166,19 +181,6 @@ export default class UploadScreen extends PureComponent {
                 this.state.selectedDays,
                 this.state.value,
               );
-              this.props.navigation.navigate('업로드한 게시물', {
-                user_info: {
-                  name: this.props.name,
-                  level: this.state.selectedLevel,
-                  subject: this.state.lecture,
-                  role: this.state.selected,
-                  start_date: this.state.start,
-                  end_date: this.state.end,
-                  time: this.state.time,
-                  day: this.state.selectedDays,
-                  content: this.state.value,
-                },
-              });
             }}>
             <Text style={{fontSize: 17}}>등록하기</Text>
           </TouchableOpacity>

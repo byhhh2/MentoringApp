@@ -32,6 +32,7 @@ export default class DateModal extends Component {
     }
   }
   render() {
+    //console.log(this.props.startValue, this.props.endValue);
     const minDate = new Date(); //today
     const maxDate = new Date(2021, 12, 31);
     let startDate = this.state.start
@@ -44,7 +45,6 @@ export default class DateModal extends Component {
       : this.props.endValue
       ? new Date(this.props.endValue)
       : new Date();
-    //console.log(startDate, endDate);
     return (
       <TouchableOpacity
         onPress={() => {
@@ -68,11 +68,10 @@ export default class DateModal extends Component {
         ) : (
           <Text style={{color: 'gray'}}>
             {this.props.startValue && this.props.endValue
-              ? `${startDate.getFullYear()}년 ${
-                  startDate.getMonth() + 1
-                }월 ${startDate.getDate()}일 - ${endDate.getFullYear()}년 ${
-                  endDate.getMonth() + 1
-                }월 ${endDate.getDate()}일`
+              ? `${this.props.startValue.slice(
+                  0,
+                  10,
+                )} - ${this.props.endValue.slice(0, 10)}`
               : `여기를 클릭하세요.`}
           </Text>
         )}

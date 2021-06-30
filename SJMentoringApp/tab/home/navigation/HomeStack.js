@@ -19,8 +19,9 @@ const HomeStack = (props) => {
           headerLeft: null,
           headerShown: false,
         }}>
-        {() => (
+        {({navigation}) => (
           <HomeScreen
+            navigation={navigation}
             student_id={props.student_id}
             major={props.major}
             name={props.name}
