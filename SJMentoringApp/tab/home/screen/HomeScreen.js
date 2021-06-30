@@ -22,7 +22,12 @@ export default class HomeScreen extends Component {
     };
   }
   componentDidMount() {
-    this.getPost('popular');
+    this._rerender = this.props.navigation.addListener('focus', () => {
+      this.getPost('popular');
+    });
+  }
+  componentWillUnmount() {
+    this._rerender();
   }
   getPost(role) {
     this.setState({DATA: []});
