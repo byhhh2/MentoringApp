@@ -95,7 +95,8 @@ export default class UploadScreen extends PureComponent {
     this.setState({start: stringStart, end: stringEnd});
   }
   update(role, lecture, level, start, end, time, day, text) {
-    let dayArray = day.split(' ');
+    let dayArray = Array.from(day);
+    dayArray = dayArray.filter((e) => e != ' ');
     let tmpStart = `${new Date(start).getFullYear()}-${
       new Date(start).getMonth() + 1
     }-${new Date(start).getDate()}`;
