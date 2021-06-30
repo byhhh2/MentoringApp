@@ -1,5 +1,11 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+} from 'react-native';
 
 export default class Chat extends Component {
   constructor(props) {
@@ -72,6 +78,14 @@ export default class Chat extends Component {
             채팅을 통해서{'\n'}멘토 멘티 매칭을 이루어보세요 !
           </Text>
         </View>
+        <View style={styles.textBox}>
+          <TextInput style={styles.textInput} />
+          <TouchableOpacity>
+            <Text style={{color: '#498C5A', fontSize: 15, fontWeight: 'bold'}}>
+              전송
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -112,5 +126,24 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  textBox: {
+    //borderWidth: 1,
+    height: 80,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#AFDCBD',
+    padding: '3%',
+  },
+  textInput: {
+    borderWidth: 2,
+    borderColor: 'white',
+    borderRadius: 20,
+    borderStyle: 'dashed',
+    width: '80%',
+    marginRight: 20,
+    padding: 15,
+    fontSize: 15,
   },
 });
