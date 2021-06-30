@@ -15,33 +15,6 @@ import {useNavigation} from '@react-navigation/native';
 //axios
 import axios from 'axios';
 
-const data = [
-  {
-    id: 1,
-    name: '김익명',
-    lecture: '알고리즘',
-    score: 'A',
-    gender: '여성',
-    time: '15시 00분',
-    term: '2021월 6월 23일 - 2021년 6월 30일',
-    category: '멘토',
-    text: '같이 알고리즘 알아봐요~',
-    level: '상',
-  },
-  {
-    id: 2,
-    name: '김익명',
-    lecture: '알고리즘',
-    score: 'A',
-    gender: '여성',
-    time: '15시 00분',
-    term: '2021월 6월 23일 - 2021년 6월 30일',
-    category: '멘토',
-    text: '같이 알고리즘 알아봐요~',
-    level: '상',
-  },
-];
-
 const MyContentsList = (props) => {
   const [contentList, setContentList] = useState([]);
   const navigation = useNavigation();
@@ -85,7 +58,7 @@ const MyContentsList = (props) => {
               }}>
               <View style={styles.content_container}>
                 <Text style={styles.bold_font}>
-                  <Text style={{color: '#498C5A'}}>{item.id} | </Text>
+                  <Text style={{color: '#498C5A'}}> {'📄 '} </Text>
                   {item.subject} {item.role == 1 ? '멘토' : '멘티'}
                 </Text>
                 <Text>
