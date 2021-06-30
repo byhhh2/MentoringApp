@@ -1,5 +1,9 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, Modal} from 'react-native';
+//Icon
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+//axios
 import axios from 'axios';
 
 const Contents = (props) => {
@@ -26,7 +30,6 @@ const Contents = (props) => {
         console.log(error);
       });
   };
-  console.log(props.route.params.user_info);
   return (
     <View style={styles.container}>
       {deleted ? (
@@ -93,21 +96,14 @@ const Contents = (props) => {
                   },
                 });
               }}>
-              <Text style={{color: 'black', fontSize: 18}}>수정</Text>
+              <FontAwesome name={'pencil-square-o'} size={24} />
             </TouchableOpacity>
             <TouchableOpacity
-              style={{marginLeft: '7%'}}
+              style={{marginLeft: '6%'}}
               onPress={() => {
                 setDeleted(true);
               }}>
-              <Text
-                style={{
-                  color: 'red',
-                  fontSize: 18,
-                  fontWeight: 'bold',
-                }}>
-                삭제
-              </Text>
+              <AntDesign name={'delete'} size={23} color={'red'} />
             </TouchableOpacity>
           </View>
         ) : (
