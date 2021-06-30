@@ -12,11 +12,12 @@ export default class DaysButton extends Component {
   render() {
     let array = [false, false, false, false, false, false, false];
     const days = ['월', '화', '수', '목', '금', '토', '일'];
-    let selectedDays = this.props.selectedAlready.trim();
-    let dayArray = Array.from(selectedDays);
-    console.log(dayArray);
-    days.map((e, i) => {
-      if (e === dayArray.shift()) array[i] = true;
+    let arr_days = Array.from(this.props.selectedAlready);
+    arr_days = arr_days.filter((e) => e != ' ');
+    days.map((element, i) => {
+      arr_days.map((e) => {
+        if (element === e) array[i] = true;
+      });
     });
     console.log(array);
     return (

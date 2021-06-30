@@ -4,7 +4,7 @@ import {
   Text,
   View,
   TextInput,
-  Button,
+  ToastAndroid,
   TouchableOpacity,
 } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -21,6 +21,7 @@ export default class Login extends Component {
       id: '',
       pwd: '',
     };
+    this.signin = this.signin.bind(this);
   }
   signin(id, pwd) {
     axios
@@ -43,6 +44,14 @@ export default class Login extends Component {
       .catch((error) => {
         console.log('wrong!');
         console.log(error);
+        ToastAndroid.showWithGravityAndOffset(
+          '아이디와 비밀번호를 다시 입력하세요',
+          ToastAndroid.SHORT,
+          ToastAndroid.BOTTOM,
+          0,
+          480,
+        );
+        this.setState({id: '', pwd: ''});
       });
   }
   render() {
@@ -70,6 +79,7 @@ export default class Login extends Component {
             <View style={styles.inputView}>
               <TextInput
                 style={styles.textInput}
+                value={this.state.id}
                 placeholder={'세종대학교 포털 아이디를 입력하세요.'}
                 onChangeText={(num) => {
                   this.setState({id: num});
@@ -77,6 +87,7 @@ export default class Login extends Component {
               />
               <TextInput
                 style={styles.textInput}
+                value={this.state.pwd}
                 secureTextEntry={true}
                 placeholder={'비밀번호를 입력하세요.'}
                 onChangeText={(password) => {
@@ -84,14 +95,19 @@ export default class Login extends Component {
                 }}
               />
             </View>
-            <Button
-              title="로그인"
-              color="#AFDCBD"
+            <TouchableOpacity
+              style={
+                this.state.id && this.state.pwd
+                  ? styles.loginBtn
+                  : styles.loginBtnDisabled
+              }
+              disabled={this.state.id && this.state.pwd ? false : true}
               onPress={() => {
                 this.signin(this.state.id, this.state.pwd);
                 //this.props.navigation.navigate('Home');
-              }}
-            />
+              }}>
+              <Text style={{fontSize: 16}}>로그인</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </KeyboardAwareScrollView>
@@ -140,5 +156,23 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderColor: '#AFDCBD',
     borderBottomWidth: 1,
+  },
+  loginBtn: {
+    width: '80%',
+    height: '13%',
+    backgroundColor: '#AFDCBD',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+  },
+  loginBtnDisabled: {
+    width: '80%',
+    height: '13%',
+    backgroundColor: 'lightgray',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
   },
 });
