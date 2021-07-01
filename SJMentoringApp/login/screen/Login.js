@@ -5,9 +5,11 @@ import {
   View,
   TextInput,
   ToastAndroid,
+  Image,
   TouchableOpacity,
 } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import logo from '../../image/로고white.png';
 import axios from 'axios';
 
 /**
@@ -64,6 +66,10 @@ export default class Login extends Component {
               display: 'flex',
               alignItems: 'center',
             }}>
+            <Image
+              source={require('../../image/로고black.png')}
+              style={{width: 90, height: 130}}
+            />
             <Text style={styles.title}>멘 토 스</Text>
             <Text
               style={{
@@ -71,6 +77,7 @@ export default class Login extends Component {
                 color: '#AFDCBD',
                 fontWeight: 'bold',
                 textAlign: 'center',
+                fontFamily: 'GMarketSansTTFMedium',
               }}>
               Sejong University {'\n'} Mentoring Matching Service
             </Text>
@@ -132,15 +139,16 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 60,
     fontWeight: 'bold',
-    marginBottom: '7%',
-    marginTop: '8%',
+    marginBottom: '4%',
+    //marginTop: '1%',
     color: '#AFDCBD',
+    fontFamily: 'GMarketSansTTFBold',
   },
   login: {
     width: '100%',
     height: '60%',
     borderRadius: 50,
-    marginTop: '20%',
+    //marginTop: '3%',
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',

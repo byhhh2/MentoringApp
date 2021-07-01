@@ -25,8 +25,7 @@ const ProgStack = () => {
         name="멘토링일지"
         component={MentoringDiary}
         options={{
-          headerLeft: null,
-          headerShown: false,
+          title: '',
           headerStyle: {
             backgroundColor: '#AFDCBD',
           },

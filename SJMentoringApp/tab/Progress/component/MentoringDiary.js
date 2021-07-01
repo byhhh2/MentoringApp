@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     paddingTop: '10%',
     paddingLeft: '5%',
     paddingRight: '5%',
+    marginTop: '5%',
   },
   infoView: {
     height: '19%',

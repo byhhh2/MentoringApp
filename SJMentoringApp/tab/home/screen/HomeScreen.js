@@ -1,6 +1,14 @@
 import React, {Component, PureComponent} from 'react';
 import {useState} from 'react';
-import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+  Image,
+  ImageBackground,
+} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 
@@ -79,14 +87,29 @@ export default class HomeScreen extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.logoView}>
-          <Text
+          <View
             style={{
-              fontSize: 40,
-              color: 'white',
-              fontWeight: 'bold',
+              display: 'flex',
+              alignItems: 'center',
             }}>
-            멘 토 스
-          </Text>
+            <Text
+              style={{
+                fontSize: 45,
+                color: 'white',
+                //fontWeight: 'bold',
+                fontFamily: 'GmarketSansTTFBold',
+              }}>
+              MENTORS
+            </Text>
+            <Text
+              style={{
+                color: 'white',
+                fontSize: 25,
+                fontFamily: 'GmarketSansTTFMedium',
+              }}>
+              멘 토 스
+            </Text>
+          </View>
         </View>
         <View style={styles.mainView}>
           <View style={styles.find}>
@@ -111,15 +134,26 @@ export default class HomeScreen extends Component {
           </View>
           <View style={styles.filterView}>{filtering}</View>
           <View style={styles.listView}>
-            <FlatList
-              data={this.state.DATA}
-              renderItem={({item}) => {
-                return renderList({item}, this.props.student_id);
+            <ImageBackground
+              source={require('../../../image/로고black.png')}
+              style={{
+                height: '100%',
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
-              numColumns={2} //한줄에 두개
-              keyExtractor={(item) => item.id}
-              showsVerticalScrollIndicator={false}
-            />
+              resizeMode="center">
+              <FlatList
+                data={this.state.DATA}
+                renderItem={({item}) => {
+                  return renderList({item}, this.props.student_id);
+                }}
+                numColumns={2} //한줄에 두개
+                keyExtractor={(item) => item.id}
+                showsVerticalScrollIndicator={false}
+              />
+            </ImageBackground>
           </View>
         </View>
       </View>
@@ -183,8 +217,17 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   logoView: {
+    width: '90%',
     alignSelf: 'center',
-    marginBottom: '10%',
+    flexDirection: 'row',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: '7%',
+  },
+  imageLogo: {
+    width: 120,
+    height: 120,
   },
   mainView: {
     //하얀 배경 View
@@ -228,7 +271,6 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   listView: {
-    //backgroundColor: 'orange',
     height: '68%',
     width: '100%',
     display: 'flex',
