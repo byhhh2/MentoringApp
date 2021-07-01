@@ -85,6 +85,7 @@ const List = ({item}) => {
           name: item.item.name,
           level: item.item.level,
           user_info: item.item,
+          user_id: item.item.student_id,
         });
       }}>
       <View style={styles.list}>
@@ -122,6 +123,7 @@ const List = ({item}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   findThisView: {
     height: '8%',
