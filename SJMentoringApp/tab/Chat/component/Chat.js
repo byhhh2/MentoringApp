@@ -11,6 +11,13 @@ export default class Chat extends Component {
   constructor(props) {
     super(props);
   }
+  _onPressFunc(matched) {
+    if (!matched) {
+      this.props.navigation.navigate('멘토링 신청서', {
+        info: this.props.route.params.info,
+      });
+    }
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -27,10 +34,10 @@ export default class Chat extends Component {
                   marginRight: '2%',
                   fontSize: 20,
                 }}>
-                {this.props.route.params.matched ? '매칭 완료' : '모집중'}
+                {this.props.route.params.info.matched ? '매칭 완료' : '모집중'}
               </Text>
               <Text style={{fontSize: 20, marginRight: '3%'}}>
-                {this.props.route.params.lecture}
+                {this.props.route.params.info.lecture}
               </Text>
               <Text
                 style={{
@@ -38,9 +45,9 @@ export default class Chat extends Component {
                   marginRight: '1%',
                   fontWeight: 'bold',
                 }}>
-                {this.props.route.params.role}
+                {this.props.route.params.info.role}
               </Text>
-              <Text>{this.props.route.params.name}</Text>
+              <Text>{this.props.route.params.info.name}</Text>
             </View>
             <View
               style={{
@@ -50,7 +57,7 @@ export default class Chat extends Component {
                 paddingRight: '1%',
               }}>
               <Text style={{color: 'gray'}}>
-                {this.props.route.params.text}
+                {this.props.route.params.info.text}
               </Text>
             </View>
             <View
@@ -60,8 +67,12 @@ export default class Chat extends Component {
                 justifyContent: 'center',
                 height: '40%',
               }}>
-              <TouchableOpacity style={styles.mentoringBtn}>
-                {this.props.route.params.role === '멘티' ? (
+              <TouchableOpacity
+                style={styles.mentoringBtn}
+                onPress={() => {
+                  this._onPressFunc(this.props.route.params.info.matched);
+                }}>
+                {this.props.route.params.info.role === '멘티' ? (
                   <Text style={{fontWeight: 'bold'}}>
                     멘토링 신청서 작성하기
                   </Text>
@@ -73,7 +84,7 @@ export default class Chat extends Component {
           </View>
         </View>
         {/* 채팅화면 */}
-        <View style={styles.chatView}>
+        <View style style={styles.chatView}>
           <Text style={{textAlign: 'center', color: 'gray'}}>
             채팅을 통해서{'\n'}멘토 멘티 매칭을 이루어보세요 !
           </Text>
@@ -98,7 +109,7 @@ const styles = StyleSheet.create({
   },
   infoBox: {
     marginTop: '1%',
-    height: '20%',
+    height: 120,
     paddingLeft: '5%',
     paddingRight: '5%',
     borderBottomColor: 'lightgray',
