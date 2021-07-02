@@ -25,17 +25,21 @@ export default class HomeScreen extends Component {
     this.getPost = this.getPost.bind(this);
     this.state = {
       selected: [true, false, false],
+      filter: 'popular',
       DATA: [],
       findValue: '',
     };
   }
-  componentDidMount() {
+  /*componentDidMount() {
     this._rerender = this.props.navigation.addListener('focus', () => {
       this.getPost('popular');
     });
   }
   componentWillUnmount() {
     this._rerender();
+  }*/
+  componentDidMount() {
+    this.getPost('popular');
   }
   getPost(role) {
     this.setState({DATA: []});
@@ -79,7 +83,7 @@ export default class HomeScreen extends Component {
               this.getPost(role);
             }
           }
-          this.setState({selected: array});
+          this.setState({selected: array, filter: role});
         }}
         click={this.state.selected}
       />
@@ -133,6 +137,15 @@ export default class HomeScreen extends Component {
             </TouchableOpacity>
           </View>
           <View style={styles.filterView}>{filtering}</View>
+          <View>
+            <Text style={{color: 'gray'}}>
+              {this.state.filter === 'popular'
+                ? '인기 멘토 게시물'
+                : this.state.filter === 'mentor'
+                ? '멘토 게시물'
+                : '멘티 게시물'}
+            </Text>
+          </View>
           <View style={styles.listView}>
             <ImageBackground
               source={require('../../../image/로고black.png')}
@@ -179,9 +192,12 @@ const List = (props) => {
         });
       }}>
       <View style={styles.list}>
-        <Text>📝 과목 : {props.item.subject}</Text>
-        <Text>이름 : {props.item.name}</Text>
-        <Text>수준 : {props.item.level}</Text>
+        <Text style={{fontWeight: 'bold'}}>{props.item.subject}</Text>
+        <Text>{props.item.name}</Text>
+        <Text>{props.item.level}</Text>
+        <Text numberOfLines={1} ellipsizeMode="tail">
+          {props.item.content}
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -209,6 +225,9 @@ class FilterButton extends PureComponent {
 }
 
 const styles = StyleSheet.create({
+  text: {
+    fontFamily: 'GmarketSansTTFMedium',
+  },
   container: {
     //flex: 1,
     height: 700,
@@ -241,12 +260,11 @@ const styles = StyleSheet.create({
   },
   filterView: {
     width: '90%',
-    //backgroundColor: 'orange',
     height: '10%',
     flexDirection: 'row',
     display: 'flex',
     justifyContent: 'space-between',
-    marginBottom: '8%',
+    marginBottom: '2%',
   },
   filterButtonClicked: {
     width: '30%',
@@ -271,6 +289,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   listView: {
+    marginTop: '1%',
     height: '68%',
     width: '100%',
     display: 'flex',
@@ -278,6 +297,8 @@ const styles = StyleSheet.create({
   },
   list: {
     backgroundColor: 'white',
+    paddingRight: '5%',
+    paddingLeft: '5%',
     width: 160,
     height: 120,
     borderRadius: 20,
@@ -285,7 +306,7 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
+    //alignItems: 'center',
     marginVertical: 8,
     flexGrow: 0,
     marginHorizontal: 10,

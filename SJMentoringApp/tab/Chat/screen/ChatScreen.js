@@ -64,11 +64,8 @@ class ChatList extends PureComponent {
       <TouchableOpacity
         onPress={() => {
           this.props.navi.navigate('채팅방', {
-            lecture: this.props.item.item.lecture,
-            name: this.props.item.item.name,
-            role: this.props.item.item.role,
-            text: this.props.item.item.text,
-            matched: this.props.item.item.matched,
+            info: this.props.item.item,
+            navigation: this.props.navi,
           });
         }}>
         <View style={styles.list}>

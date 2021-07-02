@@ -21,7 +21,8 @@ const BottomTabNavi = (props) => {
         inactiveBackgroundColor: '#AFDCBD',
         activeBackgroundColor: '#99bfa5',
         inactiveTintColor: 'black',
-        activeTintColor: 'black',
+        activeTintColor: 'white',
+        showLabel: false,
         keyboardHidesTabBar: true,
       }}>
       <Tab.Screen
@@ -31,7 +32,7 @@ const BottomTabNavi = (props) => {
           unmountOnBlur: true, //홈 화면 올때마다 새로고침
           tabBarIcon: () => {
             return (
-              <Ionicons name={'ios-home'} size={30} style={{color: 'black'}} />
+              <Ionicons name={'ios-home'} size={30} style={{color: 'white'}} />
             );
           },
         }}>
@@ -58,7 +59,7 @@ const BottomTabNavi = (props) => {
               <Ionicons
                 name={'list-circle-sharp'}
                 size={30}
-                style={{color: 'black'}}
+                style={{color: 'white'}}
               />
             );
           },
@@ -74,7 +75,7 @@ const BottomTabNavi = (props) => {
               <Ionicons
                 name={'add-circle-sharp'}
                 size={30}
-                style={{color: 'black'}}
+                style={{color: 'white'}}
               />
             );
           },
@@ -98,7 +99,7 @@ const BottomTabNavi = (props) => {
               <Ionicons
                 name={'chatbubbles-sharp'}
                 size={30}
-                style={{color: 'black'}}
+                style={{color: 'white'}}
               />
             );
           },
@@ -122,7 +123,7 @@ const BottomTabNavi = (props) => {
               <Ionicons
                 name={'ios-person-circle-sharp'}
                 size={30}
-                style={{color: 'black'}}
+                style={{color: 'white'}}
               />
             );
           },
