@@ -18,7 +18,10 @@ export default class MentoringDiary extends Component {
           <Text style={{fontSize: 17, fontWeight: 'bold'}}>
             {this.props.route.params.finished
               ? '멘토링 완료'
-              : this.props.route.params.period}
+              : `${this.props.route.params.start.slice(
+                  0,
+                  10,
+                )} ~ ${this.props.route.params.end.slice(0, 10)}`}
           </Text>
         </View>
         <View style={styles.whiteView}>
