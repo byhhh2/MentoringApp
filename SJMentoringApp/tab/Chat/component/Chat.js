@@ -149,6 +149,7 @@ class Chat extends Component {
         msg: '',
       });
     });
+    //console.log(this.props.route.params);
     //console.log(this.props.route.params.socket);
     //console.log(this.props.socket.id);
     //console.log(this.props.route.params.mine, this.props.route.params.you);
@@ -207,7 +208,7 @@ class Chat extends Component {
                   this._onPressFunc(this.props.route.params.matched);
                 }}>
                 {this.props.user_id === this.props.route.params.mine &&
-                this.props.route.params.matched ? (
+                !this.props.route.params.matched ? (
                   <Text style={{fontWeight: 'bold'}}>
                     멘토링 신청서 작성하기
                   </Text>
