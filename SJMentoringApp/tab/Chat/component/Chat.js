@@ -28,8 +28,41 @@ import SpeechBubble from './SpeechBubble';
         
 */
 
+const socket_ = io('http://34.64.111.90:8080/');
+
 var cnt;
-//var socket_;
+// var socket_;
+
+// socket_.on('receiveMsg', (sender, msg, time) => {
+//   cnt++;
+//   this.state.msgs.push({
+//     id: cnt,
+//     sender: sender,
+//     content: msg,
+//     time: time,
+//     is_checked: 0,
+//   });
+//   this.setState({
+//     refresh: !this.state.refresh,
+//     msg: '',
+//   });
+//   console.log('tlqkf');
+// });
+socket_.on('receiveMsg', (sender, msg, time) => {
+  cnt++;
+  this.state.msgs.push({
+    id: cnt,
+    sender: sender,
+    content: msg,
+    time: time,
+    is_checked: 0,
+  });
+  this.setState({
+    refresh: !this.state.refresh,
+    msg: '',
+  });
+  console.log('받아짐');
+});
 
 class Chat extends Component {
   constructor(props) {
@@ -135,21 +168,6 @@ class Chat extends Component {
   }
 
   render() {
-    this.props.socket.on('receiveMsg', (sender, msg, time) => {
-      cnt++;
-      this.state.msgs.push({
-        id: cnt,
-        sender: sender,
-        content: msg,
-        time: time,
-        is_checked: 0,
-      });
-      this.setState({
-        refresh: !this.state.refresh,
-        msg: '',
-      });
-    });
-    //console.log(this.props.route.params);
     //console.log(this.props.route.params.socket);
     //console.log(this.props.socket.id);
     //console.log(this.props.route.params.mine, this.props.route.params.you);
@@ -361,6 +379,14 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
 });
+
+// const mapStateToProps = (state) => {
+//   socket_ = state.userReducer.socket;
+//   return {
+//     socket: state.userReducer.socket,
+//     user_id: state.userReducer.user_id,
+//   };
+// };
 
 const mapStateToProps = (state) => ({
   socket: state.userReducer.socket,
