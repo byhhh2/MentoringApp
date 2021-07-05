@@ -81,7 +81,7 @@ class Login extends Component {
               alignItems: 'center',
             }}>
             <Image
-              source={require('../../image/로고black.png')}
+              source={require('../../image/로고main.png')}
               style={{width: 90, height: 130}}
             />
             <Text style={styles.title}>멘 토 스</Text>
