@@ -19,13 +19,18 @@ export default class MentoringDiary extends Component {
       modalVisible: false,
       date: '',
       content: '',
-      DATA: [],
+      DATA: [
+        {
+          date: '2020-10-10',
+          content: 'hi',
+        },
+      ],
     };
     this.handleDate = this.handleDate.bind(this);
     this.saveRecord = this.saveRecord.bind(this);
   }
   componentDidMount() {
-    this.getRecord();
+    //this.getRecord();
   }
   handleDate(e) {
     if (e.length === 4) {
@@ -40,7 +45,7 @@ export default class MentoringDiary extends Component {
   postRecord() {
     axios
       .post(
-        `http://34.64.111.90:8080/api/v1/mentoring/${this.props.route.params.id}/record`,
+        `http://34.64.111.90:8080/api/v1/mentoring/record/${this.props.route.params.id}`,
         {
           date: this.state.date,
           content: this.state.content,
@@ -60,10 +65,9 @@ export default class MentoringDiary extends Component {
       });
   }
   getRecord() {
-    this.setState({DATA: []});
     axios
       .get(
-        `http://34.64.111.90:8080/api/v1/mentoring/${this.props.route.params.id}record/`,
+        `http://34.64.111.90:8080/api/v1/mentoring/record/${this.props.route.params.id}`,
         {
           headers: {
             Authorization: axios.defaults.headers.common['Authorization'],
@@ -72,7 +76,6 @@ export default class MentoringDiary extends Component {
       )
       .then((response) => {
         console.log(response.data);
-        this.setState({DATA: response.data.data});
       })
       .catch((error) => {
         console.log('wrong!');
@@ -196,7 +199,7 @@ export default class MentoringDiary extends Component {
                     style={[styles.Btn, styles.RightBtn]}
                     onPress={() => {
                       if (this.state.content && this.state.date) {
-                        this.postRecord();
+                        //this.postRecord();
                         this.saveRecord();
                         this.setState({
                           modalVisible: false,

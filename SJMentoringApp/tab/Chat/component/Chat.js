@@ -56,6 +56,7 @@ class Chat extends Component {
       msgs: [],
       refresh: false,
       page: 1,
+      prevMsg: '',
     };
     this.loadMsg();
     setInterval(() => this.onMsg(), 3000);
@@ -135,19 +136,22 @@ class Chat extends Component {
     //메시지 받는거
 
     this.props.socket.on('receiveMsg', ({sender, msg, time}) => {
-      console.log(msg, sender, time);
-      cnt++;
-      this.state.msgs.push({
-        id: cnt,
-        sender: sender,
-        content: msg,
-        time: time,
-        is_checked: 0,
-      });
-      this.setState({
-        refresh: !this.state.refresh,
-        msg: '',
-      });
+      if (msg != this.state.prevMsg) {
+        this.setState({prevMsg: msg});
+        //console.log('고침', msg, sender, time);
+        cnt++;
+        this.state.msgs.push({
+          id: cnt,
+          sender: sender,
+          content: msg,
+          time: time,
+          is_checked: 0,
+        });
+        this.setState({
+          refresh: !this.state.refresh,
+          msg: '',
+        });
+      }
     });
     return;
   };
@@ -218,13 +222,12 @@ class Chat extends Component {
                 onPress={() => {
                   this._onPressFunc(this.props.route.params.matched);
                 }}>
-                {this.props.user_id === this.props.route.params.mine &&
-                !this.props.route.params.matched ? (
+                {this.props.user_id === this.props.route.params.mine ? (
                   <Text style={{fontWeight: 'bold'}}>
                     멘토링 신청서 작성하기
                   </Text>
                 ) : (
-                  <Text style={{fontWeight: 'bold'}}>프로필 보러가기</Text>
+                  <Text style={{fontWeight: 'bold'}}>멘토 프로필 보러가기</Text>
                 )}
               </TouchableOpacity>
             </View>

@@ -89,7 +89,6 @@ export default class Matching extends Component {
     }
   }
   render() {
-    console.log(this.props.route.params);
     return (
       <View style={styles.container}>
         <View style={styles.bigView}>
