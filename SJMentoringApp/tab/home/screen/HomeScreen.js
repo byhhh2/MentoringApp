@@ -212,7 +212,7 @@ class FilterButton extends PureComponent {
       <TouchableOpacity
         style={
           this.props.click[this.props.id]
-            ? styles.filterButtonClicked
+            ? [styles.filterButton, styles.filterButtonClicked]
             : styles.filterButton
         }
         onPress={() => {
@@ -267,15 +267,7 @@ const styles = StyleSheet.create({
     marginBottom: '2%',
   },
   filterButtonClicked: {
-    width: '30%',
     backgroundColor: '#AFDCBD',
-    borderRadius: 20,
-    borderColor: '#AFDCBD',
-    borderWidth: 1,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    elevation: 3,
   },
   filterButton: {
     width: '30%',
@@ -290,7 +282,7 @@ const styles = StyleSheet.create({
   },
   listView: {
     marginTop: '1%',
-    height: '68%',
+    height: '65%',
     width: '100%',
     display: 'flex',
     alignItems: 'center',

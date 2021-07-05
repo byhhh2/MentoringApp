@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import logo from '../../image/로고white.png';
+
 import axios from 'axios';
 
 /**
@@ -77,7 +77,7 @@ export default class Login extends Component {
                 color: '#AFDCBD',
                 fontWeight: 'bold',
                 textAlign: 'center',
-                fontFamily: 'GMarketSansTTFMedium',
+                fontFamily: 'GmarketSansTTFMedium',
               }}>
               Sejong University {'\n'} Mentoring Matching Service
             </Text>
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     marginBottom: '4%',
     //marginTop: '1%',
     color: '#AFDCBD',
-    fontFamily: 'GMarketSansTTFBold',
+    fontFamily: 'GmarketSansTTFBold',
   },
   login: {
     width: '100%',

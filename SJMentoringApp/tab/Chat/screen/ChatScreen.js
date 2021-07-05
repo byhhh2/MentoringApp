@@ -65,7 +65,6 @@ class ChatList extends PureComponent {
         onPress={() => {
           this.props.navi.navigate('채팅방', {
             info: this.props.item.item,
-            navigation: this.props.navi,
           });
         }}>
         <View style={styles.list}>

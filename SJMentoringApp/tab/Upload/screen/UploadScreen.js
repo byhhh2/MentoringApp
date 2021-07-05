@@ -126,7 +126,7 @@ export default class UploadScreen extends PureComponent {
           <TouchableOpacity
             style={
               this.state.selected == 1
-                ? styles.settingLeftBtnSelected
+                ? [styles.BtnSelected, styles.settingLeftBtn]
                 : styles.settingLeftBtn
             }
             onPress={() => {
@@ -137,7 +137,7 @@ export default class UploadScreen extends PureComponent {
           <TouchableOpacity
             style={
               this.state.selected == 2
-                ? styles.settingRightBtnSelected
+                ? [styles.BtnSelected, styles.settingRightBtn]
                 : styles.settingRightBtn
             }
             onPress={() => {
@@ -215,40 +215,18 @@ const styles = StyleSheet.create({
     width: '45%',
     height: '100%',
   },
-  settingLeftBtnSelected: {
+  BtnSelected: {
     backgroundColor: '#AFDCBD',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 2,
-    borderColor: '#AFDCBD',
-    borderTopLeftRadius: 10,
-    borderBottomLeftRadius: 10,
-    borderRightWidth: 0,
-    width: '45%',
-    height: '100%',
   },
   settingRightBtn: {
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 2,
-    borderColor: '#AFDCBD',
-    borderTopRightRadius: 10,
-    borderBottomRightRadius: 10,
-    width: '45%',
-    height: '100%',
-  },
-  settingRightBtnSelected: {
-    backgroundColor: '#AFDCBD',
-    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
     borderColor: '#AFDCBD',
     borderTopRightRadius: 10,
     borderBottomRightRadius: 10,
-    borderRightWidth: 0,
+    borderRightWidth: 2,
     width: '45%',
     height: '100%',
   },
