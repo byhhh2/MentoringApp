@@ -14,7 +14,7 @@ class ChatScreen extends PureComponent {
       data: [],
     };
     this.loadMsgList();
-    //console.log(this.props.student_id); //내학번
+    //console.log(this.props.socket); //내학번
   }
 
   loadMsgList = () => {
@@ -44,6 +44,7 @@ class ChatScreen extends PureComponent {
               {item},
               this.props.navigation,
               this.props.student_id,
+              this.props.socket,
             );
           }}
           keyExtractor={(item) => item.room_id}
@@ -53,14 +54,22 @@ class ChatScreen extends PureComponent {
   }
 }
 
-const renderList = ({item}, navigation, student_id) => {
-  return <ChatList item={item} navi={navigation} my_id={student_id} />;
+const renderList = ({item}, navigation, student_id, socket) => {
+  return (
+    <ChatList
+      item={item}
+      navi={navigation}
+      my_id={student_id}
+      socket={socket}
+    />
+  );
 };
 
 class ChatList extends PureComponent {
   constructor(props) {
     super(props);
     //console.log(props);
+    //console.log(this.props);
   }
   render() {
     return (
