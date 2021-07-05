@@ -226,7 +226,7 @@ class Chat extends Component {
                   this._onPressFunc(this.props.route.params.matched);
                 }}>
                 {this.props.user_id === this.props.route.params.mine &&
-                this.props.route.params.matched ? (
+                !this.props.route.params.matched ? (
                   <Text style={{fontWeight: 'bold'}}>
                     멘토링 신청서 작성하기
                   </Text>
