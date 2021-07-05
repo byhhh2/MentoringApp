@@ -28,8 +28,6 @@ import SpeechBubble from './SpeechBubble';
         
 */
 
-const socket_ = io('http://34.64.111.90:8080/');
-
 var cnt;
 // var socket_;
 
@@ -48,21 +46,6 @@ var cnt;
 //   });
 //   console.log('tlqkf');
 // });
-socket_.on('receiveMsg', (sender, msg, time) => {
-  cnt++;
-  this.state.msgs.push({
-    id: cnt,
-    sender: sender,
-    content: msg,
-    time: time,
-    is_checked: 0,
-  });
-  this.setState({
-    refresh: !this.state.refresh,
-    msg: '',
-  });
-  console.log('받아짐');
-});
 
 class Chat extends Component {
   constructor(props) {
@@ -91,6 +74,14 @@ class Chat extends Component {
     //console.log(this.props);
     //socket_ = this.props.socket;
     //this.onMsg();
+    //setInterval(() => this.onMsg(), 1000);
+  }
+
+  componentDidMount() {
+    setInterval(() => {
+      this.onMsg();
+      //console.log('ㅎㅇㅎㅇ');
+    }, 1000);
   }
 
   loadMsg = () => {
@@ -156,6 +147,7 @@ class Chat extends Component {
         refresh: !this.state.refresh,
         msg: '',
       });
+      console.log('실행됨');
     });
   };
 
