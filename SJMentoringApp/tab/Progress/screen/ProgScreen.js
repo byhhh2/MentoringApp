@@ -54,7 +54,6 @@ class ChatList extends PureComponent {
     super(props);
   }
   render() {
-    console.log(this.props.item);
     return (
       <TouchableOpacity
         onPress={() =>
@@ -65,6 +64,7 @@ class ChatList extends PureComponent {
             start: this.props.item.item.start_date,
             end: this.props.item.item.end_date,
             finished: this.props.item.item.end,
+            id: this.props.item.item.id,
           })
         }>
         <View style={styles.list}>
