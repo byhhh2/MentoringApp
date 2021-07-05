@@ -112,8 +112,8 @@ class ChatList extends PureComponent {
           </View>
           <View style={styles.timeView}>
             <Text>
-              {this.props.item.item.time.substring(5, 10)}{' '}
-              {this.props.item.item.time.substring(11, 16)}
+              {/* {this.props.item.item.time.substring(5, 10)}{' '}
+              {this.props.item.item.time.substring(11, 16)} */}
             </Text>
           </View>
         </View>
