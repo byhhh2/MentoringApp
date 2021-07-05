@@ -78,6 +78,7 @@ class ChatList extends PureComponent {
                 ? this.props.item.item.user1
                 : this.props.item.item.user2,
             post_id: this.props.item.item.post_id,
+            info: this.props.item.item,
           });
         }}>
         <View style={styles.list}>

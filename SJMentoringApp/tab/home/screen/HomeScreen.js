@@ -1,6 +1,14 @@
 import React, {Component, PureComponent} from 'react';
 import {useState} from 'react';
-import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+  Image,
+  ImageBackground,
+} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 
@@ -17,17 +25,21 @@ export default class HomeScreen extends Component {
     this.getPost = this.getPost.bind(this);
     this.state = {
       selected: [true, false, false],
+      filter: 'popular',
       DATA: [],
       findValue: '',
     };
   }
-  componentDidMount() {
+  /*componentDidMount() {
     this._rerender = this.props.navigation.addListener('focus', () => {
       this.getPost('popular');
     });
   }
   componentWillUnmount() {
     this._rerender();
+  }*/
+  componentDidMount() {
+    this.getPost('popular');
   }
   getPost(role) {
     this.setState({DATA: []});
@@ -71,7 +83,7 @@ export default class HomeScreen extends Component {
               this.getPost(role);
             }
           }
-          this.setState({selected: array});
+          this.setState({selected: array, filter: role});
         }}
         click={this.state.selected}
       />
@@ -79,14 +91,29 @@ export default class HomeScreen extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.logoView}>
-          <Text
+          <View
             style={{
-              fontSize: 40,
-              color: 'white',
-              fontWeight: 'bold',
+              display: 'flex',
+              alignItems: 'center',
             }}>
-            멘 토 스
-          </Text>
+            <Text
+              style={{
+                fontSize: 45,
+                color: 'white',
+                //fontWeight: 'bold',
+                fontFamily: 'GmarketSansTTFBold',
+              }}>
+              MENTORS
+            </Text>
+            <Text
+              style={{
+                color: 'white',
+                fontSize: 25,
+                fontFamily: 'GmarketSansTTFMedium',
+              }}>
+              멘 토 스
+            </Text>
+          </View>
         </View>
         <View style={styles.mainView}>
           <View style={styles.find}>
@@ -110,16 +137,36 @@ export default class HomeScreen extends Component {
             </TouchableOpacity>
           </View>
           <View style={styles.filterView}>{filtering}</View>
+          <View>
+            <Text style={{color: 'gray'}}>
+              {this.state.filter === 'popular'
+                ? '인기 멘토 게시물'
+                : this.state.filter === 'mentor'
+                ? '멘토 게시물'
+                : '멘티 게시물'}
+            </Text>
+          </View>
           <View style={styles.listView}>
-            <FlatList
-              data={this.state.DATA}
-              renderItem={({item}) => {
-                return renderList({item}, this.props.student_id);
+            <ImageBackground
+              source={require('../../../image/로고black.png')}
+              style={{
+                height: '100%',
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
-              numColumns={2} //한줄에 두개
-              keyExtractor={(item) => item.id}
-              showsVerticalScrollIndicator={false}
-            />
+              resizeMode="center">
+              <FlatList
+                data={this.state.DATA}
+                renderItem={({item}) => {
+                  return renderList({item}, this.props.student_id);
+                }}
+                numColumns={2} //한줄에 두개
+                keyExtractor={(item) => item.id}
+                showsVerticalScrollIndicator={false}
+              />
+            </ImageBackground>
           </View>
         </View>
       </View>
@@ -145,9 +192,12 @@ const List = (props) => {
         });
       }}>
       <View style={styles.list}>
-        <Text>📝 과목 : {props.item.subject}</Text>
-        <Text>이름 : {props.item.name}</Text>
-        <Text>수준 : {props.item.level}</Text>
+        <Text style={{fontWeight: 'bold'}}>{props.item.subject}</Text>
+        <Text>{props.item.name}</Text>
+        <Text>{props.item.level}</Text>
+        <Text numberOfLines={1} ellipsizeMode="tail">
+          {props.item.content}
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -162,7 +212,7 @@ class FilterButton extends PureComponent {
       <TouchableOpacity
         style={
           this.props.click[this.props.id]
-            ? styles.filterButtonClicked
+            ? [styles.filterButton, styles.filterButtonClicked]
             : styles.filterButton
         }
         onPress={() => {
@@ -175,6 +225,9 @@ class FilterButton extends PureComponent {
 }
 
 const styles = StyleSheet.create({
+  text: {
+    fontFamily: 'GmarketSansTTFMedium',
+  },
   container: {
     //flex: 1,
     height: 700,
@@ -183,8 +236,17 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   logoView: {
+    width: '90%',
     alignSelf: 'center',
-    marginBottom: '10%',
+    flexDirection: 'row',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: '7%',
+  },
+  imageLogo: {
+    width: 120,
+    height: 120,
   },
   mainView: {
     //하얀 배경 View
@@ -198,23 +260,14 @@ const styles = StyleSheet.create({
   },
   filterView: {
     width: '90%',
-    //backgroundColor: 'orange',
     height: '10%',
     flexDirection: 'row',
     display: 'flex',
     justifyContent: 'space-between',
-    marginBottom: '8%',
+    marginBottom: '2%',
   },
   filterButtonClicked: {
-    width: '30%',
     backgroundColor: '#AFDCBD',
-    borderRadius: 20,
-    borderColor: '#AFDCBD',
-    borderWidth: 1,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    elevation: 3,
   },
   filterButton: {
     width: '30%',
@@ -228,14 +281,16 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   listView: {
-    //backgroundColor: 'orange',
-    height: '68%',
+    marginTop: '1%',
+    height: '65%',
     width: '100%',
     display: 'flex',
     alignItems: 'center',
   },
   list: {
     backgroundColor: 'white',
+    paddingRight: '5%',
+    paddingLeft: '5%',
     width: 160,
     height: 120,
     borderRadius: 20,
@@ -243,7 +298,7 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
+    //alignItems: 'center',
     marginVertical: 8,
     flexGrow: 0,
     marginHorizontal: 10,

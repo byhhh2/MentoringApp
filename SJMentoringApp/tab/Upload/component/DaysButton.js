@@ -25,7 +25,7 @@ export default class DaysButton extends Component {
       <TouchableOpacity
         style={
           this.props.click[this.props.id] || array[this.props.id]
-            ? styles.daysButtonSelected
+            ? [styles.daysButton, styles.daysButtonSelected]
             : styles.daysButton
         }
         onPress={() => this.props.callback(this.props.id)}>
@@ -49,14 +49,5 @@ const styles = StyleSheet.create({
   },
   daysButtonSelected: {
     backgroundColor: '#AFDCBD',
-    borderColor: '#AFDCBD',
-    borderWidth: 2,
-    width: '12%',
-    height: '80%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 25,
-    paddingBottom: '2%',
   },
 });

@@ -1,43 +1,40 @@
 import React, {Component, PureComponent} from 'react';
 import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
-
+import axios from 'axios';
 export default class ProgScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      data: [
-        {
-          id: 0,
-          lecture: '알고리즘',
-          mentor: '김멘토',
-          mentee: '이멘티',
-          period: '21.06.25-21.06.30',
-          finished: false,
-        },
-        {
-          id: 1,
-          lecture: '자료구조',
-          mentor: '김멘토',
-          mentee: '이멘티',
-          period: '21.06.01-21.06.15',
-          finished: true,
-        },
-        {
-          id: 2,
-          lecture: '일반C프로그래밍',
-          mentor: '김멘토',
-          mentee: '이멘티',
-          period: '21.06.11-21.06.17',
-          finished: false,
-        },
-      ],
+      DATA: [],
     };
+    this.getMatchedMentoring = this.getMatchedMentoring.bind(this);
+  }
+  componentDidMount() {
+    this.getMatchedMentoring();
+  }
+  getMatchedMentoring() {
+    let page = 1;
+    this.setState({DATA: []});
+    axios
+      .get(`http://34.64.111.90:8080/api/v1/mentoring?page=${page}`, {
+        headers: {
+          Authorization: axios.defaults.headers.common['Authorization'],
+        },
+      })
+      .then((response) => {
+        this.setState({DATA: this.state.DATA.concat(response.data.data)});
+        page++;
+      })
+      .catch((error) => {
+        console.log('wrong!');
+        console.log(error.response);
+      });
   }
   render() {
     return (
       <View style={styles.container}>
         <FlatList
-          data={this.state.data}
+          data={this.state.DATA}
           renderItem={(item) => {
             return renderList({item}, this.props.navigation);
           }}
@@ -61,24 +58,29 @@ class ChatList extends PureComponent {
       <TouchableOpacity
         onPress={() =>
           this.props.navi.navigate('멘토링일지', {
-            lecture: this.props.item.item.lecture,
+            lecture: this.props.item.item.subject,
             mentor: this.props.item.item.mentor,
             mentee: this.props.item.item.mentee,
-            period: this.props.item.item.period,
-            finished: this.props.item.item.finished,
+            start: this.props.item.item.start_date,
+            end: this.props.item.item.end_date,
+            finished: this.props.item.item.end,
+            id: this.props.item.item.id,
           })
         }>
         <View style={styles.list}>
           <View style={styles.contentView}>
-            <Text style={styles.nameText}>{this.props.item.item.lecture}</Text>
+            <Text style={styles.nameText}>{this.props.item.item.subject}</Text>
             <Text>멘토 : {this.props.item.item.mentor}</Text>
             <Text>멘티 : {this.props.item.item.mentee}</Text>
           </View>
           <View style={styles.timeView}>
-            <Text style={{textAlign: 'center'}}>
-              {this.props.item.item.finished
+            <Text style={{textAlign: 'center', fontSize: 13}}>
+              {this.props.item.item.end === 1
                 ? '완료'
-                : this.props.item.item.period}
+                : `${this.props.item.item.start_date.slice(
+                    0,
+                    10,
+                  )}\n~\n${this.props.item.item.end_date.slice(0, 10)}`}
             </Text>
           </View>
         </View>
@@ -104,10 +106,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   contentView: {
-    width: '80%',
+    width: '72%',
   },
   timeView: {
-    width: '18%',
+    width: '21%',
   },
   nameText: {
     fontWeight: 'bold',

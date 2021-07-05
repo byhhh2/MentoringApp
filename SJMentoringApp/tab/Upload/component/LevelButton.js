@@ -18,7 +18,7 @@ export default class LevelButton extends Component {
       <TouchableOpacity
         style={
           this.props.click[this.props.id] || index[this.props.id]
-            ? styles.levelButtonSelected
+            ? [styles.levelButton, styles.levelButtonSelected]
             : styles.levelButton
         }
         onPress={() => this.props.callback(this.props.id)}>
@@ -42,14 +42,5 @@ const styles = StyleSheet.create({
   },
   levelButtonSelected: {
     backgroundColor: '#AFDCBD',
-    borderColor: '#AFDCBD',
-    borderWidth: 2,
-    width: '25%',
-    height: '80%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 25,
-    paddingBottom: '2%',
   },
 });

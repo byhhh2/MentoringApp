@@ -6,7 +6,10 @@ import ChatScreen from '../screen/ChatScreen';
 
 //Component
 import Chat from '../component/Chat';
+
 import ChatTest from '../component/ChatTest';
+
+import Matching from '../../Progress/component/Matching';
 
 const Stack = createStackNavigator();
 
@@ -47,6 +50,22 @@ const ChatStack = (props) => {
       <Stack.Screen
         name="채팅방"
         component={Chat}
+        options={{
+          //headerLeft: null,
+          headerStyle: {
+            backgroundColor: '#AFDCBD',
+          },
+          headerTitleStyle: {
+            alignSelf: 'center',
+            marginRight: 60,
+            color: 'black',
+          },
+          headerTintColor: '#498C5A',
+        }}
+      />
+      <Stack.Screen
+        name="멘토링 신청서"
+        component={Matching}
         options={{
           //headerLeft: null,
           headerStyle: {

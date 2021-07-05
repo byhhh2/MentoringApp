@@ -3,7 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 //Screen
 import ProgScreen from '../screen/ProgScreen';
-
+import Matching from '../component/Matching';
 import MentoringDiary from '../component/MentoringDiary';
 
 const Stack = createStackNavigator();
@@ -25,8 +25,20 @@ const ProgStack = () => {
         name="멘토링일지"
         component={MentoringDiary}
         options={{
-          headerLeft: null,
-          headerShown: false,
+          title: '',
+          headerStyle: {
+            backgroundColor: '#AFDCBD',
+          },
+          headerTitleStyle: {
+            alignSelf: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="멘토링 신청서"
+        component={Matching}
+        options={{
+          title: '',
           headerStyle: {
             backgroundColor: '#AFDCBD',
           },
