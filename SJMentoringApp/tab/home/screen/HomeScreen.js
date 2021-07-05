@@ -148,7 +148,7 @@ export default class HomeScreen extends Component {
           </View>
           <View style={styles.listView}>
             <ImageBackground
-              source={require('../../../image/로고black.png')}
+              source={require('../../../image/로고main.png')}
               style={{
                 height: '100%',
                 width: '100%',
