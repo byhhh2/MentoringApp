@@ -94,12 +94,12 @@ export default class Matching extends Component {
         <View style={styles.bigView}>
           <View style={styles.lectureView}>
             <Text style={{fontSize: 27, fontWeight: 'bold'}}>
-              📝 {this.props.route.params.info.lecture}
+              📝 {this.props.route.params.info.subject}
             </Text>
           </View>
           <View style={styles.roleView}>
             <Text style={{fontSize: 22}}>
-              멘토 : {this.props.route.params.info.name}
+              멘토 : {this.props.route.params.info.room_name}
             </Text>
             <Text style={{fontSize: 22}}>멘티 : 김예리</Text>
           </View>

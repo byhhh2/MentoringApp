@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, Modal} from 'react-native';
 //Icon
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -10,6 +10,10 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 
 const Contents = (props) => {
+  // useEffect(() => {
+  //   console.log(props.route.params.user_info);
+  // }, []);
+
   const [deleted, setDeleted] = useState(false);
 
   const deletePost = () => {
@@ -196,10 +200,11 @@ const Contents = (props) => {
                 name: props.route.params.user_info.name,
                 role: props.route.params.user_info.role == 1 ? '멘토' : '멘티',
                 text: props.route.params.user_info.content,
-                matched: '모집중',
+                matched: props.route.params.user_info.is_matched,
                 mine: props.route.params.user_id, //로그인 한 사람 id
                 you: props.route.params.user_info.student_id,
                 post_id: props.route.params.user_info.id,
+                info: props.route.params.user_info,
               });
             }}>
             <Text style={{fontWeight: 'bold'}}>채팅하기</Text>

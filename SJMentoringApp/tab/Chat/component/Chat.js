@@ -54,7 +54,7 @@ class Chat extends Component {
       refresh: false,
     };
     this.loadMsg();
-    //console.log(this.state.msgs);
+    //console.log(this.props);
   }
 
   loadMsg = () => {
@@ -112,11 +112,12 @@ class Chat extends Component {
       });
     }
   }
-  
+
   render() {
     //console.log(this.props.route.params.socket);
     //console.log(this.props.socket.id);
     //console.log(this.props.route.params.mine, this.props.route.params.you);
+    //console.log(this.props.route.params.info);
     return (
       <View style={styles.container}>
         <View style={styles.infoBox}>
@@ -132,10 +133,10 @@ class Chat extends Component {
                   marginRight: '2%',
                   fontSize: 20,
                 }}>
-                {this.props.route.params.info.matched ? '매칭 완료' : '모집중'}
+                {this.props.route.params.matched ? '매칭 완료' : '모집중'}
               </Text>
               <Text style={{fontSize: 20, marginRight: '3%'}}>
-                {this.props.route.params.info.lecture}
+                {this.props.route.params.lecture}
               </Text>
               <Text
                 style={{
@@ -143,9 +144,9 @@ class Chat extends Component {
                   marginRight: '1%',
                   fontWeight: 'bold',
                 }}>
-                {this.props.route.params.info.role}
+                {this.props.route.params.role}
               </Text>
-              <Text>{this.props.route.params.info.name}</Text>
+              <Text>{this.props.route.params.name}</Text>
             </View>
             <View
               style={{
@@ -155,7 +156,7 @@ class Chat extends Component {
                 paddingRight: '1%',
               }}>
               <Text style={{color: 'gray'}}>
-                {this.props.route.params.info.text}
+                {this.props.route.params.text}
               </Text>
             </View>
             <View
@@ -168,9 +169,9 @@ class Chat extends Component {
               <TouchableOpacity
                 style={styles.mentoringBtn}
                 onPress={() => {
-                  this._onPressFunc(this.props.route.params.info.matched);
+                  this._onPressFunc(this.props.route.params.matched);
                 }}>
-                {this.props.route.params.info.role === '멘티' ? (
+                {this.props.user_id === this.props.route.params.mine ? (
                   <Text style={{fontWeight: 'bold'}}>
                     멘토링 신청서 작성하기
                   </Text>
@@ -184,7 +185,7 @@ class Chat extends Component {
         {/* 채팅화면 */}
 
         <View style={styles.chatView}>
-        {/* <Text style={{textAlign: 'center', color: 'gray'}}>
+          {/* <Text style={{textAlign: 'center', color: 'gray'}}>
             채팅을 통해서{'\n'}멘토 멘티 매칭을 이루어보세요 !
           </Text> */}
           <FlatList
@@ -326,6 +327,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
   socket: state.userReducer.socket,
+  user_id: state.userReducer.user_id,
 });
 
 export default connect(mapStateToProps, null)(Chat);
