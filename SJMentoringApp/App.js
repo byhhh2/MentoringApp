@@ -12,11 +12,20 @@ import {NavigationContainer} from '@react-navigation/native';
 //LoginStackNavigation
 import StackNavi from './login/navigation/StackNavi';
 
+//redux
+import rootReducer from './redux/index';
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
+
+const store = createStore(rootReducer);
+
 const App = () => {
   return (
-    <NavigationContainer>
-      <StackNavi />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <StackNavi />
+      </NavigationContainer>
+    </Provider>
   );
 };
 

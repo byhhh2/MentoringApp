@@ -18,6 +18,9 @@ import axios from 'axios';
 //screen
 import EditBio from './EditBio';
 
+//redux
+import {connect} from 'react-redux';
+
 const ProfileScreen = (props) => {
   const navigation = useNavigation();
   const student_id = props.student_id;
@@ -30,6 +33,7 @@ const ProfileScreen = (props) => {
 
   useEffect(() => {
     getProfile();
+    //console.log(props.socket);
   }, []);
 
   const getProfile = () => {
@@ -207,4 +211,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileScreen;
+const mapStateToProps = (state) => ({
+  socket: state.userReducer.socket,
+});
+
+export default connect(mapStateToProps)(ProfileScreen);

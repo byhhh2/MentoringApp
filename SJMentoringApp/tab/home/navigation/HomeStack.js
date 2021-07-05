@@ -7,6 +7,8 @@ import Contents from '../components/Contents';
 import FindList from '../components/FindList';
 import UpdatePost from '../components/UpdatePost';
 
+import Chat from '../../Chat/component/Chat';
+
 const Stack = createStackNavigator();
 
 const HomeStack = (props) => {
@@ -68,6 +70,22 @@ const HomeStack = (props) => {
             fontWeight: 'bold',
             marginLeft: '20%',
           },
+        }}
+      />
+      <Stack.Screen
+        name="채팅방"
+        component={Chat}
+        options={{
+          //headerLeft: null,
+          headerStyle: {
+            backgroundColor: '#AFDCBD',
+          },
+          headerTitleStyle: {
+            alignSelf: 'center',
+            marginRight: 60,
+            color: 'black',
+          },
+          headerTintColor: '#498C5A',
         }}
       />
     </Stack.Navigator>

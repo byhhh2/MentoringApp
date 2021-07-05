@@ -5,12 +5,106 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
+  FlatList,
 } from 'react-native';
 
-export default class Chat extends Component {
+import io from 'socket.io-client';
+
+//axios
+import axios from 'axios';
+
+//redux
+import {connect} from 'react-redux';
+
+//component
+import SpeechBubble from './SpeechBubble';
+
+/*
+            "id": 1,
+            "sender": 18011531,
+            "content": "ㅎㅇ",
+            "time": "2021-07-01T15:07:55.000Z",
+            "is_checked": 0
+        
+*/
+
+var cnt;
+
+class Chat extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      msg: '',
+      msgs: [
+        // {
+        //   id: 55,
+        //   sender: 18011564,
+        //   content: '안녕!',
+        //   time: '',
+        //   is_checked: 0,
+        // },
+        // {
+        //   id: 56,
+        //   sender: 18011531,
+        //   content: '안녕하세요',
+        //   time: '',
+        //   is_checked: 0,
+        // },
+      ],
+      refresh: false,
+    };
+    this.loadMsg();
+    //console.log(this.state.msgs);
   }
+
+  loadMsg = () => {
+    let page = 1;
+    axios
+      .get(
+        `http://34.64.111.90:8080/api/v1/chat/${this.props.route.params.post_id}/${this.props.route.params.you}?page=${page}`,
+        {
+          headers: {
+            Authorization: axios.defaults.headers.common['Authorization'],
+          },
+        },
+      )
+      .then((response) => {
+        this.setState({msgs: this.state.msgs.concat(response.data.data)});
+        //console.log(this.state.msgs);
+        cnt = this.state.msgs.length;
+        page++;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  sentMsg = () => {
+    cnt++;
+    //console.log('버튼 클릭');
+    if (this.state.msg != '') {
+      this.props.socket.emit('chatMessage', {
+        msg: this.state.msg,
+        sender: this.props.route.params.mine,
+        receiver: this.props.route.params.you,
+        post: this.props.route.params.post_id,
+      });
+      this.state.msgs.push({
+        id: cnt,
+        //who: 'sender',
+        sender: this.props.route.params.mine,
+        content: this.state.msg,
+        time: new Date().toString(),
+        is_checked: 0,
+        //text: this.state.msg,
+      });
+      this.setState({
+        refresh: !this.state.refresh,
+        msg: '',
+      });
+    }
+  };
+
   _onPressFunc(matched) {
     if (!matched) {
       this.props.navigation.navigate('멘토링 신청서', {
@@ -18,7 +112,11 @@ export default class Chat extends Component {
       });
     }
   }
+  
   render() {
+    //console.log(this.props.route.params.socket);
+    //console.log(this.props.socket.id);
+    //console.log(this.props.route.params.mine, this.props.route.params.you);
     return (
       <View style={styles.container}>
         <View style={styles.infoBox}>
@@ -84,14 +182,40 @@ export default class Chat extends Component {
           </View>
         </View>
         {/* 채팅화면 */}
-        <View style style={styles.chatView}>
-          <Text style={{textAlign: 'center', color: 'gray'}}>
+
+        <View style={styles.chatView}>
+        {/* <Text style={{textAlign: 'center', color: 'gray'}}>
             채팅을 통해서{'\n'}멘토 멘티 매칭을 이루어보세요 !
-          </Text>
+          </Text> */}
+          <FlatList
+            data={this.state.msgs}
+            renderItem={({item}) => {
+              return (
+                <View
+                  style={
+                    item.sender === this.props.route.params.mine
+                      ? styles.speech_bubble_mine
+                      : styles.speech_bubble_you
+                  }>
+                  <Text>{item.content}</Text>
+                </View>
+              );
+            }}
+            keyExtractor={(item) => item.id}
+            extraData={this.state.refresh}
+          />
         </View>
         <View style={styles.textBox}>
-          <TextInput style={styles.textInput} />
-          <TouchableOpacity>
+          <TextInput
+            style={styles.textInput}
+            value={this.state.msg}
+            onChangeText={(text) => {
+              //console.log(text);
+              this.setState({msg: text});
+              //console.log(this.state.msg);
+            }}
+          />
+          <TouchableOpacity onPress={this.sentMsg}>
             <Text style={{color: '#498C5A', fontSize: 15, fontWeight: 'bold'}}>
               전송
             </Text>
@@ -101,6 +225,24 @@ export default class Chat extends Component {
     );
   }
 }
+
+const speechBubble = () => {
+  return (
+    <View style={styles.speech_bubble}>
+      <Text>안녕</Text>
+    </View>
+  );
+};
+
+// class speechBubble extends Component {
+//   render() {
+//     return (
+//       <View style={styles.speech_bubble}>
+//         <Text>안녕</Text>
+//       </View>
+//     );
+//   }
+// }
 
 const styles = StyleSheet.create({
   container: {
@@ -134,9 +276,10 @@ const styles = StyleSheet.create({
   },
   chatView: {
     flex: 1,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    //display: 'flex',
+    //justifyContent: 'center',
+    //alignItems: 'flex-end',
+    padding: 10,
   },
   textBox: {
     //borderWidth: 1,
@@ -157,4 +300,32 @@ const styles = StyleSheet.create({
     padding: 15,
     fontSize: 15,
   },
+  speech_bubble_mine: {
+    width: 'auto',
+    height: 40,
+    backgroundColor: '#AFDCBD',
+    padding: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    margin: 5,
+    alignSelf: 'flex-end',
+  },
+  speech_bubble_you: {
+    width: 'auto',
+    height: 40,
+    backgroundColor: '#AFDCBD',
+    padding: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    margin: 5,
+    alignSelf: 'flex-start',
+  },
 });
+
+const mapStateToProps = (state) => ({
+  socket: state.userReducer.socket,
+});
+
+export default connect(mapStateToProps, null)(Chat);

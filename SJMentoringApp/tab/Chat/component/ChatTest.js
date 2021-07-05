@@ -3,8 +3,12 @@ import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
 
 import io from 'socket.io-client';
 
-const socket = io.connect('http://localhost:3000');
-socket.on('connection', () => console.log('Connection', socket.id));
+// const socket = io('http://34.64.111.90:8080/');
+// socket.on('connect', () => {
+//   console.log(socket.id);
+//   console.log('connection');
+//   //socket.emit('joinRoom', yh);
+// });
 
 const ChatTest = () => {
   //const [user_id, setUser_id] = useState('변영화');
@@ -13,7 +17,7 @@ const ChatTest = () => {
   const [ms, setMs] = useState(18011531);
 
   useEffect(() => {
-    connectSocket();
+    //connectSocket();
     //console.log(yh);
   }, []);
 
@@ -22,6 +26,20 @@ const ChatTest = () => {
       console.log(socket.id);
       console.log('connection');
       //socket.emit('joinRoom', yh);
+    });
+
+    socket.on('connection', (socket) => {
+      socket.on('disconnecting', (reason) => {
+        console.log(socket.rooms);
+        console.log(reason);
+        // Set { ... }
+      });
+    });
+
+    socket.on('disconnecting', (reason) => {
+      console.log(socket.rooms);
+      console.log(reason);
+      // Set { ... }
     });
 
     //console.log('시작');
