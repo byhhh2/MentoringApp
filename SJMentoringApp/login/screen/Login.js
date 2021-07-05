@@ -12,6 +12,10 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import axios from 'axios';
 
+//redux
+import {connect} from 'react-redux';
+import {initId} from '../../redux/action';
+
 // import io from 'socket.io-client';
 
 // const socket = io('http://34.64.111.90:8080/');
@@ -25,7 +29,7 @@ import axios from 'axios';
  * Login Screen by 예리
  * 21.06.09
  */
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -51,6 +55,7 @@ export default class Login extends Component {
           major: major,
           name: name,
         });
+        this.props.dispatchInitUser(student_id);
       })
       .catch((error) => {
         console.log('wrong!');
@@ -193,3 +198,14 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
 });
+
+const mapStateToProps = (state) => ({
+  socket: state.userReducer.socket,
+  user_id: state.userReducer.user_id,
+});
+
+const mapDispatchToProps = {
+  dispatchInitUser: (user_id) => initId(user_id),
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
