@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -8,6 +8,7 @@ import {
   TextInput,
   FlatList,
   ToastAndroid,
+  Pressable,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import axios from 'axios';
@@ -17,12 +18,14 @@ export default class MentoringDiary extends Component {
     super(props);
     this.state = {
       modalVisible: false,
+      setModal: false,
       date: '',
       content: '',
       DATA: [],
     };
     this.handleDate = this.handleDate.bind(this);
     this.saveRecord = this.saveRecord.bind(this);
+    this.renderList = this.renderList.bind(this);
   }
   componentDidMount() {
     this.getRecord();
@@ -63,7 +66,7 @@ export default class MentoringDiary extends Component {
     this.setState({DATA: []});
     axios
       .get(
-        `http://34.64.111.90:8080/api/v1/mentoring/${this.props.route.params.id}record/`,
+        `http://34.64.111.90:8080/api/v1/mentoring/${this.props.route.params.id}/record`,
         {
           headers: {
             Authorization: axios.defaults.headers.common['Authorization'],
@@ -86,7 +89,33 @@ export default class MentoringDiary extends Component {
     };
     this.setState({DATA: this.state.DATA.concat(data)});
   }
-
+  renderList = ({item}) => {
+    return (
+      <Pressable
+        delayLongPress={500}
+        onLongPress={() => {
+          this.setState({setModal: true});
+        }}
+        style={({pressed}) => [
+          {
+            backgroundColor: pressed ? 'rgba(0,0,0,0.1)' : 'white',
+            marginBottom: '3%',
+          },
+        ]}>
+        <View style={{width: '80%'}}>
+          <Text style={{fontWeight: 'bold', fontSize: 17}}>
+            💡{' '}
+            {item.item.date.length > 11
+              ? item.item.date.slice(0, 10)
+              : item.item.date}
+          </Text>
+          <Text style={{paddingLeft: '5%', fontSize: 17, marginBottom: '2%'}}>
+            {item.item.content}
+          </Text>
+        </View>
+      </Pressable>
+    );
+  };
   render() {
     return (
       <View style={styles.container}>
@@ -131,11 +160,58 @@ export default class MentoringDiary extends Component {
           <FlatList
             data={this.state.DATA}
             renderItem={(item) => {
-              return renderList({item});
+              return this.renderList({item});
             }}
             keyExtractor={(item) => item.id}
           />
         </View>
+        {this.state.setModal ? (
+          <Modal
+            animationType="fade"
+            transparent={true}
+            visible={this.state.setModal}
+            onRequestClose={() => {
+              this.setState({
+                setModal: !this.state.setModal,
+              });
+            }}>
+            <View style={styles.modalBack}>
+              <View
+                style={[
+                  styles.modalCenter,
+                  {
+                    justifyContent: 'space-around',
+                    height: '20%',
+                    paddingTop: 0,
+                  },
+                ]}>
+                <TouchableOpacity
+                  style={{
+                    height: '50%',
+                    marginBottom: '5%',
+                    backgroundColor: '#AFDCBD',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: 30,
+                  }}>
+                  <Text style={{fontSize: 20}}>수정하기</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    height: '50%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: 30,
+                    backgroundColor: '#AFDCBD',
+                  }}>
+                  <Text style={{fontSize: 20}}>삭제하기</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
+        ) : (
+          <></>
+        )}
         {this.state.modalVisible ? (
           <Modal
             animationType="fade"
@@ -225,19 +301,6 @@ export default class MentoringDiary extends Component {
   }
 }
 
-const renderList = ({item}) => {
-  return (
-    <View>
-      <Text style={{fontWeight: 'bold', fontSize: 17}}>
-        💡 {item.item.date}
-      </Text>
-      <Text style={{paddingLeft: '5%', fontSize: 17, marginBottom: '2%'}}>
-        {item.item.content}
-      </Text>
-    </View>
-  );
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -280,6 +343,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 30,
     paddingLeft: '5%',
+    paddingRight: '5%',
   },
   Btn: {
     marginTop: '7%',
