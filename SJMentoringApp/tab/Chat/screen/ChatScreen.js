@@ -66,6 +66,11 @@ class ChatList extends PureComponent {
     return (
       <TouchableOpacity
         onPress={() => {
+          this.props.socket.emit('joinRoom', {
+            user1: this.props.item.item.user1,
+            user2: this.props.item.item.user2,
+            post: this.props.item.item.post_id,
+          });
           this.props.navi.navigate('채팅방', {
             lecture: this.props.item.item.subject,
             name: this.props.item.item.room_name,
