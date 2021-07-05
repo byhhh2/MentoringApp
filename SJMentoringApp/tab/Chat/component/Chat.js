@@ -29,6 +29,7 @@ import SpeechBubble from './SpeechBubble';
 */
 
 var cnt;
+//var socket_;
 
 class Chat extends Component {
   constructor(props) {
@@ -55,6 +56,8 @@ class Chat extends Component {
     };
     this.loadMsg();
     //console.log(this.props);
+    //socket_ = this.props.socket;
+    //this.onMsg();
   }
 
   loadMsg = () => {
@@ -105,6 +108,24 @@ class Chat extends Component {
     }
   };
 
+  onMsg = () => {
+    //메시지 받는거
+    this.props.socket.on('receiveMsg', (sender, msg, time) => {
+      cnt++;
+      this.state.msgs.push({
+        id: cnt,
+        sender: sender,
+        content: msg,
+        time: time,
+        is_checked: 0,
+      });
+      this.setState({
+        refresh: !this.state.refresh,
+        msg: '',
+      });
+    });
+  };
+
   _onPressFunc(matched) {
     if (!matched) {
       this.props.navigation.navigate('멘토링 신청서', {
@@ -114,6 +135,20 @@ class Chat extends Component {
   }
 
   render() {
+    this.props.socket.on('receiveMsg', (sender, msg, time) => {
+      cnt++;
+      this.state.msgs.push({
+        id: cnt,
+        sender: sender,
+        content: msg,
+        time: time,
+        is_checked: 0,
+      });
+      this.setState({
+        refresh: !this.state.refresh,
+        msg: '',
+      });
+    });
     //console.log(this.props.route.params.socket);
     //console.log(this.props.socket.id);
     //console.log(this.props.route.params.mine, this.props.route.params.you);
