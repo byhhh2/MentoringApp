@@ -29,7 +29,8 @@ import SpeechBubble from './SpeechBubble';
 */
 
 var cnt;
-// var socket_;
+// var socket_ = io('http://34.64.111.90:8080/');
+var flag = 0;
 
 // socket_.on('receiveMsg', (sender, msg, time) => {
 //   cnt++;
@@ -52,43 +53,45 @@ class Chat extends Component {
     super(props);
     this.state = {
       msg: '',
-      msgs: [
-        // {
-        //   id: 55,
-        //   sender: 18011564,
-        //   content: '안녕!',
-        //   time: '',
-        //   is_checked: 0,
-        // },
-        // {
-        //   id: 56,
-        //   sender: 18011531,
-        //   content: '안녕하세요',
-        //   time: '',
-        //   is_checked: 0,
-        // },
-      ],
+      msgs: [],
       refresh: false,
+      page: 1,
+      prevMsg: '',
     };
     this.loadMsg();
-    //console.log(this.props);
-    //socket_ = this.props.socket;
-    //this.onMsg();
-    //setInterval(() => this.onMsg(), 1000);
+    setInterval(() => this.onMsg(), 3000);
   }
 
   componentDidMount() {
-    setInterval(() => {
-      this.onMsg();
-      //console.log('ㅎㅇㅎㅇ');
-    }, 1000);
+    // const interval = setInterval(() => {
+    //   this.onMsg();
+    //   //console.log('ㅎㅇㅎㅇ');
+    // }, 5000);
+    //
+    //this.onMsg();
+    // this.props.socket.on('receiveMsg', ({sender, msg, time}) => {
+    //   console.log(msg, sender, time);
+    //   cnt++;
+    //   this.state.msgs.push({
+    //     id: cnt,
+    //     sender: sender,
+    //     content: msg,
+    //     time: time,
+    //     is_checked: 0,
+    //   });
+    //   this.setState({
+    //     refresh: !this.state.refresh,
+    //     msg: '',
+    //   });
+    //   console.log('실행됨');
+    // });
   }
 
   loadMsg = () => {
-    let page = 1;
+    let page_test = 1;
     axios
       .get(
-        `http://34.64.111.90:8080/api/v1/chat/${this.props.route.params.post_id}/${this.props.route.params.you}?page=${page}`,
+        `http://34.64.111.90:8080/api/v1/chat/${this.props.route.params.post_id}/${this.props.route.params.you}?page=${this.state.page}`,
         {
           headers: {
             Authorization: axios.defaults.headers.common['Authorization'],
@@ -97,9 +100,8 @@ class Chat extends Component {
       )
       .then((response) => {
         this.setState({msgs: this.state.msgs.concat(response.data.data)});
-        //console.log(this.state.msgs);
         cnt = this.state.msgs.length;
-        page++;
+        this.setState({page: this.state.page + 1});
       })
       .catch((error) => {
         console.log(error);
@@ -108,7 +110,6 @@ class Chat extends Component {
 
   sentMsg = () => {
     cnt++;
-    //console.log('버튼 클릭');
     if (this.state.msg != '') {
       this.props.socket.emit('chatMessage', {
         msg: this.state.msg,
@@ -118,12 +119,10 @@ class Chat extends Component {
       });
       this.state.msgs.push({
         id: cnt,
-        //who: 'sender',
         sender: this.props.route.params.mine,
         content: this.state.msg,
         time: new Date().toString(),
         is_checked: 0,
-        //text: this.state.msg,
       });
       this.setState({
         refresh: !this.state.refresh,
@@ -133,22 +132,28 @@ class Chat extends Component {
   };
 
   onMsg = () => {
+    //1 //6
     //메시지 받는거
-    this.props.socket.on('receiveMsg', (sender, msg, time) => {
-      cnt++;
-      this.state.msgs.push({
-        id: cnt,
-        sender: sender,
-        content: msg,
-        time: time,
-        is_checked: 0,
-      });
-      this.setState({
-        refresh: !this.state.refresh,
-        msg: '',
-      });
-      console.log('실행됨');
+
+    this.props.socket.on('receiveMsg', ({sender, msg, time}) => {
+      if (msg != this.state.prevMsg) {
+        this.setState({prevMsg: msg});
+        //console.log('고침', msg, sender, time);
+        cnt++;
+        this.state.msgs.push({
+          id: cnt,
+          sender: sender,
+          content: msg,
+          time: time,
+          is_checked: 0,
+        });
+        this.setState({
+          refresh: !this.state.refresh,
+          msg: '',
+        });
+      }
     });
+    return;
   };
 
   _onPressFunc(matched) {
@@ -217,13 +222,12 @@ class Chat extends Component {
                 onPress={() => {
                   this._onPressFunc(this.props.route.params.matched);
                 }}>
-                {this.props.user_id === this.props.route.params.mine &&
-                !this.props.route.params.matched ? (
+                {this.props.user_id === this.props.route.params.mine ? (
                   <Text style={{fontWeight: 'bold'}}>
                     멘토링 신청서 작성하기
                   </Text>
                 ) : (
-                  <Text style={{fontWeight: 'bold'}}>프로필 보러가기</Text>
+                  <Text style={{fontWeight: 'bold'}}>멘토 프로필 보러가기</Text>
                 )}
               </TouchableOpacity>
             </View>
@@ -251,6 +255,7 @@ class Chat extends Component {
             }}
             keyExtractor={(item) => item.id}
             extraData={this.state.refresh}
+            onEndReached={this.loadMsg}
           />
         </View>
         <View style={styles.textBox}>
@@ -273,24 +278,6 @@ class Chat extends Component {
     );
   }
 }
-
-const speechBubble = () => {
-  return (
-    <View style={styles.speech_bubble}>
-      <Text>안녕</Text>
-    </View>
-  );
-};
-
-// class speechBubble extends Component {
-//   render() {
-//     return (
-//       <View style={styles.speech_bubble}>
-//         <Text>안녕</Text>
-//       </View>
-//     );
-//   }
-// }
 
 const styles = StyleSheet.create({
   container: {
@@ -324,13 +311,9 @@ const styles = StyleSheet.create({
   },
   chatView: {
     flex: 1,
-    //display: 'flex',
-    //justifyContent: 'center',
-    //alignItems: 'flex-end',
     padding: 10,
   },
   textBox: {
-    //borderWidth: 1,
     height: 80,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -371,14 +354,6 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
 });
-
-// const mapStateToProps = (state) => {
-//   socket_ = state.userReducer.socket;
-//   return {
-//     socket: state.userReducer.socket,
-//     user_id: state.userReducer.user_id,
-//   };
-// };
 
 const mapStateToProps = (state) => ({
   socket: state.userReducer.socket,

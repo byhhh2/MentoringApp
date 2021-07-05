@@ -12,22 +12,24 @@ class ChatScreen extends PureComponent {
     super(props);
     this.state = {
       data: [],
+      page: 1,
     };
     this.loadMsgList();
     //console.log(this.props.socket); //내학번
   }
 
   loadMsgList = () => {
-    let page = 1;
+    //let page = 1;
     axios
-      .get(`http://34.64.111.90:8080/api/v1/chat?page=${page}`, {
+      .get(`http://34.64.111.90:8080/api/v1/chat?page=${this.state.page}`, {
         headers: {
           Authorization: axios.defaults.headers.common['Authorization'],
         },
       })
       .then((response) => {
         this.setState({data: response.data.data});
-        page++;
+        this.setState({page: this.state.page + 1});
+        //page++;
       })
       .catch((error) => {
         console.log(error.response);
@@ -48,6 +50,7 @@ class ChatScreen extends PureComponent {
             );
           }}
           keyExtractor={(item) => item.room_id}
+          onEndReached={this.loadMsgList}
         />
       </View>
     );
@@ -109,8 +112,10 @@ class ChatList extends PureComponent {
           </View>
           <View style={styles.timeView}>
             <Text>
+
               {/*this.props.item.item.time.substring(5, 10)}{' '}
               {this.props.item.item.time.substring(11, 16)*/}
+
             </Text>
           </View>
         </View>
