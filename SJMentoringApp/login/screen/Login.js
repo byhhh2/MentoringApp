@@ -10,6 +10,15 @@ import {
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import axios from 'axios';
 
+// import io from 'socket.io-client';
+
+// const socket = io('http://34.64.111.90:8080/');
+// socket.on('connect', () => {
+//   console.log(socket.id);
+//   console.log('connection');
+//   //socket.emit('joinRoom', yh);
+// });
+
 /**
  * Login Screen by 예리
  * 21.06.09

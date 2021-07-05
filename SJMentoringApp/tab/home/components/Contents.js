@@ -6,8 +6,12 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 //axios
 import axios from 'axios';
 
+//redux
+import {connect} from 'react-redux';
+
 const Contents = (props) => {
   const [deleted, setDeleted] = useState(false);
+
   const deletePost = () => {
     axios
       .delete(
@@ -30,6 +34,24 @@ const Contents = (props) => {
         console.log(error);
       });
   };
+
+  const createRoom = () => {
+    const you = props.route.params.user_info.student_id;
+    const mine = props.route.params.user_id;
+    //console.log(mine, you);
+    props.socket.emit('joinRoom', {
+      user1: mine,
+      user2: you,
+      post: props.route.params.user_info.id,
+    });
+
+    // props.socket.on('roomId', (room) => {
+    //   //console.log('room_id?', room);
+    //   setRoomId(room);
+    //   console.log(roomId);
+    // });
+  };
+
   return (
     <View style={styles.container}>
       {deleted ? (
@@ -162,6 +184,30 @@ const Contents = (props) => {
           {props.route.params.user_info.content}
         </Text>
       </View>
+      <View>
+        {props.route.params.user_id !=
+        props.route.params.user_info.student_id ? (
+          <TouchableOpacity
+            style={styles.chatButton}
+            onPress={() => {
+              createRoom();
+              props.navigation.navigate('채팅방', {
+                lecture: props.route.params.user_info.subject,
+                name: props.route.params.user_info.name,
+                role: props.route.params.user_info.role == 1 ? '멘토' : '멘티',
+                text: props.route.params.user_info.content,
+                matched: '모집중',
+                mine: props.route.params.user_id, //로그인 한 사람 id
+                you: props.route.params.user_info.student_id,
+                post_id: props.route.params.user_info.id,
+              });
+            }}>
+            <Text style={{fontWeight: 'bold'}}>채팅하기</Text>
+          </TouchableOpacity>
+        ) : (
+          <></>
+        )}
+      </View>
     </View>
   );
 };
@@ -270,6 +316,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  chatButton: {
+    width: '90%',
+    height: 35,
+    //borderWidth: 1,
+    margin: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    backgroundColor: '#AFDCBD',
+  },
 });
 
-export default Contents;
+const mapStateToProps = (state) => ({
+  socket: state.userReducer.socket,
+});
+
+export default connect(mapStateToProps, null)(Contents);
+
+//export default Contents;

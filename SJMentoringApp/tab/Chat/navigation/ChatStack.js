@@ -6,6 +6,7 @@ import ChatScreen from '../screen/ChatScreen';
 
 //Component
 import Chat from '../component/Chat';
+import ChatTest from '../component/ChatTest';
 
 const Stack = createStackNavigator();
 
@@ -13,7 +14,19 @@ const ChatStack = (props) => {
   //console.log(props);
 
   return (
-    <Stack.Navigator initialRouteName="ChatScreen">
+    <Stack.Navigator initialRouteName="채팅">
+      {/* ChatScreen */}
+      <Stack.Screen
+        name="ChatTest"
+        component={ChatTest}
+        options={{
+          headerLeft: null,
+          headerStyle: {
+            backgroundColor: '#AFDCBD',
+          },
+        }}
+      />
+
       <Stack.Screen
         name="채팅"
         //component={ChatScreen}
