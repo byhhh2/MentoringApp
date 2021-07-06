@@ -3,7 +3,7 @@ import {CONNECT_SOCKET, INIT_ID} from './action';
 import io from 'socket.io-client';
 
 const initialSocket = {
-  socket: io('http://34.64.111.90:8080/'),
+  socket: io('http://34.133.177.64:8080/'),
   user_id: '',
 };
 

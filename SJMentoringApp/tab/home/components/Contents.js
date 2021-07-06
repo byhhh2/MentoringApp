@@ -206,6 +206,7 @@ const Contents = (props) => {
                 you: props.route.params.user_info.student_id, //글을 쓴 사람 학번
                 post_id: props.route.params.user_info.id,
                 info: props.route.params.user_info,
+                post_student_id: props.route.params.user_info.student_id,
               });
             }}>
             <Text style={{fontWeight: 'bold'}}>채팅하기</Text>
