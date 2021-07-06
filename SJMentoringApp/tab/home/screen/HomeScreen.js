@@ -45,7 +45,7 @@ export default class HomeScreen extends Component {
     this.setState({DATA: []});
     let page = 1;
     axios
-      .get(`http://34.64.111.90:8080/api/v1/post/${role}/list?page=${page}`, {
+      .get(`${axios.defaults.baseURL}/post/${role}/list?page=${page}`, {
         headers: {
           Authorization: axios.defaults.headers.common['Authorization'],
         },

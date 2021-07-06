@@ -11,7 +11,7 @@ import {
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import axios from 'axios';
-
+axios.defaults.baseURL = 'http://34.133.177.64:8080/api/v1';
 //redux
 import {connect} from 'react-redux';
 import {initId} from '../../redux/action';
@@ -40,7 +40,7 @@ class Login extends Component {
   }
   signin(id, pwd) {
     axios
-      .post(`http://34.64.111.90:8080/api/v1/signin`, {
+      .post(`${axios.defaults.baseURL}/signin`, {
         student_id: id,
         password: pwd,
       })

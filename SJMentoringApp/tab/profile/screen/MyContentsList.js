@@ -28,7 +28,7 @@ const MyContentsList = (props) => {
   const getProfile = () => {
     axios
       .get(
-        `http://34.64.111.90:8080/api/v1/profile/${props.route.params.student_id}/posts`,
+        `${axios.defaults.baseURL}/profile/${props.route.params.student_id}/posts`,
         {
           headers: {
             Authorization: axios.defaults.headers.common['Authorization'],

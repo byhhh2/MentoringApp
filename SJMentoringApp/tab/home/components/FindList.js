@@ -23,14 +23,11 @@ export default class FindList extends Component {
     let page = 1;
     this.setState({DATA: []});
     axios
-      .get(
-        `http://34.64.111.90:8080/api/v1/search/?search=${search}&page=${page}`,
-        {
-          headers: {
-            Authorization: axios.defaults.headers.common['Authorization'],
-          },
+      .get(`${axios.defaults.baseURL}/search/?search=${search}&page=${page}`, {
+        headers: {
+          Authorization: axios.defaults.headers.common['Authorization'],
         },
-      )
+      })
       .then((response) => {
         this.setState({DATA: this.state.DATA.concat(response.data.data)});
         page++;

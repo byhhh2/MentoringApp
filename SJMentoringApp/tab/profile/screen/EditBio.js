@@ -19,7 +19,7 @@ const EditBio = (props) => {
   const editClick = () => {
     axios
       .put(
-        `http://34.64.111.90:8080/api/v1/profile/${props.student_id}/bio`,
+        `${axios.defaults.baseURL}/profile/${props.student_id}/bio`,
         {
           bio: bio,
         },

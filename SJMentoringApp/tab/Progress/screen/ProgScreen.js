@@ -16,7 +16,7 @@ export default class ProgScreen extends PureComponent {
     let page = 1;
     this.setState({DATA: []});
     axios
-      .get(`http://34.64.111.90:8080/api/v1/mentoring?page=${page}`, {
+      .get(`${axios.defaults.baseURL}/mentoring?page=${page}`, {
         headers: {
           Authorization: axios.defaults.headers.common['Authorization'],
         },
@@ -33,13 +33,20 @@ export default class ProgScreen extends PureComponent {
   render() {
     return (
       <View style={styles.container}>
-        <FlatList
-          data={this.state.DATA}
-          renderItem={(item) => {
-            return renderList({item}, this.props.navigation);
-          }}
-          keyExtractor={(item) => item.id}
-        />
+        {this.state.DATA.length === 0 ? (
+          <View
+            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <Text style={{color: 'gray'}}>진행 중인 멘토링이 없습니다.</Text>
+          </View>
+        ) : (
+          <FlatList
+            data={this.state.DATA}
+            renderItem={(item) => {
+              return renderList({item}, this.props.navigation);
+            }}
+            keyExtractor={(item) => item.id}
+          />
+        )}
       </View>
     );
   }

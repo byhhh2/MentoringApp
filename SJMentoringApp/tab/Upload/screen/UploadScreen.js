@@ -80,7 +80,7 @@ export default class UploadScreen extends PureComponent {
   upload(role, lecture, level, start, end, time, day, text) {
     axios
       .post(
-        `http://34.64.111.90:8080/api/v1/post`,
+        `${axios.defaults.baseURL}/post`,
         {
           role: role,
           subject: lecture,

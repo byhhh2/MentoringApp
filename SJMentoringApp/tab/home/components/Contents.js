@@ -19,7 +19,7 @@ const Contents = (props) => {
   const deletePost = () => {
     axios
       .delete(
-        `http://34.64.111.90:8080/api/v1/post/${props.route.params.user_info.id}`,
+        `${axios.defaults.baseURL}/post/${props.route.params.user_info.id}`,
         {
           headers: {
             Authorization: axios.defaults.headers.common['Authorization'],

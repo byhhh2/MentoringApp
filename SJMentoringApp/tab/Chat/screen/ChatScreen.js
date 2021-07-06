@@ -21,7 +21,7 @@ class ChatScreen extends PureComponent {
   loadMsgList = () => {
     //let page = 1;
     axios
-      .get(`http://34.64.111.90:8080/api/v1/chat?page=${this.state.page}`, {
+      .get(`${axios.defaults.baseURL}/chat?page=${this.state.page}`, {
         headers: {
           Authorization: axios.defaults.headers.common['Authorization'],
         },
@@ -112,10 +112,8 @@ class ChatList extends PureComponent {
           </View>
           <View style={styles.timeView}>
             <Text>
-
               {/*this.props.item.item.time.substring(5, 10)}{' '}
               {this.props.item.item.time.substring(11, 16)*/}
-
             </Text>
           </View>
         </View>

@@ -107,7 +107,7 @@ export default class UploadScreen extends PureComponent {
     }
     axios
       .put(
-        `http://34.64.111.90:8080/api/v1/post/${this.props.route.params.user_info.id}`,
+        `${axios.defaults.baseURL}/post/${this.props.route.params.user_info.id}`,
         {
           role: role,
           subject: lecture,

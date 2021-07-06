@@ -68,7 +68,7 @@ export default class Matching extends Component {
     } else {
       axios
         .post(
-          `http://34.64.111.90:8080/api/v1/mentoring/${this.props.route.params.info.id}`,
+          `${axios.defaults.baseURL}/mentoring/${this.props.route.params.info.id}`,
           {
             mentor: this.props.route.params.info.name,
             mentee: '김멘티',
