@@ -81,6 +81,14 @@ export default class Matching extends Component {
         )
         .then((response) => {
           console.log(response.data);
+          this.props.navigation.navigate('멘토링 일지', {
+            lecture: this.props.route.params.info.lecture,
+            mentor: this.props.route.params.info.name,
+            mentee: '김멘티',
+            start: this.state.start,
+            end: this.state.end,
+            finished: this.props.route.params.matched,
+          });
         })
         .catch((error) => {
           console.log('wrong!');

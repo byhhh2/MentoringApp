@@ -55,7 +55,7 @@ const Contents = (props) => {
     //   console.log(roomId);
     // });
   };
-
+  console.log(props.user_id, props.route.params.user_info.student_id);
   return (
     <View style={styles.container}>
       {deleted ? (
@@ -200,9 +200,10 @@ const Contents = (props) => {
                 name: props.route.params.user_info.name,
                 role: props.route.params.user_info.role == 1 ? '멘토' : '멘티',
                 text: props.route.params.user_info.content,
-                matched: props.route.params.user_info.is_matched,
+                matched:
+                  props.route.params.user_info.is_matched === 0 ? false : true,
                 mine: props.route.params.user_id, //로그인 한 사람 id
-                you: props.route.params.user_info.student_id,
+                you: props.route.params.user_info.student_id, //글을 쓴 사람 학번
                 post_id: props.route.params.user_info.id,
                 info: props.route.params.user_info,
               });

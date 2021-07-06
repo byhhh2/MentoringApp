@@ -7,6 +7,7 @@ import {
   ToastAndroid,
   Image,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
@@ -35,6 +36,7 @@ class Login extends Component {
     this.state = {
       id: '',
       pwd: '',
+      isLoading: false,
     };
     this.signin = this.signin.bind(this);
   }
@@ -67,7 +69,7 @@ class Login extends Component {
           0,
           480,
         );
-        this.setState({id: '', pwd: ''});
+        this.setState({id: '', pwd: '', isLoading: false});
       });
   }
   render() {
@@ -116,15 +118,23 @@ class Login extends Component {
                 }}
               />
             </View>
+            <View style={{height: '15%'}}>
+              {this.state.isLoading ? (
+                <ActivityIndicator size="small" color="#498C5A" />
+              ) : (
+                <></>
+              )}
+            </View>
             <TouchableOpacity
               style={
                 this.state.id && this.state.pwd
                   ? styles.loginBtn
-                  : styles.loginBtnDisabled
+                  : [styles.loginBtn, styles.loginBtnDisabled]
               }
               disabled={this.state.id && this.state.pwd ? false : true}
               onPress={() => {
                 this.signin(this.state.id, this.state.pwd);
+                this.setState({isLoading: true});
                 //this.props.navigation.navigate('Home');
               }}>
               <Text style={{fontSize: 16}}>로그인</Text>
@@ -164,7 +174,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     //marginTop: '3%',
     display: 'flex',
-    justifyContent: 'space-around',
+    //justifyContent: 'space-around',
     alignItems: 'center',
   },
   inputView: {
@@ -172,6 +182,7 @@ const styles = StyleSheet.create({
     height: '50%',
     display: 'flex',
     justifyContent: 'space-around',
+    marginTop: '5%',
   },
   textInput: {
     paddingLeft: '3%',
@@ -189,13 +200,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   loginBtnDisabled: {
-    width: '80%',
-    height: '13%',
     backgroundColor: 'lightgray',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 30,
   },
 });
 

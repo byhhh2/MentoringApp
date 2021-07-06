@@ -30,17 +30,17 @@ export default class HomeScreen extends Component {
       findValue: '',
     };
   }
-  /*componentDidMount() {
+  componentDidMount() {
     this._rerender = this.props.navigation.addListener('focus', () => {
       this.getPost('popular');
     });
   }
-  componentWillUnmount() {
+  /*componentWillUnmount() {
     this._rerender();
-  }*/
+  }
   componentDidMount() {
     this.getPost('popular');
-  }
+  }*/
   getPost(role) {
     this.setState({DATA: []});
     let page = 1;
