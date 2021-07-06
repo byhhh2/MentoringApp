@@ -156,14 +156,6 @@ class Chat extends Component {
     return;
   };
 
-  _onPressFunc(matched) {
-    if (!matched) {
-      this.props.navigation.navigate('멘토링 신청서', {
-        info: this.props.route.params.info,
-      });
-    }
-  }
-
   render() {
     //console.log(this.props.route.params.socket);
     //console.log(this.props.socket.id);
@@ -217,20 +209,25 @@ class Chat extends Component {
                 justifyContent: 'center',
                 height: '40%',
               }}>
-              <TouchableOpacity
-                style={styles.mentoringBtn}
-                onPress={() => {
-                  this._onPressFunc(this.props.route.params.matched);
-                }}>
-                {this.props.user_id === this.props.route.params.mine &&
-                !this.props.route.params.matched ? (
+              {/*내 게시물이고, 아직 모집중일 때 멘토링 신청서*/}
+              {this.props.user_id === this.props.route.params.you && //this.props.route.params.mine이 아니라 you 아닌가?
+              !this.props.route.params.matched ? (
+                <TouchableOpacity
+                  style={styles.mentoringBtn}
+                  onPress={() => {
+                    this.props.navigation.navigate('멘토링 신청서', {
+                      info: this.props.route.params.info,
+                    });
+                  }}>
                   <Text style={{fontWeight: 'bold'}}>
                     멘토링 신청서 작성하기
                   </Text>
-                ) : (
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity style={styles.mentoringBtn}>
                   <Text style={{fontWeight: 'bold'}}>프로필 보러가기</Text>
-                )}
-              </TouchableOpacity>
+                </TouchableOpacity>
+              )}
             </View>
           </View>
         </View>

@@ -19,12 +19,15 @@ export default class MentoringDiary extends Component {
     this.state = {
       modalVisible: false,
       setModal: false,
+      isUpdate: false,
+      selectedRecord: 0,
       date: '',
       content: '',
       DATA: [],
     };
     this.handleDate = this.handleDate.bind(this);
     this.saveRecord = this.saveRecord.bind(this);
+    this.updateRecord = this.updateRecord.bind(this);
     this.renderList = this.renderList.bind(this);
   }
   componentDidMount() {
@@ -88,12 +91,40 @@ export default class MentoringDiary extends Component {
     };
     this.setState({DATA: this.state.DATA.concat(data)});
   }
+  updateRecord() {
+    axios
+      .put(
+        `${axios.defaults.baseURL}/mentoring/${this.state.selectedRecord}/record`,
+        {
+          date: this.state.date,
+          content: this.state.content,
+        },
+        {
+          headers: {
+            Authorization: axios.defaults.headers.common['Authorization'],
+          },
+        },
+      )
+      .then((response) => {
+        console.log(response.data);
+        if (
+          response.data.message ===
+          `Record ID: '${this.state.selectedRecord}' has been updated successfully.`
+        ) {
+          this.getRecord();
+        }
+      })
+      .catch((error) => {
+        console.log('wrong!');
+        console.log(error.response);
+      });
+  }
   renderList = ({item}) => {
     return (
       <Pressable
         delayLongPress={500}
         onLongPress={() => {
-          this.setState({setModal: true});
+          this.setState({setModal: true, selectedRecord: item.item.id});
         }}
         style={({pressed}) => [
           {
@@ -142,9 +173,14 @@ export default class MentoringDiary extends Component {
             style={{
               height: '10%',
               width: '98%',
-              alignItems: 'flex-end',
-              justifyContent: 'center',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexDirection: 'row',
             }}>
+            <Text style={{paddingLeft: '5%', color: 'gray', fontSize: 13}}>
+              멘토링 기록을 꾹 눌러서 수정, 삭제해보세요! :-)
+            </Text>
+
             <TouchableOpacity
               onPress={() => {
                 this.setState({modalVisible: true});
@@ -179,31 +215,41 @@ export default class MentoringDiary extends Component {
                 style={[
                   styles.modalCenter,
                   {
-                    justifyContent: 'space-around',
+                    justifyContent: 'center',
                     height: '20%',
                     paddingTop: 0,
                   },
                 ]}>
                 <TouchableOpacity
                   style={{
-                    height: '50%',
+                    height: '20%',
                     marginBottom: '5%',
-                    backgroundColor: '#AFDCBD',
                     alignItems: 'center',
                     justifyContent: 'center',
                     borderRadius: 30,
+                  }}
+                  onPress={() => {
+                    this.setState({
+                      setModal: false,
+                      modalVisible: true,
+                      isUpdate: true,
+                    });
                   }}>
                   <Text style={{fontSize: 20}}>수정하기</Text>
                 </TouchableOpacity>
+                <View style={{height: '2%', backgroundColor: '#AFDCBD'}}></View>
                 <TouchableOpacity
                   style={{
-                    height: '50%',
+                    height: '20%',
+                    marginTop: '5%',
                     alignItems: 'center',
                     justifyContent: 'center',
                     borderRadius: 30,
-                    backgroundColor: '#AFDCBD',
+                  }}
+                  onPress={() => {
+                    this.setState({setModal: false});
                   }}>
-                  <Text style={{fontSize: 20}}>삭제하기</Text>
+                  <Text style={{fontSize: 20, color: 'red'}}>삭제하기</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -263,7 +309,7 @@ export default class MentoringDiary extends Component {
                   <TouchableOpacity
                     style={[styles.Btn, styles.LeftBtn]}
                     onPress={() => {
-                      this.setState({modalVisible: false});
+                      this.setState({modalVisible: false, isUpdate: false});
                     }}>
                     <Text>취소</Text>
                   </TouchableOpacity>
@@ -271,8 +317,12 @@ export default class MentoringDiary extends Component {
                     style={[styles.Btn, styles.RightBtn]}
                     onPress={() => {
                       if (this.state.content && this.state.date) {
-                        this.postRecord();
-                        this.saveRecord();
+                        if (!this.state.isUpdate) {
+                          this.postRecord();
+                          this.saveRecord();
+                        } else {
+                          this.updateRecord();
+                        }
                         this.setState({
                           modalVisible: false,
                           date: '',
