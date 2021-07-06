@@ -75,6 +75,7 @@ class ChatList extends PureComponent {
     //console.log(this.props);
   }
   render() {
+    //console.log('채팅 리스트 ', this.props.item.item);
     return (
       <TouchableOpacity
         onPress={() => {
@@ -85,7 +86,7 @@ class ChatList extends PureComponent {
           });
           this.props.navi.navigate('채팅방', {
             lecture: this.props.item.item.subject,
-            name: this.props.item.item.room_name,
+            name: this.props.item.item.post_name,
             role: this.props.item.item.role,
             text: this.props.item.item.content,
             matched: this.props.item.item.is_matched == 0 ? false : true,
@@ -96,6 +97,7 @@ class ChatList extends PureComponent {
                 : this.props.item.item.user2,
             post_id: this.props.item.item.post_id,
             info: this.props.item.item,
+            post_student_id: this.props.item.item.post_student_id,
           });
         }}>
         <View style={styles.list}>

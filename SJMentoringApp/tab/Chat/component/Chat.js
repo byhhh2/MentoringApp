@@ -29,24 +29,7 @@ import SpeechBubble from './SpeechBubble';
 */
 
 var cnt;
-// var socket_ = io('http://34.64.111.90:8080/');
 var flag = 0;
-
-// socket_.on('receiveMsg', (sender, msg, time) => {
-//   cnt++;
-//   this.state.msgs.push({
-//     id: cnt,
-//     sender: sender,
-//     content: msg,
-//     time: time,
-//     is_checked: 0,
-//   });
-//   this.setState({
-//     refresh: !this.state.refresh,
-//     msg: '',
-//   });
-//   console.log('tlqkf');
-// });
 
 class Chat extends Component {
   constructor(props) {
@@ -62,30 +45,7 @@ class Chat extends Component {
     setInterval(() => this.onMsg(), 3000);
   }
 
-  componentDidMount() {
-    // const interval = setInterval(() => {
-    //   this.onMsg();
-    //   //console.log('ㅎㅇㅎㅇ');
-    // }, 5000);
-    //
-    //this.onMsg();
-    // this.props.socket.on('receiveMsg', ({sender, msg, time}) => {
-    //   console.log(msg, sender, time);
-    //   cnt++;
-    //   this.state.msgs.push({
-    //     id: cnt,
-    //     sender: sender,
-    //     content: msg,
-    //     time: time,
-    //     is_checked: 0,
-    //   });
-    //   this.setState({
-    //     refresh: !this.state.refresh,
-    //     msg: '',
-    //   });
-    //   console.log('실행됨');
-    // });
-  }
+  componentDidMount() {}
 
   loadMsg = () => {
     let page_test = 1;
@@ -132,13 +92,9 @@ class Chat extends Component {
   };
 
   onMsg = () => {
-    //1 //6
-    //메시지 받는거
-
     this.props.socket.on('receiveMsg', ({sender, msg, time}) => {
       if (msg != this.state.prevMsg) {
         this.setState({prevMsg: msg});
-        //console.log('고침', msg, sender, time);
         cnt++;
         this.state.msgs.push({
           id: cnt,
@@ -161,6 +117,7 @@ class Chat extends Component {
     //console.log(this.props.socket.id);
     //console.log(this.props.route.params.mine, this.props.route.params.you);
     //console.log(this.props.route.params.info);
+    //console.log(this.props.user_id, this.props.route.params.post_student_id);
     return (
       <View style={styles.container}>
         <View style={styles.infoBox}>
@@ -210,7 +167,7 @@ class Chat extends Component {
                 height: '40%',
               }}>
               {/*내 게시물이고, 아직 모집중일 때 멘토링 신청서*/}
-              {this.props.user_id === this.props.route.params.you && //this.props.route.params.mine이 아니라 you 아닌가?
+              {this.props.user_id === this.props.route.params.post_student_id && //this.props.route.params.mine이 아니라 you 아닌가?
               !this.props.route.params.matched ? (
                 <TouchableOpacity
                   style={styles.mentoringBtn}
