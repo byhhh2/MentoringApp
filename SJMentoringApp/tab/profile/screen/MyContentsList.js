@@ -59,11 +59,11 @@ const MyContentsList = (props) => {
               <View style={styles.content_container}>
                 <Text style={styles.bold_font}>
                   <Text style={{color: '#498C5A'}}> {'📄 '} </Text>
-                  {item.subject} {item.role == 1 ? '멘토' : '멘티'}
+                  {item.subject} {item.role == 1 ? '- 멘토' : '- 멘티'}
                 </Text>
                 <Text>
-                  {item.start_date.replace('T15:00:00.000Z', '')} ~{' '}
-                  {item.end_date.replace('T15:00:00.000Z', '')}
+                  {item.start_date.substring(2, 10)} ~{' '}
+                  {item.end_date.substring(2, 10)}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -85,8 +85,9 @@ const styles = StyleSheet.create({
     padding: '5%',
     borderBottomWidth: 1,
     borderBottomColor: '#AFDCBD',
-    height: 70,
+    height: 80,
     justifyContent: 'center',
+    //alignItems: 'center',
   },
   bold_font: {
     fontWeight: 'bold',

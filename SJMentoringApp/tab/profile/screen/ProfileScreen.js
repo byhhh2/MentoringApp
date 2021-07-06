@@ -68,7 +68,9 @@ const ProfileScreen = (props) => {
       {/* User's Profile */}
       <View style={styles.profile}>
         <View style={styles.direction_row}>
-          <Text style={{fontWeight: 'bold', fontSize: 20}}>{name}</Text>
+          <Text style={{fontWeight: 'bold', fontSize: 20}}>
+            {props.user_name}
+          </Text>
           <Text style={{margin: 10}}>{gender}</Text>
         </View>
 
@@ -93,7 +95,7 @@ const ProfileScreen = (props) => {
         {/* review */}
         <View style={styles.list}>
           <Text style={{fontWeight: 'bold', fontSize: 15, color: '#498C5A'}}>
-            {name}님의 한줄평
+            {props.user_name}님의 한줄평
           </Text>
           <Review text="친절하고, 설명을 잘해주세요." />
           <Review text="시간 약속을 잘 지켜요." />
@@ -213,6 +215,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
   socket: state.userReducer.socket,
+  user_id: state.userReducer.user_id,
+  user_name: state.userReducer.user_name,
 });
 
 export default connect(mapStateToProps)(ProfileScreen);
