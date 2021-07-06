@@ -174,6 +174,8 @@ class Chat extends Component {
                   onPress={() => {
                     this.props.navigation.navigate('멘토링 신청서', {
                       info: this.props.route.params.info,
+                      mentor_name: this.props.route.params.mentor_name,
+                      mentee_name: this.props.route.params.mentee_name,
                     });
                   }}>
                   <Text style={{fontWeight: 'bold'}}>

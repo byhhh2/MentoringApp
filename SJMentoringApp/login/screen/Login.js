@@ -15,7 +15,7 @@ import axios from 'axios';
 axios.defaults.baseURL = 'http://34.133.177.64:8080/api/v1';
 //redux
 import {connect} from 'react-redux';
-import {initId} from '../../redux/action';
+import {initId, initName} from '../../redux/action';
 
 // import io from 'socket.io-client';
 
@@ -58,6 +58,7 @@ class Login extends Component {
           name: name,
         });
         this.props.dispatchInitUser(student_id);
+        this.props.dispatchInitUserName(name);
       })
       .catch((error) => {
         console.log('wrong!');
@@ -207,10 +208,12 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => ({
   socket: state.userReducer.socket,
   user_id: state.userReducer.user_id,
+  user_name: state.userReducer.user_name,
 });
 
 const mapDispatchToProps = {
   dispatchInitUser: (user_id) => initId(user_id),
+  dispatchInitUserName: (user_name) => initName(user_name),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
