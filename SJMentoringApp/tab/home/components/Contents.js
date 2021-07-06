@@ -11,7 +11,8 @@ import {connect} from 'react-redux';
 
 const Contents = (props) => {
   // useEffect(() => {
-  //   console.log(props.route.params.user_info);
+  //   //console.log(props.route.params.user_info);
+  //   console.log(props.user_name);
   // }, []);
 
   const [deleted, setDeleted] = useState(false);
@@ -55,7 +56,7 @@ const Contents = (props) => {
     //   console.log(roomId);
     // });
   };
-  console.log(props.user_id, props.route.params.user_info.student_id);
+  //console.log(props.user_id, props.route.params.user_info.student_id);
   return (
     <View style={styles.container}>
       {deleted ? (
@@ -207,6 +208,14 @@ const Contents = (props) => {
                 post_id: props.route.params.user_info.id,
                 info: props.route.params.user_info,
                 post_student_id: props.route.params.user_info.student_id,
+                mentor_name:
+                  props.route.params.user_info.role == 1
+                    ? props.route.params.user_info.name
+                    : props.name,
+                mentee_name:
+                  props.route.params.user_info.role == 0
+                    ? props.name
+                    : props.route.params.user_info.name,
               });
             }}>
             <Text style={{fontWeight: 'bold'}}>채팅하기</Text>
@@ -337,6 +346,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
   socket: state.userReducer.socket,
+  user_name: state.userReducer.user_name,
 });
 
 export default connect(mapStateToProps, null)(Contents);

@@ -98,6 +98,20 @@ class ChatList extends PureComponent {
             post_id: this.props.item.item.post_id,
             info: this.props.item.item,
             post_student_id: this.props.item.item.post_student_id,
+            mentor_name:
+              this.props.item.item.role == '멘토'
+                ? this.props.item.item.post_name
+                : this.props.item.item.post_name ==
+                  this.props.item.item.user1_name
+                ? this.props.item.item.user2_name
+                : this.props.item.item.user1_name,
+            mentee_name:
+              this.props.item.item.role == '멘티'
+                ? this.props.item.item.post_name
+                : this.props.item.item.post_name ==
+                  this.props.item.item.user1_name
+                ? this.props.item.item.user2_name
+                : this.props.item.item.user1_name,
           });
         }}>
         <View style={styles.list}>

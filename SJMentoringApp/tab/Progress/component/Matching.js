@@ -70,8 +70,8 @@ export default class Matching extends Component {
         .post(
           `${axios.defaults.baseURL}/mentoring/${this.props.route.params.info.id}`,
           {
-            mentor: this.props.route.params.info.name,
-            mentee: '김멘티',
+            mentor: this.props.route.params.mentor_name,
+            mentee: this.props.route.params.mentee_name,
             subject: this.props.route.params.info.lecture,
             start_date: this.state.start,
             end_date: this.state.end,
@@ -83,8 +83,8 @@ export default class Matching extends Component {
           console.log(response.data);
           this.props.navigation.navigate('멘토링 일지', {
             lecture: this.props.route.params.info.lecture,
-            mentor: this.props.route.params.info.name,
-            mentee: '김멘티',
+            mentor: this.props.route.params.mentor_name,
+            mentee: this.props.route.params.mentee_name,
             start: this.state.start,
             end: this.state.end,
             finished: this.props.route.params.matched,
@@ -107,9 +107,11 @@ export default class Matching extends Component {
           </View>
           <View style={styles.roleView}>
             <Text style={{fontSize: 22}}>
-              멘토 : {this.props.route.params.info.room_name}
+              멘토 : {this.props.route.params.mentor_name}
             </Text>
-            <Text style={{fontSize: 22}}>멘티 : 김예리</Text>
+            <Text style={{fontSize: 22}}>
+              멘티 : {this.props.route.params.mentee_name}
+            </Text>
           </View>
           <View style={styles.infoView}>
             <Text
