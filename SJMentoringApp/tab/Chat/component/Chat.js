@@ -183,7 +183,13 @@ class Chat extends Component {
                   </Text>
                 </TouchableOpacity>
               ) : (
-                <TouchableOpacity style={styles.mentoringBtn}>
+                <TouchableOpacity
+                  style={styles.mentoringBtn}
+                  onPress={() => {
+                    this.props.navigation.navigate('상대 프로필', {
+                      other_student_id: this.props.route.params.post_student_id,
+                    });
+                  }}>
                   <Text style={{fontWeight: 'bold'}}>프로필 보러가기</Text>
                 </TouchableOpacity>
               )}
@@ -302,7 +308,7 @@ const styles = StyleSheet.create({
   speech_bubble_you: {
     width: 'auto',
     height: 40,
-    backgroundColor: '#AFDCBD',
+    backgroundColor: '#F0F2AE',
     padding: 5,
     justifyContent: 'center',
     alignItems: 'center',

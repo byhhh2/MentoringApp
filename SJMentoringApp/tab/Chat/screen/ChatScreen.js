@@ -116,7 +116,7 @@ class ChatList extends PureComponent {
         }}>
         <View style={styles.list}>
           <View style={styles.matchedView}>
-            <Text style={{fontSize: 12, fontWeight: 'bold'}}>
+            <Text style={{fontSize: 14, fontWeight: 'bold', color: '#498C5A'}}>
               {this.props.item.item.is_matched == 1 ? '매칭 완료' : '모집중'}
             </Text>
           </View>
@@ -127,10 +127,7 @@ class ChatList extends PureComponent {
             <Text>{this.props.item.item.msg}</Text>
           </View>
           <View style={styles.timeView}>
-            <Text>
-              {/*this.props.item.item.time.substring(5, 10)}{' '}
-              {this.props.item.item.time.substring(11, 16)*/}
-            </Text>
+            <Text>{this.props.item.item.time.substring(11, 16)}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -155,18 +152,21 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   matchedView: {
-    width: '15%',
-    height: '80%',
+    width: '18%',
+    height: '85%',
     marginRight: '2%',
-    borderRadius: 100,
+    //borderRadius: 100,
     borderColor: '#AFDCBD',
-    borderWidth: 2,
+    //borderWidth: 2,
+    //backgroundColor: '#AFDCBD',
+    borderRightWidth: 3,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    marginRight: 20,
   },
   contentView: {
-    width: '63%',
+    width: '60%',
     marginRight: '1%',
   },
   timeView: {
@@ -176,6 +176,7 @@ const styles = StyleSheet.create({
   nameText: {
     fontWeight: 'bold',
     fontSize: 18,
+    marginBottom: 5,
   },
 });
 

@@ -8,6 +8,7 @@ import FindList from '../components/FindList';
 import UpdatePost from '../components/UpdatePost';
 
 import Chat from '../../Chat/component/Chat';
+import OtherProfileScreen from '../../profile/screen/OtherProfileScreen';
 
 const Stack = createStackNavigator();
 
@@ -77,6 +78,23 @@ const HomeStack = (props) => {
         component={Chat}
         options={{
           //headerLeft: null,
+          headerStyle: {
+            backgroundColor: '#AFDCBD',
+          },
+          headerTitleStyle: {
+            alignSelf: 'center',
+            marginRight: 60,
+            color: 'black',
+          },
+          headerTintColor: '#498C5A',
+        }}
+      />
+      <Stack.Screen
+        name="상대 프로필"
+        component={OtherProfileScreen}
+        options={{
+          //headerLeft: null,
+          title: '',
           headerStyle: {
             backgroundColor: '#AFDCBD',
           },

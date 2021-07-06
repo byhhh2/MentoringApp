@@ -11,6 +11,8 @@ import ChatTest from '../component/ChatTest';
 
 import Matching from '../../Progress/component/Matching';
 
+import OtherProfileScreen from '../../profile/screen/OtherProfileScreen';
+
 const Stack = createStackNavigator();
 
 const ChatStack = (props) => {
@@ -68,6 +70,23 @@ const ChatStack = (props) => {
         component={Matching}
         options={{
           //headerLeft: null,
+          headerStyle: {
+            backgroundColor: '#AFDCBD',
+          },
+          headerTitleStyle: {
+            alignSelf: 'center',
+            marginRight: 60,
+            color: 'black',
+          },
+          headerTintColor: '#498C5A',
+        }}
+      />
+      <Stack.Screen
+        name="상대 프로필"
+        component={OtherProfileScreen}
+        options={{
+          //headerLeft: null,
+          title: '',
           headerStyle: {
             backgroundColor: '#AFDCBD',
           },

@@ -285,10 +285,11 @@ const styles = StyleSheet.create({
     borderColor: '#498C5A',
     borderWidth: 1,
     //backgroundColor: '#F0F2AE',
-    width: '97%',
+    width: '90%',
     height: '30%',
     marginLeft: 5,
     marginRight: 5,
+    alignSelf: 'center',
   },
   modalBack: {
     display: 'flex',
