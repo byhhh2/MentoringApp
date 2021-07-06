@@ -43,7 +43,7 @@ export default class MentoringDiary extends Component {
   postRecord() {
     axios
       .post(
-        `http://34.64.111.90:8080/api/v1/mentoring/${this.props.route.params.id}/record`,
+        `${axios.defaults.baseURL}/mentoring/${this.props.route.params.id}/record`,
         {
           date: this.state.date,
           content: this.state.content,
@@ -65,7 +65,7 @@ export default class MentoringDiary extends Component {
   getRecord() {
     axios
       .get(
-        `http://34.64.111.90:8080/api/v1/mentoring/${this.props.route.params.id}/record`,
+        `${axios.defaults.baseURL}/mentoring/${this.props.route.params.id}/record`,
         {
           headers: {
             Authorization: axios.defaults.headers.common['Authorization'],

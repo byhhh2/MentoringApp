@@ -38,7 +38,7 @@ const ProfileScreen = (props) => {
 
   const getProfile = () => {
     axios
-      .get(`http://34.64.111.90:8080/api/v1/profile/${student_id}`, {
+      .get(`${axios.defaults.baseURL}/profile/${student_id}`, {
         headers: {
           Authorization: axios.defaults.headers.common['Authorization'],
         },

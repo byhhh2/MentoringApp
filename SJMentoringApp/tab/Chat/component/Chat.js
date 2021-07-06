@@ -91,7 +91,7 @@ class Chat extends Component {
     let page_test = 1;
     axios
       .get(
-        `http://34.64.111.90:8080/api/v1/chat/${this.props.route.params.post_id}/${this.props.route.params.you}?page=${this.state.page}`,
+        `${axios.defaults.baseURL}/chat/${this.props.route.params.post_id}/${this.props.route.params.you}?page=${this.state.page}`,
         {
           headers: {
             Authorization: axios.defaults.headers.common['Authorization'],
