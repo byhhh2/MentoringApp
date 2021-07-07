@@ -61,6 +61,7 @@ export default class HomeScreen extends Component {
       });
   }
   render() {
+    //console.log(this.props);
     const filtering = buttons.map((type, i) => (
       <FilterButton
         text={type}

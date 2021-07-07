@@ -6,6 +6,7 @@ import UploadScreen from '../screen/UploadScreen';
 import Contents from '../../home/components/Contents';
 import UpdatePost from '../../home/components/UpdatePost';
 import HomeScreen from '../../home/screen/HomeScreen';
+import HomeStack from '../../home/navigation/HomeStack';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +29,7 @@ const UploadStack = (props) => {
         }}>
         {({navigation}) => (
           <UploadScreen
+            TabNavigation={props.TabNavigation}
             navigation={navigation}
             student_id={props.student_id}
             major={props.major}
@@ -65,21 +67,21 @@ const UploadStack = (props) => {
           },
         }}
       />
-      <Stack.Screen
+      {/*<Stack.Screen
         name="Home"
-        //component={HomeScreen}
         options={{
           headerLeft: null,
           headerShown: false,
         }}>
-        {() => (
+        {({navigation}) => (
           <HomeScreen
+            navigation={navigation}
             student_id={props.student_id}
             major={props.major}
             name={props.name}
           />
         )}
-      </Stack.Screen>
+        </Stack.Screen>*/}
     </Stack.Navigator>
   );
 };

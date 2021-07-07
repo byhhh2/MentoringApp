@@ -28,11 +28,12 @@ const Contents = (props) => {
         },
       )
       .then((response) => {
+        console.log(response.data);
         if (
           response.data.message ===
           `Post ID: '${props.route.params.user_info.id}' has been deleted successfully.`
         ) {
-          props.navigation.navigate('Home');
+          props.navigation.goBack();
         }
       })
       .catch((error) => {

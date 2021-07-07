@@ -130,7 +130,20 @@ export default class UploadScreen extends PureComponent {
           response.data.message ===
           `Post ID: '${this.props.route.params.user_info.id}' has been updated successfully.`
         ) {
-          this.props.navigation.navigate('Home');
+          this.props.navigation.navigate('업로드한 게시물', {
+            user_info: {
+              role: role,
+              subject: lecture,
+              level: level,
+              start_date: start,
+              end_date: end,
+              time: time,
+              day: dayArray,
+              content: text,
+              name: this.props.route.params.user_info.name,
+              id: this.props.route.params.user_info.id,
+            },
+          });
         }
       })
       .catch((error) => {
@@ -139,7 +152,7 @@ export default class UploadScreen extends PureComponent {
       });
   }
   render() {
-    //console.log(this.props.route.params);
+    //console.log(this.props);
     return (
       <KeyboardAwareScrollView contentContainerStyle={styles.container}>
         <View style={styles.settingView}>
