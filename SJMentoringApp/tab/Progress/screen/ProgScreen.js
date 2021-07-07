@@ -36,7 +36,9 @@ export default class ProgScreen extends PureComponent {
         {this.state.DATA.length === 0 ? (
           <View
             style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <Text style={{color: 'gray'}}>진행 중인 멘토링이 없습니다.</Text>
+            <Text style={[styles.text, {color: 'gray'}]}>
+              진행 중인 멘토링이 없습니다.
+            </Text>
           </View>
         ) : (
           <FlatList
@@ -77,11 +79,15 @@ class ChatList extends PureComponent {
         <View style={styles.list}>
           <View style={styles.contentView}>
             <Text style={styles.nameText}>{this.props.item.item.subject}</Text>
-            <Text>멘토 : {this.props.item.item.mentor}</Text>
-            <Text>멘티 : {this.props.item.item.mentee}</Text>
+            <Text style={styles.text}>
+              🐥 멘토 : {this.props.item.item.mentor}
+            </Text>
+            <Text style={styles.text}>
+              🐣 멘티 : {this.props.item.item.mentee}
+            </Text>
           </View>
           <View style={styles.timeView}>
-            <Text style={{textAlign: 'center', fontSize: 13}}>
+            <Text style={[styles.text, {textAlign: 'center', fontSize: 13}]}>
               {this.props.item.item.end === 1
                 ? '완료'
                 : `${this.props.item.item.start_date.slice(
@@ -97,6 +103,12 @@ class ChatList extends PureComponent {
 }
 
 const styles = StyleSheet.create({
+  text: {
+    fontFamily: 'GmarketSansTTFMedium',
+  },
+  bold: {
+    fontFamily: 'GmarketSansTTFBold',
+  },
   container: {
     flex: 1,
     backgroundColor: 'white',
@@ -119,7 +131,7 @@ const styles = StyleSheet.create({
     width: '21%',
   },
   nameText: {
-    fontWeight: 'bold',
+    fontFamily: 'GmarketSansTTFBold',
     fontSize: 18,
   },
 });

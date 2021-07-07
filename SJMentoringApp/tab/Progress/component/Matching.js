@@ -101,21 +101,20 @@ export default class Matching extends Component {
       <View style={styles.container}>
         <View style={styles.bigView}>
           <View style={styles.lectureView}>
-            <Text style={{fontSize: 27, fontWeight: 'bold'}}>
+            <Text style={[styles.bold, {fontSize: 27}]}>
               📝 {this.props.route.params.info.subject}
             </Text>
           </View>
           <View style={styles.roleView}>
-            <Text style={{fontSize: 22}}>
+            <Text style={[styles.text, {fontSize: 22}]}>
               멘토 : {this.props.route.params.mentor_name}
             </Text>
-            <Text style={{fontSize: 22}}>
+            <Text style={[styles.text, {fontSize: 22}]}>
               멘티 : {this.props.route.params.mentee_name}
             </Text>
           </View>
           <View style={styles.infoView}>
-            <Text
-              style={{fontSize: 16, fontWeight: 'bold', marginBottom: '1%'}}>
+            <Text style={[styles.bold, {fontSize: 16, marginBottom: '1%'}]}>
               요일, 시간대, 기간을 픽스해주세요 !
             </Text>
             <Image
@@ -131,9 +130,7 @@ export default class Matching extends Component {
             onPress={() => {
               this.matchingComplete();
             }}>
-            <Text style={{fontSize: 18, fontWeight: 'bold'}}>
-              멘토링 매칭 완료
-            </Text>
+            <Text style={[styles.bold, {fontSize: 18}]}>멘토링 매칭 완료</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -142,6 +139,12 @@ export default class Matching extends Component {
 }
 
 const styles = StyleSheet.create({
+  text: {
+    fontFamily: 'GmarketSansTTFMedium',
+  },
+  bold: {
+    fontFamily: 'GmarketSansTTFBold',
+  },
   container: {
     flex: 1,
     backgroundColor: '#AFDCBD',

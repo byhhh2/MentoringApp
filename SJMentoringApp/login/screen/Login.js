@@ -92,7 +92,6 @@ class Login extends Component {
               style={{
                 fontSize: 16,
                 color: '#AFDCBD',
-                fontWeight: 'bold',
                 textAlign: 'center',
                 fontFamily: 'GmarketSansTTFMedium',
               }}>
@@ -138,7 +137,9 @@ class Login extends Component {
                 this.setState({isLoading: true});
                 //this.props.navigation.navigate('Home');
               }}>
-              <Text style={{fontSize: 16}}>로그인</Text>
+              <Text style={{fontSize: 16, fontFamily: 'GmarketSansTTFMedium'}}>
+                로그인
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -163,9 +164,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 60,
-    fontWeight: 'bold',
     marginBottom: '4%',
-    //marginTop: '1%',
     color: '#AFDCBD',
     fontFamily: 'GmarketSansTTFBold',
   },

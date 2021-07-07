@@ -29,6 +29,11 @@ const ChatStack = (props) => {
           headerStyle: {
             backgroundColor: '#AFDCBD',
           },
+          headerTitleStyle: {
+            alignSelf: 'center',
+            fontFamily: 'GmarketSansTTFBold',
+          },
+          headerTintColor: '#498C5A',
         }}
       />
 
@@ -40,6 +45,11 @@ const ChatStack = (props) => {
           headerStyle: {
             backgroundColor: '#AFDCBD',
           },
+          headerTitleStyle: {
+            alignSelf: 'center',
+            fontFamily: 'GmarketSansTTFBold',
+          },
+          headerTintColor: '#498C5A',
         }}>
         {({navigation}) => (
           <ChatScreen
@@ -75,8 +85,7 @@ const ChatStack = (props) => {
           },
           headerTitleStyle: {
             alignSelf: 'center',
-            marginRight: 60,
-            color: 'black',
+            fontFamily: 'GmarketSansTTFBold',
           },
           headerTintColor: '#498C5A',
         }}
@@ -92,8 +101,7 @@ const ChatStack = (props) => {
           },
           headerTitleStyle: {
             alignSelf: 'center',
-            marginRight: 60,
-            color: 'black',
+            fontFamily: 'GmarketSansTTFBold',
           },
           headerTintColor: '#498C5A',
         }}

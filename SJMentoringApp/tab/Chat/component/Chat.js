@@ -128,25 +128,29 @@ class Chat extends Component {
                 alignItems: 'center',
               }}>
               <Text
-                style={{
-                  fontWeight: 'bold',
-                  marginRight: '2%',
-                  fontSize: 20,
-                }}>
+                style={[
+                  styles.bold,
+                  {
+                    marginRight: '2%',
+                    fontSize: 20,
+                  },
+                ]}>
                 {this.props.route.params.matched ? '매칭 완료' : '모집중'}
               </Text>
-              <Text style={{fontSize: 20, marginRight: '3%'}}>
+              <Text style={[styles.text, {fontSize: 20, marginRight: '3%'}]}>
                 {this.props.route.params.lecture}
               </Text>
               <Text
-                style={{
-                  color: '#498C5A',
-                  marginRight: '1%',
-                  fontWeight: 'bold',
-                }}>
+                style={[
+                  styles.bold,
+                  {
+                    color: '#498C5A',
+                    marginRight: '1%',
+                  },
+                ]}>
                 {this.props.route.params.role}
               </Text>
-              <Text>{this.props.route.params.name}</Text>
+              <Text style={styles.text}>{this.props.route.params.name}</Text>
             </View>
             <View
               style={{
@@ -155,7 +159,7 @@ class Chat extends Component {
                 paddingLeft: '1%',
                 paddingRight: '1%',
               }}>
-              <Text style={{color: 'gray'}}>
+              <Text style={[styles.text, {color: 'gray'}]}>
                 {this.props.route.params.text}
               </Text>
             </View>
@@ -178,9 +182,7 @@ class Chat extends Component {
                       mentee_name: this.props.route.params.mentee_name,
                     });
                   }}>
-                  <Text style={{fontWeight: 'bold'}}>
-                    멘토링 신청서 작성하기
-                  </Text>
+                  <Text style={styles.bold}>멘토링 신청서 작성하기</Text>
                 </TouchableOpacity>
               ) : (
                 <TouchableOpacity
@@ -190,7 +192,7 @@ class Chat extends Component {
                       other_student_id: this.props.route.params.post_student_id,
                     });
                   }}>
-                  <Text style={{fontWeight: 'bold'}}>프로필 보러가기</Text>
+                  <Text style={styles.bold}>프로필 보러가기</Text>
                 </TouchableOpacity>
               )}
             </View>
@@ -212,7 +214,7 @@ class Chat extends Component {
                       ? styles.speech_bubble_mine
                       : styles.speech_bubble_you
                   }>
-                  <Text>{item.content}</Text>
+                  <Text style={styles.text}>{item.content}</Text>
                 </View>
               );
             }}
@@ -232,7 +234,7 @@ class Chat extends Component {
             }}
           />
           <TouchableOpacity onPress={this.sentMsg}>
-            <Text style={{color: '#498C5A', fontSize: 15, fontWeight: 'bold'}}>
+            <Text style={[styles.bold, {color: '#498C5A', fontSize: 15}]}>
               전송
             </Text>
           </TouchableOpacity>
@@ -243,6 +245,12 @@ class Chat extends Component {
 }
 
 const styles = StyleSheet.create({
+  text: {
+    fontFamily: 'GmarketSansTTFMedium',
+  },
+  bold: {
+    fontFamily: 'GmarketSansTTFBold',
+  },
   container: {
     flex: 1,
     backgroundColor: 'white',

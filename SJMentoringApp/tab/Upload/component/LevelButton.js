@@ -22,13 +22,19 @@ export default class LevelButton extends Component {
             : styles.levelButton
         }
         onPress={() => this.props.callback(this.props.id)}>
-        <Text style={{fontSize: 17}}>{this.props.level}</Text>
+        <Text style={[styles.text, {fontSize: 17}]}>{this.props.level}</Text>
       </TouchableOpacity>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  text: {
+    fontFamily: 'GmarketSansTTFMedium',
+  },
+  bold: {
+    fontFamily: 'GmarketSansTTFBold',
+  },
   levelButton: {
     borderColor: '#AFDCBD',
     borderWidth: 2,

@@ -22,12 +22,15 @@ export default class TimeModal extends Component {
         }}>
         {this.state.setTime ? (
           <Text
-            style={{
-              color: 'black',
-              fontSize: 18,
-            }}>{`${this.state.time.getHours()}시 ${this.state.time.getMinutes()}분`}</Text>
+            style={[
+              styles.text,
+              {
+                color: 'black',
+                fontSize: 18,
+              },
+            ]}>{`${this.state.time.getHours()}시 ${this.state.time.getMinutes()}분`}</Text>
         ) : (
-          <Text style={{color: 'gray'}}>
+          <Text style={[styles.text, {color: 'gray'}]}>
             {this.props.initValue
               ? `${this.props.initValue}`
               : `여기를 클릭하세요.`}
@@ -62,7 +65,7 @@ export default class TimeModal extends Component {
                     });
                     this.props.info(this.state.time);
                   }}>
-                  <Text>확인</Text>
+                  <Text style={styles.bold}>확인</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -76,6 +79,12 @@ export default class TimeModal extends Component {
 }
 
 const styles = StyleSheet.create({
+  text: {
+    fontFamily: 'GmarketSansTTFMedium',
+  },
+  bold: {
+    fontFamily: 'GmarketSansTTFBold',
+  },
   modalBack: {
     display: 'flex',
     alignItems: 'center',

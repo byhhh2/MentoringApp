@@ -12,13 +12,18 @@ const ProgStack = () => {
   return (
     <Stack.Navigator initialRouteName="ProgScreen">
       <Stack.Screen
-        name="📝 진행 중인 멘토링"
+        name="진행 중인 멘토링"
         component={ProgScreen}
         options={{
           headerLeft: null,
           headerStyle: {
             backgroundColor: '#AFDCBD',
           },
+          headerTitleStyle: {
+            alignSelf: 'center',
+            fontFamily: 'GmarketSansTTFBold',
+          },
+          headerTintColor: '#498C5A',
         }}
       />
       <Stack.Screen
@@ -31,7 +36,9 @@ const ProgStack = () => {
           },
           headerTitleStyle: {
             alignSelf: 'center',
+            fontFamily: 'GmarketSansTTFBold',
           },
+          headerTintColor: '#498C5A',
         }}
       />
       <Stack.Screen
@@ -44,7 +51,9 @@ const ProgStack = () => {
           },
           headerTitleStyle: {
             alignSelf: 'center',
+            fontFamily: 'GmarketSansTTFBold',
           },
+          headerTintColor: '#498C5A',
         }}
       />
     </Stack.Navigator>

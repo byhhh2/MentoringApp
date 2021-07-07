@@ -68,33 +68,31 @@ const ProfileScreen = (props) => {
       {/* User's Profile */}
       <View style={styles.profile}>
         <View style={styles.direction_row}>
-          <Text style={{fontWeight: 'bold', fontSize: 20}}>
-            {props.user_name}
-          </Text>
-          <Text style={{margin: 10}}>{gender}</Text>
+          <Text style={[styles.bold, {fontSize: 20}]}>{props.user_name}</Text>
+          <Text style={[styles.text, {margin: 10}]}>{gender}</Text>
         </View>
 
         <View style={{marginTop: 10}}>
-          <Text>#{student_id}</Text>
-          <Text>{major}</Text>
+          <Text style={styles.text}>#{student_id}</Text>
+          <Text style={styles.text}>{major}</Text>
         </View>
         <View style={styles.bio}>
           <Text>
-            <Text style={{fontWeight: 'bold'}}>소개 |</Text> {bio}
+            <Text style={styles.bold}>소개 |</Text> {bio}
           </Text>
         </View>
       </View>
       {/* User's mentoring temperature */}
       <ScrollView style={{height: '100%'}}>
         <View style={styles.manner}>
-          <Text style={{fontWeight: 'bold', fontSize: 15, color: '#498C5A'}}>
+          <Text style={[styles.bold, {fontSize: 15, color: '#498C5A'}]}>
             멘토링 온도
           </Text>
           <Temperature reputation={reputation} />
         </View>
         {/* review */}
         <View style={styles.list}>
-          <Text style={{fontWeight: 'bold', fontSize: 15, color: '#498C5A'}}>
+          <Text style={[styles.bold, {fontSize: 15, color: '#498C5A'}]}>
             {props.user_name}님의 한줄평
           </Text>
           <Review text="친절하고, 설명을 잘해주세요." />
@@ -109,7 +107,7 @@ const ProfileScreen = (props) => {
                 student_id: student_id,
               });
             }}>
-            <Text style={{fontWeight: 'bold', fontSize: 15, color: '#498C5A'}}>
+            <Text style={[styles.bold, {fontSize: 15, color: '#498C5A'}]}>
               게시글 {'  >'}
             </Text>
           </TouchableOpacity>
@@ -149,7 +147,7 @@ const Temperature = ({reputation}) => {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <Text style={{color: 'white', fontWeight: 'bold'}}>{reputation}도</Text>
+        <Text style={[styles.bold, {color: 'white'}]}>{reputation}도</Text>
       </View>
     </View>
   );
@@ -158,12 +156,18 @@ const Temperature = ({reputation}) => {
 const Review = ({text}) => {
   return (
     <View style={styles.review}>
-      <Text style={{fontSize: 18}}>👍🏻 {text}</Text>
+      <Text style={[styles.text, {fontSize: 18}]}>👍🏻 {text}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  text: {
+    fontFamily: 'GmarketSansTTFMedium',
+  },
+  bold: {
+    fontFamily: 'GmarketSansTTFBold',
+  },
   container: {
     flex: 1,
     backgroundColor: 'white',
