@@ -17,6 +17,9 @@ axios.defaults.baseURL = 'http://34.133.177.64:8080/api/v1';
 import {connect} from 'react-redux';
 import {initId, initName} from '../../redux/action';
 
+//component
+//import NewProfileForm from '../../tab/profile/screen/NewProfileForm';
+
 // import io from 'socket.io-client';
 
 // const socket = io('http://34.64.111.90:8080/');
@@ -52,13 +55,21 @@ class Login extends Component {
         const name = response.data.data[0].name;
         const token = response.data.token;
         axios.defaults.headers.common['Authorization'] = token;
-        this.props.navigation.navigate('Home', {
-          student_id: student_id,
-          major: major,
-          name: name,
-        });
-        this.props.dispatchInitUser(student_id);
-        this.props.dispatchInitUserName(name);
+        if (response.data.data[0].gender == null) {
+          this.props.navigation.navigate('NewProfile', {
+            student_id: student_id,
+            major: major,
+            name: name,
+          });
+        } else {
+          this.props.navigation.navigate('Home', {
+            student_id: student_id,
+            major: major,
+            name: name,
+          });
+          this.props.dispatchInitUser(student_id);
+          this.props.dispatchInitUserName(name);
+        }
       })
       .catch((error) => {
         console.log('wrong!');

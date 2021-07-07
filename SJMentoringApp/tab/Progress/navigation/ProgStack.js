@@ -27,7 +27,7 @@ const ProgStack = () => {
         }}
       />
       <Stack.Screen
-        name="멘토링일지"
+        name="멘토링 일지"
         component={MentoringDiary}
         options={{
           title: '',
@@ -41,7 +41,7 @@ const ProgStack = () => {
           headerTintColor: '#498C5A',
         }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="멘토링 신청서"
         component={Matching}
         options={{
@@ -55,7 +55,7 @@ const ProgStack = () => {
           },
           headerTintColor: '#498C5A',
         }}
-      />
+      /> */}
     </Stack.Navigator>
   );
 };

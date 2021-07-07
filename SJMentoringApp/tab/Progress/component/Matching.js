@@ -68,11 +68,11 @@ export default class Matching extends Component {
     } else {
       axios
         .post(
-          `${axios.defaults.baseURL}/mentoring/${this.props.route.params.info.id}`,
+          `${axios.defaults.baseURL}/mentoring/${this.props.route.params.info.post_id}`,
           {
             mentor: this.props.route.params.mentor_name,
             mentee: this.props.route.params.mentee_name,
-            subject: this.props.route.params.info.lecture,
+            subject: this.props.route.params.info.subject,
             start_date: this.state.start,
             end_date: this.state.end,
             time: this.state.time,
@@ -82,7 +82,7 @@ export default class Matching extends Component {
         .then((response) => {
           console.log(response.data);
           this.props.navigation.navigate('멘토링 일지', {
-            lecture: this.props.route.params.info.lecture,
+            lecture: this.props.route.params.info.subject,
             mentor: this.props.route.params.mentor_name,
             mentee: this.props.route.params.mentee_name,
             start: this.state.start,
