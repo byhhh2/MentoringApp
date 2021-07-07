@@ -9,11 +9,37 @@ import {
 } from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
+//redux
+import {connect} from 'react-redux';
 
-const NewProfileForm = () => {
-  //const navigation = useNavigation();
+import {initId, initName} from '../../../redux/action';
 
+const NewProfileForm = (props) => {
   const [gender, setGender] = useState('여성');
+  const [bio, setBio] = useState('');
+
+  const initProfile = () => {
+    axios
+      .put(
+        `${axios.defaults.baseURL}/profile/${props.route.params.student_id}`,
+        {
+          gender: gender,
+          bio: bio,
+        },
+        {
+          headers: {
+            Authorization: axios.defaults.headers.common['Authorization'],
+          },
+        },
+      )
+      .then((response) => {
+        console.log('프로필 저장 완료');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -45,10 +71,27 @@ const NewProfileForm = () => {
       </View>
       <View style={styles.form}>
         <Text style={styles.title}>자신을 한 문장으로 소개해보세요.</Text>
-        <TextInput style={styles.text_input}></TextInput>
+        <TextInput
+          style={styles.text_input}
+          multiline={true}
+          value={bio}
+          onChangeText={(text) => {
+            setBio(text);
+          }}></TextInput>
       </View>
 
-      <TouchableOpacity style={styles.save_button} activeOpacity={1}>
+      <TouchableOpacity
+        style={styles.save_button}
+        onPress={() => {
+          initProfile();
+          props.dispatchInitUser(props.route.params.student_id);
+          props.dispatchInitUserName(props.route.params.name);
+          props.navigation.navigate('Home', {
+            student_id: props.route.params.student_id,
+            major: props.route.params.major,
+            name: props.route.params.name,
+          });
+        }}>
         <View>
           <Text style={styles.save_text}>저장</Text>
         </View>
@@ -135,4 +178,15 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewProfileForm;
+const mapStateToProps = (state) => ({
+  socket: state.userReducer.socket,
+  user_id: state.userReducer.user_id,
+  user_name: state.userReducer.user_name,
+});
+
+const mapDispatchToProps = {
+  dispatchInitUser: (user_id) => initId(user_id),
+  dispatchInitUserName: (user_name) => initName(user_name),
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewProfileForm);

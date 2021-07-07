@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 //Screen
 import Login from '../screen/Login';
 import BottomTabNavi from '../../tab/BottomTabNavi';
+import NewProfileForm from '../../tab/profile/screen/NewProfileForm';
 
 const Stack = createStackNavigator();
 /**
@@ -23,6 +24,11 @@ const StackNavi = () => {
       <Stack.Screen
         name="Home"
         component={BottomTabNavi}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="NewProfile"
+        component={NewProfileForm}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

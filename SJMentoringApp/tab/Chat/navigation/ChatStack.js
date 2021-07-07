@@ -13,6 +13,8 @@ import Matching from '../../Progress/component/Matching';
 
 import OtherProfileScreen from '../../profile/screen/OtherProfileScreen';
 
+import MentoringDiary from '../../Progress/component/MentoringDiary';
+
 const Stack = createStackNavigator();
 
 const ChatStack = (props) => {
@@ -95,6 +97,21 @@ const ChatStack = (props) => {
         component={OtherProfileScreen}
         options={{
           //headerLeft: null,
+          title: '',
+          headerStyle: {
+            backgroundColor: '#AFDCBD',
+          },
+          headerTitleStyle: {
+            alignSelf: 'center',
+            fontFamily: 'GmarketSansTTFBold',
+          },
+          headerTintColor: '#498C5A',
+        }}
+      />
+      <Stack.Screen
+        name="멘토링 일지"
+        component={MentoringDiary}
+        options={{
           title: '',
           headerStyle: {
             backgroundColor: '#AFDCBD',
