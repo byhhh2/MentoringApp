@@ -55,10 +55,10 @@ export default class ProgScreen extends PureComponent {
 }
 
 const renderList = ({item}, navigation) => {
-  return <ChatList item={item} navi={navigation} />;
+  return <MentoringList item={item} navi={navigation} />;
 };
 
-class ChatList extends PureComponent {
+class MentoringList extends PureComponent {
   constructor(props) {
     super(props);
   }
@@ -78,7 +78,9 @@ class ChatList extends PureComponent {
         }>
         <View style={styles.list}>
           <View style={styles.contentView}>
-            <Text style={styles.nameText}>{this.props.item.item.subject}</Text>
+            <Text style={styles.nameText}>
+              📝 {this.props.item.item.subject}
+            </Text>
             <Text style={styles.text}>
               🐥 멘토 : {this.props.item.item.mentor}
             </Text>
@@ -87,7 +89,7 @@ class ChatList extends PureComponent {
             </Text>
           </View>
           <View style={styles.timeView}>
-            <Text style={[styles.text, {textAlign: 'center', fontSize: 13}]}>
+            <Text style={[styles.text, {textAlign: 'center', fontSize: 12}]}>
               {this.props.item.item.end === 1
                 ? '완료'
                 : `${this.props.item.item.start_date.slice(
@@ -114,7 +116,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   list: {
-    height: 75,
+    height: 77,
     borderBottomColor: 'lightgray',
     borderBottomWidth: 1,
     paddingLeft: '3%',
@@ -133,5 +135,6 @@ const styles = StyleSheet.create({
   nameText: {
     fontFamily: 'GmarketSansTTFBold',
     fontSize: 18,
+    marginBottom: '2%',
   },
 });

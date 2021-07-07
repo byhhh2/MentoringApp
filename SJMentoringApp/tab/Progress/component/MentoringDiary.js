@@ -210,35 +210,40 @@ export default class MentoringDiary extends Component {
           </Text>
         </View>
         <View style={styles.whiteView}>
-          <View
-            style={{
-              height: '10%',
-              width: '98%',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              flexDirection: 'row',
-            }}>
-            <Text
+          {this.props.route.params.finished ? (
+            <></>
+          ) : (
+            <View
               style={{
-                paddingLeft: '5%',
-                color: 'gray',
-                fontSize: 13,
-                fontFamily: 'GmarketSansTTFMedium',
+                height: '10%',
+                width: '98%',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexDirection: 'row',
               }}>
-              멘토링 기록을 꾹 눌러서 수정, 삭제해보세요! :-)
-            </Text>
+              <Text
+                style={{
+                  paddingLeft: '5%',
+                  color: 'gray',
+                  fontSize: 13,
+                  fontFamily: 'GmarketSansTTFMedium',
+                }}>
+                멘토링 기록을 꾹 눌러서 수정, 삭제해보세요! :-)
+              </Text>
 
-            <TouchableOpacity
-              onPress={() => {
-                this.setState({modalVisible: true});
-              }}>
-              <AntDesign
-                name={'pluscircleo'}
-                size={25}
-                style={{color: '#99BFA5'}}
-              />
-            </TouchableOpacity>
-          </View>
+              <TouchableOpacity
+                onPress={() => {
+                  this.setState({modalVisible: true});
+                }}>
+                <AntDesign
+                  name={'pluscircleo'}
+                  size={25}
+                  style={{color: '#99BFA5'}}
+                />
+              </TouchableOpacity>
+            </View>
+          )}
+
           <FlatList
             data={this.state.DATA}
             renderItem={(item) => {
@@ -257,7 +262,11 @@ export default class MentoringDiary extends Component {
                 setModal: !this.state.setModal,
               });
             }}>
-            <View style={styles.modalBack}>
+            <TouchableOpacity
+              style={styles.modalBack}
+              onPress={() => {
+                this.setState({setModal: false});
+              }}>
               <View
                 style={[
                   styles.modalCenter,
@@ -310,7 +319,7 @@ export default class MentoringDiary extends Component {
                   </Text>
                 </TouchableOpacity>
               </View>
-            </View>
+            </TouchableOpacity>
           </Modal>
         ) : (
           <></>
