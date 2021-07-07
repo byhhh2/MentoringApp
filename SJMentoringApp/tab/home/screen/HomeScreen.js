@@ -33,6 +33,7 @@ export default class HomeScreen extends Component {
   componentDidMount() {
     this._rerender = this.props.navigation.addListener('focus', () => {
       this.getPost('popular');
+      this.setState({selected: [true, false, false]});
     });
   }
   /*componentWillUnmount() {
