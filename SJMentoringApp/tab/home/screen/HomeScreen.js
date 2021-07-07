@@ -100,7 +100,6 @@ export default class HomeScreen extends Component {
               style={{
                 fontSize: 45,
                 color: 'white',
-                //fontWeight: 'bold',
                 fontFamily: 'GmarketSansTTFBold',
               }}>
               MENTORS
@@ -138,7 +137,7 @@ export default class HomeScreen extends Component {
           </View>
           <View style={styles.filterView}>{filtering}</View>
           <View>
-            <Text style={{color: 'gray'}}>
+            <Text style={[styles.text, {color: 'gray'}]}>
               {this.state.filter === 'popular'
                 ? '인기 멘토 게시물'
                 : this.state.filter === 'mentor'
@@ -192,10 +191,10 @@ const List = (props) => {
         });
       }}>
       <View style={styles.list}>
-        <Text style={{fontWeight: 'bold'}}>{props.item.subject}</Text>
-        <Text>{props.item.name}</Text>
-        <Text>{props.item.level}</Text>
-        <Text numberOfLines={1} ellipsizeMode="tail">
+        <Text style={styles.bold}>{props.item.subject}</Text>
+        <Text style={styles.text}>{props.item.name}</Text>
+        <Text style={styles.text}>{props.item.level}</Text>
+        <Text style={styles.text} numberOfLines={1} ellipsizeMode="tail">
           {props.item.content}
         </Text>
       </View>
@@ -218,7 +217,7 @@ class FilterButton extends PureComponent {
         onPress={() => {
           this.props.callback(this.props.id);
         }}>
-        <Text style={{fontSize: 20}}>{this.props.text}</Text>
+        <Text style={[styles.text, {fontSize: 20}]}>{this.props.text}</Text>
       </TouchableOpacity>
     );
   }
@@ -227,6 +226,9 @@ class FilterButton extends PureComponent {
 const styles = StyleSheet.create({
   text: {
     fontFamily: 'GmarketSansTTFMedium',
+  },
+  bold: {
+    fontFamily: 'GmarketSansTTFBold',
   },
   container: {
     //flex: 1,

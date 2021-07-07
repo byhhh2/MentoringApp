@@ -58,10 +58,13 @@ const MyContentsList = (props) => {
               }}>
               <View style={styles.content_container}>
                 <Text style={styles.bold_font}>
-                  <Text style={{color: '#498C5A'}}> {'📄 '} </Text>
+                  <Text style={[styles.text, {color: '#498C5A'}]}>
+                    {' '}
+                    {'📄 '}{' '}
+                  </Text>
                   {item.subject} {item.role == 1 ? '- 멘토' : '- 멘티'}
                 </Text>
-                <Text>
+                <Text style={styles.text}>
                   {item.start_date.substring(2, 10)} ~{' '}
                   {item.end_date.substring(2, 10)}
                 </Text>
@@ -77,6 +80,10 @@ const MyContentsList = (props) => {
 };
 
 const styles = StyleSheet.create({
+  text: {
+    fontFamily: 'GmarketSansTTFMedium',
+  },
+
   container: {
     flex: 1,
     backgroundColor: 'white',
@@ -90,7 +97,7 @@ const styles = StyleSheet.create({
     //alignItems: 'center',
   },
   bold_font: {
-    fontWeight: 'bold',
+    fontFamily: 'GmarketSansTTFBold',
     fontSize: 15,
     marginBottom: 5,
   },

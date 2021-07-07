@@ -54,9 +54,9 @@ const ChatTest = () => {
 
   return (
     <View>
-      <Text>chattest</Text>
+      <Text style={{fontFamily: 'GmarketSansTTFMedium'}}>chattest</Text>
       <TouchableOpacity onPress={ButtonClick}>
-        <Text>버튼</Text>
+        <Text style={{fontFamily: 'GmarketSansTTFMedium'}}>버튼</Text>
       </TouchableOpacity>
     </View>
   );

@@ -70,7 +70,7 @@ const Contents = (props) => {
           <View style={styles.modalBack}>
             <View style={styles.modalCenter}>
               <View style={{marginBottom: '10%'}}>
-                <Text>이 게시물을 삭제하시겠습니까?</Text>
+                <Text style={styles.text}>이 게시물을 삭제하시겠습니까?</Text>
               </View>
               <View style={{flexDirection: 'row'}}>
                 <TouchableOpacity
@@ -78,7 +78,7 @@ const Contents = (props) => {
                   onPress={() => {
                     setDeleted(false);
                   }}>
-                  <Text>취소</Text>
+                  <Text style={styles.text}>취소</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.modalRightBtn}
@@ -86,7 +86,7 @@ const Contents = (props) => {
                     deletePost();
                     setDeleted(false);
                   }}>
-                  <Text>확인</Text>
+                  <Text style={styles.text}>확인</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -141,7 +141,7 @@ const Contents = (props) => {
           {props.route.params.user_info.role === 1 ? '멘토' : '멘티'}
           {'   ✔'}
         </Text>
-        <Text style={styles.base_font}>
+        <Text style={[styles.text, styles.base_font]}>
           {props.route.params.user_info.name}
           <Text style={styles.white_font}>
             {'     '}
@@ -218,7 +218,7 @@ const Contents = (props) => {
                     : props.route.params.user_info.name,
               });
             }}>
-            <Text style={{fontWeight: 'bold'}}>채팅하기</Text>
+            <Text style={{fontFamily: 'GmarketSansTTFBold'}}>채팅하기</Text>
           </TouchableOpacity>
         ) : (
           <></>
@@ -229,6 +229,12 @@ const Contents = (props) => {
 };
 
 const styles = StyleSheet.create({
+  text: {
+    fontFamily: 'GmarketSansTTFMedium',
+  },
+  bold: {
+    fontFamily: 'GmarketSansTTFBold',
+  },
   container: {
     //margin: 10,
     flex: 1,
@@ -237,10 +243,12 @@ const styles = StyleSheet.create({
   base_font: {
     fontSize: 20,
     margin: 10,
+    fontFamily: 'GmarketSansTTFMedium',
   },
   small_font: {
     fontSize: 18,
     margin: 10,
+    fontFamily: 'GmarketSansTTFMedium',
   },
   base_view: {
     //borderBottomColor: '#99BFA5',
@@ -250,8 +258,9 @@ const styles = StyleSheet.create({
   green_font: {
     fontSize: 20,
     color: '#498C5A',
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
     margin: 10,
+    fontFamily: 'GmarketSansTTFBold',
   },
   user_info_view: {
     backgroundColor: '#AFDCBD',
@@ -266,7 +275,8 @@ const styles = StyleSheet.create({
   class_font: {
     fontSize: 25,
     margin: 10,
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
+    fontFamily: 'GmarketSansTTFBold',
   },
   pink_font: {
     color: '#F2BBBB',
@@ -277,7 +287,8 @@ const styles = StyleSheet.create({
     color: '#498C5A',
     fontSize: 15,
     margin: 10,
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
+    fontFamily: 'GmarketSansTTFBold',
   },
   text_view: {
     padding: 20,

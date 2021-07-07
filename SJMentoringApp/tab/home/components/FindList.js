@@ -40,18 +40,20 @@ export default class FindList extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.findThisView}>
-          <Text style={{fontSize: 18, marginRight: '2%'}}>💡 검색결과 : </Text>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+          <Text style={[styles.text, {fontSize: 18, marginRight: '2%'}]}>
+            💡 검색결과 :{' '}
+          </Text>
+          <Text style={[styles.bold, {fontSize: 20}]}>
             " {this.props.route.params.findThis} "
           </Text>
         </View>
         <View style={styles.listView}>
           {this.state.DATA.length === 0 ? (
             <View style={styles.noneView}>
-              <Text style={{fontWeight: 'bold', fontSize: 18, color: 'gray'}}>
+              <Text style={[styles.bold, {fontSize: 18, color: 'gray'}]}>
                 " {this.props.route.params.findThis} "
               </Text>
-              <Text style={{color: 'gray'}}>검색결과 없음.</Text>
+              <Text style={[styles.text, {color: 'gray'}]}>검색결과 없음.</Text>
             </View>
           ) : (
             <FlatList
@@ -88,26 +90,32 @@ const List = ({item}) => {
       <View style={styles.list}>
         <View style={styles.info}>
           <View style={styles.lecture}>
-            <Text style={{fontSize: 18}}>📝 과목 : {item.item.subject}</Text>
+            <Text style={[styles.text, {fontSize: 18}]}>
+              📝 과목 : {item.item.subject}
+            </Text>
           </View>
           <View style={styles.nameView}>
             <Text
-              style={{
-                fontSize: 16,
-                color: '#498C5A',
-                fontWeight: 'bold',
-                marginRight: '3%',
-              }}>
+              style={[
+                styles.bold,
+                {
+                  fontSize: 16,
+                  color: '#498C5A',
+                  marginRight: '3%',
+                },
+              ]}>
               {item.item.role === 1 ? '멘토' : '멘티'}
             </Text>
-            <Text>{item.item.name}</Text>
+            <Text style={styles.text}>{item.item.name}</Text>
           </View>
 
-          <Text>수준 : {item.item.level}</Text>
-          <Text style={{color: 'gray'}}>{item.item.content}</Text>
+          <Text style={styles.text}>수준 : {item.item.level}</Text>
+          <Text style={[styles.text, {color: 'gray'}]}>
+            {item.item.content}
+          </Text>
         </View>
         <View style={styles.timeView}>
-          <Text style={{fontSize: 13}}>
+          <Text style={[styles.text, {fontSize: 11}]}>
             {item.item.start_date.toString().slice(0, 10)}~
             {item.item.end_date.toString().slice(0, 10)}
           </Text>
@@ -118,6 +126,12 @@ const List = ({item}) => {
 };
 
 const styles = StyleSheet.create({
+  text: {
+    fontFamily: 'GmarketSansTTFMedium',
+  },
+  bold: {
+    fontFamily: 'GmarketSansTTFBold',
+  },
   container: {
     flex: 1,
     backgroundColor: 'white',

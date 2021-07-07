@@ -4,7 +4,7 @@ import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
 const SpeechBubble = () => {
   return (
     <View style={styles.speech_bubble}>
-      <Text>안녕</Text>
+      <Text style={{fontFamily: 'GmarketSansTTFMedium'}}>안녕</Text>
     </View>
   );
 };

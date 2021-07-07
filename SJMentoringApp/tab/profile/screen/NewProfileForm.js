@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     color: '#498C5A',
+    fontFamily: 'GmarketSansTTFMedium',
   },
   gender_selector: {
     flexDirection: 'row',
@@ -118,7 +119,7 @@ const styles = StyleSheet.create({
   },
   gender_text: {
     color: 'white',
-    fontWeight: 'bold',
+    fontFamily: 'GmarketSansTTFBold',
   },
   save_button: {
     backgroundColor: '#498C5A',
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
   },
   save_text: {
     color: 'white',
-    fontWeight: 'bold',
+    fontFamily: 'GmarketSansTTFBold',
   },
 });
 

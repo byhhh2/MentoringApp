@@ -194,7 +194,7 @@ export default class UploadScreen extends PureComponent {
             endValue={this.state.end}
           />
           <View style={styles.inputAreaView}>
-            <Text style={{fontSize: 19}}>하고 싶은 말 : </Text>
+            <Text style={[styles.text, {fontSize: 19}]}>하고 싶은 말 : </Text>
             <TextInput
               placeholder={'하고 싶은 말을 입력하세요.'}
               style={{
@@ -223,7 +223,7 @@ export default class UploadScreen extends PureComponent {
                 this.state.value,
               );
             }}>
-            <Text style={{fontSize: 17}}>수정하기</Text>
+            <Text style={[styles.text, {fontSize: 17}]}>수정하기</Text>
           </TouchableOpacity>
         </View>
       </KeyboardAwareScrollView>
@@ -232,6 +232,12 @@ export default class UploadScreen extends PureComponent {
 }
 
 const styles = StyleSheet.create({
+  text: {
+    fontFamily: 'GmarketSansTTFMedium',
+  },
+  bold: {
+    fontFamily: 'GmarketSansTTFBold',
+  },
   container: {
     height: 630,
     backgroundColor: 'white',
@@ -295,7 +301,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 20,
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
+    fontFamily: 'GmarketSansTTFBold',
   },
   uploadView: {
     height: '70%',

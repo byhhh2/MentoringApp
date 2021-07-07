@@ -19,7 +19,9 @@ const UploadStack = (props) => {
           headerLeft: null,
           headerTitleStyle: {
             alignSelf: 'center',
+            fontFamily: 'GmarketSansTTFBold',
           },
+          headerTintColor: '#498C5A',
           headerStyle: {
             backgroundColor: '#AFDCBD',
           },
@@ -38,8 +40,10 @@ const UploadStack = (props) => {
         component={Contents}
         options={{
           headerLeft: null,
+          headerTintColor: '#498C5A',
           headerTitleStyle: {
             alignSelf: 'center',
+            fontFamily: 'GmarketSansTTFBold',
           },
           headerStyle: {
             backgroundColor: '#AFDCBD',
@@ -56,7 +60,7 @@ const UploadStack = (props) => {
           },
           headerTintColor: '#498C5A',
           headerTitleStyle: {
-            fontWeight: 'bold',
+            fontFamily: 'GmarketSansTTFBold',
             marginLeft: '20%',
           },
         }}

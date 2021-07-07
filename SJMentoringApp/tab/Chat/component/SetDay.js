@@ -24,7 +24,9 @@ export default class SetDay extends Component {
     let array = this.state.selectedDays;
     return (
       <View style={styles.setView}>
-        <Text style={{fontSize: 18, marginBottom: '2%'}}>✔ 요일 설정하기</Text>
+        <Text style={[styles.text, {fontSize: 18, marginBottom: '2%'}]}>
+          ✔ 요일 설정하기
+        </Text>
         <TouchableOpacity
           style={styles.modalBtn}
           onPress={() => {
@@ -35,15 +37,17 @@ export default class SetDay extends Component {
           }}>
           {this.state.setDay ? (
             <Text
-              style={{
-                color: 'black',
-                fontSize: 15,
-                fontWeight: 'bold',
-              }}>
+              style={[
+                styles.bold,
+                {
+                  color: 'black',
+                  fontSize: 15,
+                },
+              ]}>
               {this.state.selectedDays}
             </Text>
           ) : (
-            <Text>요일을 설정하려면 터치하세요.</Text>
+            <Text style={styles.text}>요일을 설정하려면 터치하세요.</Text>
           )}
         </TouchableOpacity>
         {this.state.dayModalVisible ? (
@@ -78,7 +82,7 @@ export default class SetDay extends Component {
                         if (array[i]) array[i] = days[i];
                         this.setState({selectedDays: array});
                       }}>
-                      <Text style={{fontSize: 17}}>{type}</Text>
+                      <Text style={[styles.text, {fontSize: 17}]}>{type}</Text>
                     </TouchableOpacity>
                   ))}
                 </View>
@@ -92,7 +96,7 @@ export default class SetDay extends Component {
                     this.props.info(this.state.selectedDays);
                     this.getDaysInfo(this.state.selectedDays);
                   }}>
-                  <Text>확인</Text>
+                  <Text style={styles.bold}>확인</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -106,6 +110,12 @@ export default class SetDay extends Component {
 }
 
 const styles = StyleSheet.create({
+  text: {
+    fontFamily: 'GmarketSansTTFMedium',
+  },
+  bold: {
+    fontFamily: 'GmarketSansTTFBold',
+  },
   daysButton: {
     borderColor: '#AFDCBD',
     borderWidth: 2,

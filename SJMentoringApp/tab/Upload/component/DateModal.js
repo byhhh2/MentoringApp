@@ -55,10 +55,13 @@ export default class DateModal extends Component {
         }}>
         {this.state.setTime ? (
           <Text
-            style={{
-              color: 'black',
-              fontSize: 15,
-            }}>
+            style={[
+              styles.text,
+              {
+                color: 'black',
+                fontSize: 15,
+              },
+            ]}>
             {`${startDate.getFullYear()}년 ${
               startDate.getMonth() + 1
             }월 ${startDate.getDate()}일 - ${endDate.getFullYear()}년 ${
@@ -66,7 +69,7 @@ export default class DateModal extends Component {
             }월 ${endDate.getDate()}일`}
           </Text>
         ) : (
-          <Text style={{color: 'gray'}}>
+          <Text style={[styles.text, {color: 'gray'}]}>
             {this.props.startValue && this.props.endValue
               ? `${this.props.startValue.slice(
                   0,
@@ -106,7 +109,7 @@ export default class DateModal extends Component {
                     });
                     this.props.info(startDate, endDate);
                   }}>
-                  <Text>확인</Text>
+                  <Text style={styles.bold}>확인</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -120,6 +123,12 @@ export default class DateModal extends Component {
 }
 
 const styles = StyleSheet.create({
+  text: {
+    fontFamily: 'GmarketSansTTFMedium',
+  },
+  bold: {
+    fontFamily: 'GmarketSansTTFBold',
+  },
   modalBack: {
     display: 'flex',
     alignItems: 'center',

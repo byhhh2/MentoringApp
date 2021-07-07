@@ -28,6 +28,7 @@ export default class MentoringDiary extends Component {
     this.handleDate = this.handleDate.bind(this);
     this.saveRecord = this.saveRecord.bind(this);
     this.updateRecord = this.updateRecord.bind(this);
+    this.deleteRecord = this.deleteRecord.bind(this);
     this.renderList = this.renderList.bind(this);
   }
   componentDidMount() {
@@ -119,6 +120,30 @@ export default class MentoringDiary extends Component {
         console.log(error.response);
       });
   }
+  deleteRecord() {
+    axios
+      .delete(
+        `${axios.defaults.baseURL}/mentoring/${this.state.selectedRecord}/record`,
+        {
+          headers: {
+            Authorization: axios.defaults.headers.common['Authorization'],
+          },
+        },
+      )
+      .then((response) => {
+        console.log(response.data);
+        if (
+          response.data.message ===
+          `Record ID: '${this.state.selectedRecord}' has been deleted successfully.`
+        ) {
+          this.getRecord();
+        }
+      })
+      .catch((error) => {
+        console.log('wrong!');
+        console.log(error.response);
+      });
+  }
   renderList = ({item}) => {
     return (
       <Pressable
@@ -133,13 +158,19 @@ export default class MentoringDiary extends Component {
           },
         ]}>
         <View style={{width: '80%'}}>
-          <Text style={{fontWeight: 'bold', fontSize: 17}}>
+          <Text style={{fontFamily: 'GmarketSansTTFBold', fontSize: 17}}>
             💡{' '}
             {item.item.date.length > 11
               ? item.item.date.slice(0, 10)
               : item.item.date}
           </Text>
-          <Text style={{paddingLeft: '5%', fontSize: 17, marginBottom: '2%'}}>
+          <Text
+            style={{
+              paddingLeft: '5%',
+              fontSize: 17,
+              marginBottom: '2%',
+              fontFamily: 'GmarketSansTTFMedium',
+            }}>
             {item.item.content}
           </Text>
         </View>
@@ -150,16 +181,26 @@ export default class MentoringDiary extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.infoView}>
-          <Text style={{fontSize: 26, fontWeight: 'bold', marginBottom: '2%'}}>
+          <Text
+            style={{
+              fontSize: 26,
+              marginBottom: '2%',
+              fontFamily: 'GmarketSansTTFBold',
+            }}>
             📝 {this.props.route.params.lecture}
           </Text>
-          <Text style={{fontSize: 16}}>
+          <Text style={{fontSize: 16, fontFamily: 'GmarketSansTTFMedium'}}>
             🐥 멘토 : {this.props.route.params.mentor}
           </Text>
-          <Text style={{marginBottom: '3%', fontSize: 16}}>
+          <Text
+            style={{
+              marginBottom: '3%',
+              fontSize: 16,
+              fontFamily: 'GmarketSansTTFMedium',
+            }}>
             🐣 멘티 : {this.props.route.params.mentee}
           </Text>
-          <Text style={{fontSize: 17, fontWeight: 'bold'}}>
+          <Text style={{fontSize: 17, fontFamily: 'GmarketSansTTFBold'}}>
             {this.props.route.params.finished
               ? '멘토링 완료'
               : `${this.props.route.params.start.slice(
@@ -177,7 +218,13 @@ export default class MentoringDiary extends Component {
               alignItems: 'center',
               flexDirection: 'row',
             }}>
-            <Text style={{paddingLeft: '5%', color: 'gray', fontSize: 13}}>
+            <Text
+              style={{
+                paddingLeft: '5%',
+                color: 'gray',
+                fontSize: 13,
+                fontFamily: 'GmarketSansTTFMedium',
+              }}>
               멘토링 기록을 꾹 눌러서 수정, 삭제해보세요! :-)
             </Text>
 
@@ -235,7 +282,10 @@ export default class MentoringDiary extends Component {
                       isUpdate: true,
                     });
                   }}>
-                  <Text style={{fontSize: 20}}>수정하기</Text>
+                  <Text
+                    style={{fontSize: 20, fontFamily: 'GmarketSansTTFMedium'}}>
+                    수정하기
+                  </Text>
                 </TouchableOpacity>
                 <View style={{height: '2%', backgroundColor: '#AFDCBD'}}></View>
                 <TouchableOpacity
@@ -248,8 +298,16 @@ export default class MentoringDiary extends Component {
                   }}
                   onPress={() => {
                     this.setState({setModal: false});
+                    this.deleteRecord();
                   }}>
-                  <Text style={{fontSize: 20, color: 'red'}}>삭제하기</Text>
+                  <Text
+                    style={{
+                      fontSize: 20,
+                      color: 'red',
+                      fontFamily: 'GmarketSansTTFMedium',
+                    }}>
+                    삭제하기
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -274,7 +332,9 @@ export default class MentoringDiary extends Component {
                     flexDirection: 'row',
                     alignItems: 'center',
                   }}>
-                  <Text>날짜 : </Text>
+                  <Text style={{fontFamily: 'GmarketSansTTFMedium'}}>
+                    날짜 :{' '}
+                  </Text>
                   <TextInput
                     keyboardType="numeric"
                     value={this.state.date}
@@ -291,7 +351,9 @@ export default class MentoringDiary extends Component {
                     flexDirection: 'row',
                     alignItems: 'center',
                   }}>
-                  <Text>내용 : </Text>
+                  <Text style={{fontFamily: 'GmarketSansTTFMedium'}}>
+                    내용 :{' '}
+                  </Text>
                   <TextInput
                     placeholder={'내용을 입력하세요. (최대 3줄 작성 가능)'}
                     value={this.state.content}
@@ -311,7 +373,9 @@ export default class MentoringDiary extends Component {
                     onPress={() => {
                       this.setState({modalVisible: false, isUpdate: false});
                     }}>
-                    <Text>취소</Text>
+                    <Text style={{fontFamily: 'GmarketSansTTFMedium'}}>
+                      취소
+                    </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={[styles.Btn, styles.RightBtn]}
@@ -336,7 +400,9 @@ export default class MentoringDiary extends Component {
                         );
                       }
                     }}>
-                    <Text>확인</Text>
+                    <Text style={{fontFamily: 'GmarketSansTTFMedium'}}>
+                      확인
+                    </Text>
                   </TouchableOpacity>
                 </View>
               </View>

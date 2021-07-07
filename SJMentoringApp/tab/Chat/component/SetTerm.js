@@ -38,7 +38,9 @@ export default class SetTerm extends Component {
     let endDate = this.state.end ? new Date(this.state.end) : new Date();
     return (
       <View style={styles.setView}>
-        <Text style={{fontSize: 18, marginBottom: '2%'}}>✔ 기간 설정하기</Text>
+        <Text style={[styles.text, {fontSize: 18, marginBottom: '2%'}]}>
+          ✔ 기간 설정하기
+        </Text>
         <TouchableOpacity
           style={styles.modalBtn}
           onPress={() => {
@@ -49,11 +51,13 @@ export default class SetTerm extends Component {
           }}>
           {this.state.setTime ? (
             <Text
-              style={{
-                color: 'black',
-                fontSize: 15,
-                fontWeight: 'bold',
-              }}>
+              style={[
+                styles.bold,
+                {
+                  color: 'black',
+                  fontSize: 15,
+                },
+              ]}>
               {`${startDate.getFullYear()}년 ${
                 startDate.getMonth() + 1
               }월 ${startDate.getDate()}일 - ${endDate.getFullYear()}년 ${
@@ -61,7 +65,7 @@ export default class SetTerm extends Component {
               }월 ${endDate.getDate()}일`}
             </Text>
           ) : (
-            <Text>기간을 설정하려면 터치하세요.</Text>
+            <Text style={styles.text}>기간을 설정하려면 터치하세요.</Text>
           )}
         </TouchableOpacity>
 
@@ -95,7 +99,7 @@ export default class SetTerm extends Component {
                     });
                     this.props.info(startDate, endDate);
                   }}>
-                  <Text>확인</Text>
+                  <Text style={styles.bold}>확인</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -109,6 +113,12 @@ export default class SetTerm extends Component {
 }
 
 const styles = StyleSheet.create({
+  text: {
+    fontFamily: 'GmarketSansTTFMedium',
+  },
+  bold: {
+    fontFamily: 'GmarketSansTTFBold',
+  },
   modalBack: {
     display: 'flex',
     alignItems: 'center',

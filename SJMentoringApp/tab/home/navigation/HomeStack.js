@@ -49,12 +49,14 @@ const HomeStack = (props) => {
         name="FindList"
         component={FindList}
         options={{
+          title: '검색 목록',
           headerStyle: {
             backgroundColor: '#AFDCBD',
           },
           headerTintColor: '#498C5A',
           headerTitleStyle: {
-            fontWeight: 'bold',
+            fontFamily: 'GmarketSansTTFBold',
+            marginLeft: '30%',
           },
         }}
       />

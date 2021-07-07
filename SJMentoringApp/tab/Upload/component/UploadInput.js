@@ -119,7 +119,7 @@ export default class UploadInput extends Component {
   render() {
     return (
       <View style={styles.inputView}>
-        <Text style={{fontSize: 19}}>{this.props.type} : </Text>
+        <Text style={[styles.text, {fontSize: 19}]}>{this.props.type} : </Text>
         {this.inputType(this.props.type)}
       </View>
     );
@@ -127,6 +127,12 @@ export default class UploadInput extends Component {
 }
 
 const styles = StyleSheet.create({
+  text: {
+    fontFamily: 'GmarketSansTTFMedium',
+  },
+  bold: {
+    fontFamily: 'GmarketSansTTFBold',
+  },
   inputView: {
     height: '13%',
     flexDirection: 'row',

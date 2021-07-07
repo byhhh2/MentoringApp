@@ -14,7 +14,7 @@ export default class SetTime extends Component {
   render() {
     return (
       <View style={styles.setView}>
-        <Text style={{fontSize: 18, marginBottom: '2%'}}>
+        <Text style={[styles.text, {fontSize: 18, marginBottom: '2%'}]}>
           ✔ 시간대 설정하기
         </Text>
         <TouchableOpacity
@@ -27,13 +27,15 @@ export default class SetTime extends Component {
           }}>
           {this.state.setTime ? (
             <Text
-              style={{
-                color: 'black',
-                fontSize: 18,
-                fontWeight: 'bold',
-              }}>{`${this.state.time.getHours()}시 ${this.state.time.getMinutes()}분`}</Text>
+              style={[
+                styles.bold,
+                {
+                  color: 'black',
+                  fontSize: 18,
+                },
+              ]}>{`${this.state.time.getHours()}시 ${this.state.time.getMinutes()}분`}</Text>
           ) : (
-            <Text>시간대를 설정하려면 터치하세요.</Text>
+            <Text style={styles.text}>시간대를 설정하려면 터치하세요.</Text>
           )}
         </TouchableOpacity>
         {this.state.timeModalVisible ? (
@@ -64,7 +66,7 @@ export default class SetTime extends Component {
                     });
                     this.props.info(this.state.time);
                   }}>
-                  <Text>확인</Text>
+                  <Text style={styles.text}>확인</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -78,6 +80,12 @@ export default class SetTime extends Component {
 }
 
 const styles = StyleSheet.create({
+  text: {
+    fontFamily: 'GmarketSansTTFMedium',
+  },
+  bold: {
+    fontFamily: 'GmarketSansTTFBold',
+  },
   modalBack: {
     display: 'flex',
     alignItems: 'center',

@@ -29,13 +29,19 @@ export default class DaysButton extends Component {
             : styles.daysButton
         }
         onPress={() => this.props.callback(this.props.id)}>
-        <Text style={{fontSize: 17}}>{this.props.day}</Text>
+        <Text style={[styles.text, {fontSize: 17}]}>{this.props.day}</Text>
       </TouchableOpacity>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  text: {
+    fontFamily: 'GmarketSansTTFMedium',
+  },
+  bold: {
+    fontFamily: 'GmarketSansTTFBold',
+  },
   daysButton: {
     borderColor: '#AFDCBD',
     borderWidth: 2,

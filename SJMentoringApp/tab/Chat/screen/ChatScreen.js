@@ -116,7 +116,7 @@ class ChatList extends PureComponent {
         }}>
         <View style={styles.list}>
           <View style={styles.matchedView}>
-            <Text style={{fontSize: 14, fontWeight: 'bold', color: '#498C5A'}}>
+            <Text style={[styles.bold, {fontSize: 14, color: '#498C5A'}]}>
               {this.props.item.item.is_matched == 1 ? '매칭 완료' : '모집중'}
             </Text>
           </View>
@@ -124,10 +124,12 @@ class ChatList extends PureComponent {
             <Text style={styles.nameText}>
               {this.props.item.item.room_name}
             </Text>
-            <Text>{this.props.item.item.msg}</Text>
+            <Text style={styles.text}>{this.props.item.item.msg}</Text>
           </View>
           <View style={styles.timeView}>
-            <Text>{this.props.item.item.time.substring(11, 16)}</Text>
+            <Text style={styles.text}>
+              {this.props.item.item.time.substring(11, 16)}
+            </Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -136,6 +138,12 @@ class ChatList extends PureComponent {
 }
 
 const styles = StyleSheet.create({
+  text: {
+    fontFamily: 'GmarketSansTTFMedium',
+  },
+  bold: {
+    fontFamily: 'GmarketSansTTFBold',
+  },
   container: {
     flex: 1,
     backgroundColor: 'white',
@@ -174,7 +182,7 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   nameText: {
-    fontWeight: 'bold',
+    fontFamily: 'GmarketSansTTFBold',
     fontSize: 18,
     marginBottom: 5,
   },
