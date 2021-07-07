@@ -105,7 +105,8 @@ export default class UploadInput extends Component {
                 selectedAlready={this.props.value}
                 callback={(id) => {
                   let array = this.state.selectedDays;
-                  array[id] = days[id];
+                  if (array[id] === false) array[id] = days[id];
+                  else array[id] = false;
                   this.setState({selectedDays: array});
                   this.props.info(this.state.selectedDays);
                 }}
