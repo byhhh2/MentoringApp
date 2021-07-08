@@ -90,12 +90,27 @@ class MentoringList extends PureComponent {
           </View>
           <View style={styles.timeView}>
             <Text style={[styles.text, {textAlign: 'center', fontSize: 12}]}>
-              {this.props.item.item.end === 1
-                ? '완료'
-                : `${this.props.item.item.start_date.slice(
-                    0,
-                    10,
-                  )}\n~\n${this.props.item.item.end_date.slice(0, 10)}`}
+              {this.props.item.item.end === 1 ? (
+                <TouchableOpacity
+                  onPress={() =>
+                    this.props.navi.navigate('Review', {
+                      mentoring_id: this.props.item.item.id,
+                      mentor_name: this.props.item.item.mentor,
+                      mentee_name: this.props.item.item.mentee,
+                    })
+                  }>
+                  <View style={styles.ReviewButton}>
+                    <Text style={{fontFamily: 'GmarketSansTTFMedium'}}>
+                      평가하기
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              ) : (
+                `${this.props.item.item.start_date.slice(
+                  0,
+                  10,
+                )}\n~\n${this.props.item.item.end_date.slice(0, 10)}`
+              )}
             </Text>
           </View>
         </View>
@@ -136,5 +151,13 @@ const styles = StyleSheet.create({
     fontFamily: 'GmarketSansTTFBold',
     fontSize: 18,
     marginBottom: '2%',
+  },
+  ReviewButton: {
+    backgroundColor: '#AFDCBD',
+    borderRadius: 10,
+    width: 70,
+    height: 35,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

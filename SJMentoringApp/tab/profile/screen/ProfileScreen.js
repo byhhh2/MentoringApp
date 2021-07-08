@@ -7,6 +7,9 @@ import {
   Button,
   TouchableOpacity,
   ScrollView,
+  FlatList,
+  SectionList,
+  VirtualizedList,
 } from 'react-native';
 
 //navigation
@@ -21,6 +24,8 @@ import EditBio from './EditBio';
 //redux
 import {connect} from 'react-redux';
 
+var key = 0;
+
 const ProfileScreen = (props) => {
   const navigation = useNavigation();
   const student_id = props.student_id;
@@ -31,9 +36,31 @@ const ProfileScreen = (props) => {
   const [name, setName] = useState([]);
   const [reputation, setReputation] = useState(36.5);
 
+  const [mentor_review, setMentor_review] = useState([]);
+  const [mentee_review, setMentee_review] = useState([]);
+  const [test, setTest] = useState([]);
+
+  var mentor_list;
+  var mentee_list;
+
+  const menus = [{m: 'm1'}, {m: 'm2'}, {m: 'm3'}];
+  const ml = menus.map((menu) => (
+    <View>
+      <Text>{menu.m}</Text>
+    </View>
+  ));
+
+  // const mentor_review_test = [
+  //   {
+  //     title: "mentor",
+  //     item:
+  //   }
+  // ]
+
   useEffect(() => {
     getProfile();
     //console.log(props.socket);
+    getReview();
   }, []);
 
   const getProfile = () => {
@@ -63,6 +90,45 @@ const ProfileScreen = (props) => {
       });
   };
 
+  const getReview = () => {
+    axios
+      .get(`${axios.defaults.baseURL}/profile/${student_id}/reviews`, {
+        headers: {
+          Authorization: axios.defaults.headers.common['Authorization'],
+        },
+      })
+      .then((response) => {
+        // //console.log(response.data);
+        // setMentor_review([{title: 'mentor', data: response.data.data.mentor}]);
+        // setMentee_review([{title: 'mentee', data: response.data.data.mentee}]);
+        setMentor_review(response.data.data.mentor);
+        setMentee_review(response.data.data.mentee);
+        //console.log(mentor_review);
+        // mentor_list = mentor_review.map((item) => (
+        //   // <View style={{backgroundColor: 'red'}}>
+        //   //   <Text>{item.cnt}</Text>
+        //   //   <Text>test</Text>
+        //   // </View>
+        //   <View>
+        //     <Text>test</Text>
+        //   </View>
+        // ));
+        // console.log(mentor_list);
+        //console.log(response.data.data.mentor);s
+        //console.log(mentee_review);
+        //setTest([{title: 'test', item: ['test', 'test']}]);
+        //console.log(test);
+        // console.log(mentor_list);
+        // if (mentor_list.length == 0) {
+        //   console.log('nul임');
+        // }
+        //mentor_list.length == 0
+      })
+      .catch((error) => {
+        console.log('error', error.response);
+      });
+  };
+
   return (
     <View style={styles.container}>
       {/* User's Profile */}
@@ -82,22 +148,142 @@ const ProfileScreen = (props) => {
           </Text>
         </View>
       </View>
-      {/* User's mentoring temperature */}
-      <ScrollView style={{height: '100%'}}>
+      {/*  */}
+      <ScrollView style={{height: '100%'}} nestedScrollEnabled={true}>
+        {/* User's mentoring temperature */}
         <View style={styles.manner}>
-          <Text style={[styles.bold, {fontSize: 15, color: '#498C5A'}]}>
+          <Text style={[styles.text, {fontSize: 15, color: '#498C5A'}]}>
             멘토링 온도
           </Text>
           <Temperature reputation={reputation} />
         </View>
         {/* review */}
         <View style={styles.list}>
-          <Text style={[styles.bold, {fontSize: 15, color: '#498C5A'}]}>
+          <Text
+            style={[
+              styles.text,
+              {fontSize: 15, color: '#498C5A', marginBottom: 5},
+            ]}>
             {props.user_name}님의 한줄평
           </Text>
-          <Review text="친절하고, 설명을 잘해주세요." />
-          <Review text="시간 약속을 잘 지켜요." />
-          <Review text="쉬운 방식으로 설명해요." />
+          {/* <FlatList /> */}
+          <Text style={styles.review_section}>멘토 한줄평 |</Text>
+          <View>
+            {
+              (mentor_list = mentor_review.map((item) => (
+                <View key={key++}>
+                  {item.review_num == 1 ? (
+                    <Review
+                      text="친절하고, 설명을 잘해주세요."
+                      cnt={item.cnt}
+                    />
+                  ) : (
+                    <></>
+                  )}
+                  {item.review_num == 2 ? (
+                    <Review text="시간 약속을 잘 지켜요." cnt={item.cnt} />
+                  ) : (
+                    <></>
+                  )}
+                  {item.review_num == 3 ? (
+                    <Review text="쉬운 방식으로 설명해요." cnt={item.cnt} />
+                  ) : (
+                    <></>
+                  )}
+                  {item.review_num == 4 ? (
+                    <Review text="친절하진 않아요." cnt={item.cnt} />
+                  ) : (
+                    <></>
+                  )}
+                  {item.review_num == 5 ? (
+                    <Review
+                      text="시간 약속을 잘 지키진 않아요."
+                      cnt={item.cnt}
+                    />
+                  ) : (
+                    <></>
+                  )}
+                  {item.review_num == 6 ? (
+                    <Review
+                      text="설명을 이해하기 쉽지 않아요."
+                      cnt={item.cnt}
+                    />
+                  ) : (
+                    <></>
+                  )}
+                </View>
+              )))
+            }
+          </View>
+          <View>
+            {mentor_list.length == 0 ? (
+              <View style={{marginVertical: 5}}>
+                <Text
+                  style={[styles.text, {fontSize: 16, alignSelf: 'center'}]}>
+                  한줄평이 존재하지 않습니다.
+                </Text>
+              </View>
+            ) : (
+              <></>
+            )}
+          </View>
+          <Text style={styles.review_section}>멘티 한줄평 |</Text>
+          <View>
+            {
+              (mentee_list = mentee_review.map((item) => (
+                <View key={key++}>
+                  {item.review_num == 11 ? (
+                    <Review text="시간 약속을 잘 지켜요." cnt={item.cnt} />
+                  ) : (
+                    <></>
+                  )}
+                  {item.review_num == 12 ? (
+                    <Review text="노력과 의지가 돋보입니다." cnt={item.cnt} />
+                  ) : (
+                    <></>
+                  )}
+                  {item.review_num == 13 ? (
+                    <Review
+                      text="멘토와의 과제를 성실히 수행해요."
+                      cnt={item.cnt}
+                    />
+                  ) : (
+                    <></>
+                  )}
+                  {item.review_num == 14 ? (
+                    <Review
+                      text="시간 약속을 잘 지키진 않아요."
+                      cnt={item.cnt}
+                    />
+                  ) : (
+                    <></>
+                  )}
+                  {item.review_num == 15 ? (
+                    <Review text="노력이 부족해요." cnt={item.cnt} />
+                  ) : (
+                    <></>
+                  )}
+                  {item.review_num == 16 ? (
+                    <Review text="과제 수행력이 부족해요." cnt={item.cnt} />
+                  ) : (
+                    <></>
+                  )}
+                </View>
+              )))
+            }
+          </View>
+          <View>
+            {mentee_list.length == 0 ? (
+              <View style={{marginVertical: 5}}>
+                <Text
+                  style={[styles.text, {fontSize: 16, alignSelf: 'center'}]}>
+                  한줄평이 존재하지 않습니다.
+                </Text>
+              </View>
+            ) : (
+              <></>
+            )}
+          </View>
         </View>
         {/* my contents */}
         <View style={styles.my_contents}>
@@ -107,7 +293,7 @@ const ProfileScreen = (props) => {
                 student_id: student_id,
               });
             }}>
-            <Text style={[styles.bold, {fontSize: 15, color: '#498C5A'}]}>
+            <Text style={[styles.text, {fontSize: 15, color: '#498C5A'}]}>
               게시글 {'  >'}
             </Text>
           </TouchableOpacity>
@@ -147,16 +333,23 @@ const Temperature = ({reputation}) => {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <Text style={[styles.bold, {color: 'white'}]}>{reputation}도</Text>
+        <Text style={[styles.bold, {color: 'white'}]}>
+          {reputation.toFixed(1)}도
+        </Text>
       </View>
     </View>
   );
 };
 
-const Review = ({text}) => {
+const Review = ({text, cnt}) => {
   return (
     <View style={styles.review}>
-      <Text style={[styles.text, {fontSize: 18}]}>👍🏻 {text}</Text>
+      <Text style={[styles.text, {fontSize: 18}]}>{text}</Text>
+      <View style={{right: 0, position: 'absolute'}}>
+        <Text style={[styles.text, {fontSize: 18}]}>
+          {'👍🏻'} {cnt}
+        </Text>
+      </View>
     </View>
   );
 };
@@ -214,6 +407,13 @@ const styles = StyleSheet.create({
   },
   review: {
     marginTop: 10,
+    flexDirection: 'row',
+  },
+  review_section: {
+    fontFamily: 'GmarketSansTTFMedium',
+    fontSize: 16,
+    marginVertical: 13,
+    color: 'gray',
   },
 });
 

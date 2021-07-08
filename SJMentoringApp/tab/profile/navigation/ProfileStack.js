@@ -31,6 +31,7 @@ const ProfileStack = (props) => {
           headerTitleStyle: {
             alignSelf: 'center',
             marginLeft: 55,
+            fontFamily: 'GmarketSansTTFMedium',
           },
           headerStyle: {
             backgroundColor: '#AFDCBD',
@@ -43,7 +44,12 @@ const ProfileStack = (props) => {
                   setFlag(!flag);
                 }}>
                 <Text
-                  style={{fontSize: 17, color: '#498C5A', fontWeight: 'bold'}}>
+                  style={{
+                    fontSize: 17,
+                    color: '#498C5A',
+                    fontWeight: 'bold',
+                    fontFamily: 'GmarketSansTTFMedium',
+                  }}>
                   편집
                 </Text>
               </TouchableOpacity>

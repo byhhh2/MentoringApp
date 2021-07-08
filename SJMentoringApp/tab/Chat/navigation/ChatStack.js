@@ -49,7 +49,7 @@ const ChatStack = (props) => {
           },
           headerTitleStyle: {
             alignSelf: 'center',
-            fontFamily: 'GmarketSansTTFBold',
+            fontFamily: 'GmarketSansTTFMedium',
           },
           headerTintColor: '#498C5A',
         }}>
@@ -73,6 +73,7 @@ const ChatStack = (props) => {
             alignSelf: 'center',
             marginRight: 60,
             color: 'black',
+            fontFamily: 'GmarketSansTTFMedium',
           },
           headerTintColor: '#498C5A',
         }}
@@ -102,8 +103,9 @@ const ChatStack = (props) => {
             backgroundColor: '#AFDCBD',
           },
           headerTitleStyle: {
-            alignSelf: 'center',
-            fontFamily: 'GmarketSansTTFBold',
+            //alignSelf: 'center',
+            marginLeft: 50,
+            fontFamily: 'GmarketSansTTFMedium',
           },
           headerTintColor: '#498C5A',
         }}

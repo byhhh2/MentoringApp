@@ -219,7 +219,7 @@ const Contents = (props) => {
                     : props.route.params.user_info.name,
               });
             }}>
-            <Text style={{fontFamily: 'GmarketSansTTFBold'}}>채팅하기</Text>
+            <Text style={{fontFamily: 'GmarketSansTTFMedium'}}>채팅하기</Text>
           </TouchableOpacity>
         ) : (
           <></>

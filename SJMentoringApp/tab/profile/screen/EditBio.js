@@ -109,13 +109,13 @@ const styles = StyleSheet.create({
     color: '#498C5A',
     fontSize: 18,
     margin: 40,
-    fontFamily: 'GmarketSansTTFBold',
+    fontFamily: 'GmarketSansTTFMedium',
   },
   titleText: {
     color: 'black',
     fontSize: 20,
     margin: 40,
-    fontFamily: 'GmarketSansTTFBold',
+    fontFamily: 'GmarketSansTTFMedium',
   },
   textInput: {
     width: '80%',
