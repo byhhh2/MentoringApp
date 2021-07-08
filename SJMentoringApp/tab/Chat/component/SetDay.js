@@ -1,5 +1,12 @@
 import React, {Component, PureComponent} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View, Modal} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Modal,
+  ToastAndroid,
+} from 'react-native';
 
 export default class SetDay extends Component {
   constructor(props) {
@@ -72,6 +79,7 @@ export default class SetDay extends Component {
                   {days.map((type, i) => (
                     <TouchableOpacity
                       id={i}
+                      key={i}
                       style={
                         this.state.selectedDays[i]
                           ? styles.daysButtonSelected
@@ -89,12 +97,22 @@ export default class SetDay extends Component {
                 <TouchableOpacity
                   style={styles.Btn}
                   onPress={() => {
-                    this.setState({
-                      dayModalVisible: !this.state.dayModalVisible,
-                      setDay: true,
-                    });
-                    this.props.info(this.state.selectedDays);
-                    this.getDaysInfo(this.state.selectedDays);
+                    let daysArray = this.state.selectedDays;
+                    let arr = [false, false, false, false, false, false, false];
+                    if (JSON.stringify(daysArray) === JSON.stringify(arr)) {
+                      ToastAndroid.showWithGravity(
+                        '요일을 설정하세요.',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                      );
+                    } else {
+                      this.setState({
+                        dayModalVisible: !this.state.dayModalVisible,
+                        setDay: true,
+                      });
+                      this.props.info(this.state.selectedDays);
+                      this.getDaysInfo(this.state.selectedDays);
+                    }
                   }}>
                   <Text style={styles.bold}>확인</Text>
                 </TouchableOpacity>
