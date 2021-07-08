@@ -66,7 +66,7 @@ class MentoringList extends PureComponent {
     return (
       <TouchableOpacity
         onPress={() =>
-          this.props.navi.navigate('멘토링일지', {
+          this.props.navi.navigate('멘토링 일지', {
             lecture: this.props.item.item.subject,
             mentor: this.props.item.item.mentor,
             mentee: this.props.item.item.mentee,

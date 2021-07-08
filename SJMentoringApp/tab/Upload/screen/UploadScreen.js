@@ -5,6 +5,7 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  ToastAndroid,
 } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
@@ -33,6 +34,7 @@ export default class UploadScreen extends PureComponent {
     this.getPeriodInfo = this.getPeriodInfo.bind(this);
     this.getTimeInfo = this.getTimeInfo.bind(this);
     this.upload = this.upload.bind(this);
+    this.checkInfo = this.checkInfo.bind(this);
   }
   getLevelInfo(lev) {
     let level = '';
@@ -119,6 +121,26 @@ export default class UploadScreen extends PureComponent {
         console.log(error);
       });
   }
+  checkInfo(role, lecture, level, start, end, time, day, text) {
+    if (
+      role === 0 ||
+      lecture === '' ||
+      level === '' ||
+      start === '' ||
+      end === '' ||
+      time === '' ||
+      day.length === 0 ||
+      text === ''
+    ) {
+      ToastAndroid.showWithGravity(
+        '게시물 정보를 모두 입력하세요.',
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER,
+      );
+    } else {
+      this.upload(role, lecture, level, start, end, time, day, text);
+    }
+  }
   render() {
     return (
       <KeyboardAwareScrollView contentContainerStyle={styles.container}>
@@ -171,7 +193,17 @@ export default class UploadScreen extends PureComponent {
           <TouchableOpacity
             style={styles.btn}
             onPress={() => {
-              this.upload(
+              /*this.upload(
+                this.state.selected,
+                this.state.lecture,
+                this.state.selectedLevel,
+                this.state.start,
+                this.state.end,
+                this.state.time,
+                this.state.selectedDays,
+                this.state.value,
+              );*/
+              this.checkInfo(
                 this.state.selected,
                 this.state.lecture,
                 this.state.selectedLevel,

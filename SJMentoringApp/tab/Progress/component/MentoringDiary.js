@@ -178,6 +178,7 @@ export default class MentoringDiary extends Component {
     );
   };
   render() {
+    //console.log(this.state.DATA);
     return (
       <View style={styles.container}>
         <View style={styles.infoView}>
@@ -249,7 +250,7 @@ export default class MentoringDiary extends Component {
             renderItem={(item) => {
               return this.renderList({item});
             }}
-            keyExtractor={(item) => item.id}
+            key={(item) => item.id}
           />
         </View>
         {this.state.setModal ? (
