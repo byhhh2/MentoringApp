@@ -87,6 +87,7 @@ const HomeStack = (props) => {
             alignSelf: 'center',
             marginRight: 60,
             color: 'black',
+            fontFamily: 'GmarketSansTTFMedium',
           },
           headerTintColor: '#498C5A',
         }}
@@ -104,6 +105,7 @@ const HomeStack = (props) => {
             alignSelf: 'center',
             marginRight: 60,
             color: 'black',
+            fontFamily: 'GmarketSansTTFMedium',
           },
           headerTintColor: '#498C5A',
         }}

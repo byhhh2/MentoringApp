@@ -52,7 +52,7 @@ const MyContentsList = (props) => {
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate('Contents', {
-                  user_id: student_id,
+                  user_id: props.route.params.student_id,
                   user_info: item,
                 });
               }}>
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     //alignItems: 'center',
   },
   bold_font: {
-    fontFamily: 'GmarketSansTTFBold',
+    fontFamily: 'GmarketSansTTFMedium',
     fontSize: 15,
     marginBottom: 5,
   },

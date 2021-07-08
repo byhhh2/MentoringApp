@@ -189,10 +189,10 @@ class Chat extends Component {
                   style={styles.mentoringBtn}
                   onPress={() => {
                     this.props.navigation.navigate('상대 프로필', {
-                      other_student_id: this.props.route.params.post_student_id,
+                      other_student_id: this.props.route.params.you,
                     });
                   }}>
-                  <Text style={styles.bold}>프로필 보러가기</Text>
+                  <Text style={styles.bold}>상대 프로필 보러가기</Text>
                 </TouchableOpacity>
               )}
             </View>

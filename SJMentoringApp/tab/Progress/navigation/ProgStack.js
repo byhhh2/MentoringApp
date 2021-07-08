@@ -5,6 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import ProgScreen from '../screen/ProgScreen';
 import Matching from '../component/Matching';
 import MentoringDiary from '../component/MentoringDiary';
+import Review from '../screen/Review';
 
 const Stack = createStackNavigator();
 
@@ -41,9 +42,9 @@ const ProgStack = () => {
           headerTintColor: '#498C5A',
         }}
       />
-      {/* <Stack.Screen
-        name="멘토링 신청서"
-        component={Matching}
+      <Stack.Screen
+        name="Review"
+        component={Review}
         options={{
           title: '',
           headerStyle: {
@@ -55,7 +56,7 @@ const ProgStack = () => {
           },
           headerTintColor: '#498C5A',
         }}
-      /> */}
+      />
     </Stack.Navigator>
   );
 };
