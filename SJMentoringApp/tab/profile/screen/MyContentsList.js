@@ -57,14 +57,17 @@ const MyContentsList = (props) => {
                 });
               }}>
               <View style={styles.content_container}>
-                <Text style={styles.bold_font}>
+                <Text
+                  style={[styles.bold_font, {fontSize: 16}]}
+                  numberOfLines={1}
+                  ellipsizeMode="tail">
                   <Text style={[styles.text, {color: '#498C5A'}]}>
                     {' '}
                     {'📄 '}{' '}
                   </Text>
                   {item.subject} {item.role == 1 ? '- 멘토' : '- 멘티'}
                 </Text>
-                <Text style={styles.text}>
+                <Text style={[styles.text, {color: 'gray'}]}>
                   {item.start_date.substring(2, 10)} ~{' '}
                   {item.end_date.substring(2, 10)}
                 </Text>

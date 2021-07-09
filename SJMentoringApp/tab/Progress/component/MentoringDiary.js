@@ -13,6 +13,8 @@ import {
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import axios from 'axios';
 
+var cnt = 0;
+
 export default class MentoringDiary extends Component {
   constructor(props) {
     super(props);
@@ -59,7 +61,7 @@ export default class MentoringDiary extends Component {
         },
       )
       .then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
       })
       .catch((error) => {
         console.log('wrong!');
@@ -77,8 +79,9 @@ export default class MentoringDiary extends Component {
         },
       )
       .then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
         this.setState({DATA: response.data.data});
+        cnt = response.data.data.length + 1;
       })
       .catch((error) => {
         console.log('wrong!');
@@ -87,6 +90,7 @@ export default class MentoringDiary extends Component {
   }
   saveRecord() {
     let data = {
+      id: cnt + 1,
       date: this.state.date,
       content: this.state.content,
     };
@@ -107,7 +111,7 @@ export default class MentoringDiary extends Component {
         },
       )
       .then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
         if (
           response.data.message ===
           `Record ID: '${this.state.selectedRecord}' has been updated successfully.`
@@ -131,7 +135,7 @@ export default class MentoringDiary extends Component {
         },
       )
       .then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
         if (
           response.data.message ===
           `Record ID: '${this.state.selectedRecord}' has been deleted successfully.`
@@ -145,6 +149,7 @@ export default class MentoringDiary extends Component {
       });
   }
   renderList = ({item}) => {
+    // 멘토링 일지 하나하나
     return (
       <Pressable
         delayLongPress={500}
@@ -157,8 +162,18 @@ export default class MentoringDiary extends Component {
             marginBottom: '3%',
           },
         ]}>
-        <View style={{width: '80%'}}>
-          <Text style={{fontFamily: 'GmarketSansTTFBold', fontSize: 17}}>
+        <View
+          style={{
+            width: '100%',
+            alignSelf: 'center',
+          }}>
+          <Text
+            style={{
+              fontFamily: 'GmarketSansTTFMedium',
+              fontSize: 17,
+              marginBottom: 5,
+              color: 'black',
+            }}>
             💡{' '}
             {item.item.date.length > 11
               ? item.item.date.slice(0, 10)
@@ -170,6 +185,8 @@ export default class MentoringDiary extends Component {
               fontSize: 17,
               marginBottom: '2%',
               fontFamily: 'GmarketSansTTFMedium',
+              marginLeft: 10,
+              color: 'gray',
             }}>
             {item.item.content}
           </Text>
@@ -186,11 +203,18 @@ export default class MentoringDiary extends Component {
             style={{
               fontSize: 26,
               marginBottom: '2%',
-              fontFamily: 'GmarketSansTTFBold',
+              fontFamily: 'GmarketSansTTFMedium',
+              //color: '#498C5A',
+              marginBottom: 6,
             }}>
-            📝 {this.props.route.params.lecture}
+            {this.props.route.params.lecture}
           </Text>
-          <Text style={{fontSize: 16, fontFamily: 'GmarketSansTTFMedium'}}>
+          <Text
+            style={{
+              fontSize: 16,
+              fontFamily: 'GmarketSansTTFMedium',
+              marginBottom: 3,
+            }}>
             🐥 멘토 : {this.props.route.params.mentor}
           </Text>
           <Text
@@ -201,9 +225,14 @@ export default class MentoringDiary extends Component {
             }}>
             🐣 멘티 : {this.props.route.params.mentee}
           </Text>
-          <Text style={{fontSize: 17, fontFamily: 'GmarketSansTTFBold'}}>
+          <Text
+            style={{
+              fontSize: 17,
+              fontFamily: 'GmarketSansTTFMedium',
+              //color: 'gray',
+            }}>
             {this.props.route.params.finished
-              ? '멘토링 완료'
+              ? '멘토링 완료 -'
               : `${this.props.route.params.start.slice(
                   0,
                   10,
@@ -212,7 +241,7 @@ export default class MentoringDiary extends Component {
         </View>
         <View style={styles.whiteView}>
           {this.props.route.params.finished ? (
-            <></>
+            <View style={{height: '10%', width: '98%'}}></View>
           ) : (
             <View
               style={{
@@ -251,6 +280,7 @@ export default class MentoringDiary extends Component {
               return this.renderList({item});
             }}
             key={(item) => item.id}
+            style={{marginTop: 10}}
           />
         </View>
         {this.state.setModal ? (
@@ -270,7 +300,7 @@ export default class MentoringDiary extends Component {
               }}>
               <View
                 style={[
-                  styles.modalCenter,
+                  styles.modal_edit,
                   {
                     justifyContent: 'center',
                     height: '20%',
@@ -343,7 +373,7 @@ export default class MentoringDiary extends Component {
                     alignItems: 'center',
                   }}>
                   <Text style={{fontFamily: 'GmarketSansTTFMedium'}}>
-                    날짜 :{' '}
+                    날짜{'  '}
                   </Text>
                   <TextInput
                     keyboardType="numeric"
@@ -354,6 +384,7 @@ export default class MentoringDiary extends Component {
                       this.handleDate(value);
                     }}
                     maxLength={10}
+                    style={{fontFamily: 'GmarketSansTTFMedium', width: '100%'}}
                   />
                 </View>
                 <View
@@ -362,18 +393,18 @@ export default class MentoringDiary extends Component {
                     alignItems: 'center',
                   }}>
                   <Text style={{fontFamily: 'GmarketSansTTFMedium'}}>
-                    내용 :{' '}
+                    내용{'  '}
                   </Text>
                   <TextInput
-                    placeholder={'내용을 입력하세요. (최대 3줄 작성 가능)'}
+                    placeholder={'내용을 입력하세요. '}
                     value={this.state.content}
                     onChangeText={(value) => {
                       this.setState({content: value});
                     }}
-                    maxLength={57}
                     multiline={true}
                     style={{
-                      width: '80%',
+                      width: '90%',
+                      fontFamily: 'GmarketSansTTFMedium',
                     }}
                   />
                 </View>
@@ -460,7 +491,7 @@ const styles = StyleSheet.create({
   },
   modalCenter: {
     backgroundColor: 'white',
-    height: 230,
+    height: 'auto',
     width: '90%',
     paddingTop: '3%',
     display: 'flex',
@@ -469,6 +500,9 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     paddingLeft: '5%',
     paddingRight: '5%',
+    //paddingVertical: '15%',
+    paddingTop: '20%',
+    paddingBottom: '15%',
   },
   Btn: {
     marginTop: '7%',
@@ -490,5 +524,17 @@ const styles = StyleSheet.create({
   RightBtn: {
     borderTopLeftRadius: 0,
     borderBottomLeftRadius: 0,
+  },
+  modal_edit: {
+    backgroundColor: 'white',
+    height: 300,
+    width: '90%',
+    paddingTop: '3%',
+    display: 'flex',
+    //alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 30,
+    paddingLeft: '5%',
+    paddingRight: '5%',
   },
 });

@@ -35,6 +35,7 @@ const ProfileScreen = (props) => {
   const [major, setMajor] = useState('');
   const [name, setName] = useState([]);
   const [reputation, setReputation] = useState(36.5);
+  const [point, setPoint] = useState(0);
 
   const [mentor_review, setMentor_review] = useState([]);
   const [mentee_review, setMentee_review] = useState([]);
@@ -84,6 +85,7 @@ const ProfileScreen = (props) => {
         setMajor(response.data.data[0].major);
         setName(response.data.data[0].name);
         setReputation(response.data.data[0].reputation);
+        setPoint(response.data.data[0].point);
       })
       .catch((error) => {
         console.log(error);
@@ -143,7 +145,7 @@ const ProfileScreen = (props) => {
           <Text style={styles.text}>{major}</Text>
         </View>
         <View style={styles.bio}>
-          <Text>
+          <Text style={styles.text}>
             <Text style={styles.bold}>소개 |</Text> {bio}
           </Text>
         </View>
@@ -298,6 +300,11 @@ const ProfileScreen = (props) => {
             </Text>
           </TouchableOpacity>
         </View>
+        <View style={styles.point_section}>
+          <Text style={[styles.text, {fontSize: 15, color: '#498C5A'}]}>
+            내 포인트 <Text>💰 {point}</Text>
+          </Text>
+        </View>
       </ScrollView>
       {props.flag == true ? (
         <EditBio
@@ -414,6 +421,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginVertical: 13,
     color: 'gray',
+  },
+  point_section: {
+    height: 'auto',
+    padding: '7%',
+    justifyContent: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#AFDCBD',
   },
 });
 

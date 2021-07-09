@@ -123,6 +123,7 @@ export default class HomeScreen extends Component {
               style={{
                 width: '90%',
                 marginRight: '2%',
+                fontFamily: 'GmarketSansTTFMedium',
               }}
               value={this.state.findValue}
               onChangeText={(text) => this.setState({findValue: text})}
@@ -193,11 +194,18 @@ const List = (props) => {
         });
       }}>
       <View style={styles.list}>
-        <Text style={styles.bold}>{props.item.subject}</Text>
-        <Text style={styles.text}>{props.item.name}</Text>
-        <Text style={styles.text}>{props.item.level}</Text>
+        <Text
+          style={[styles.bold, {fontSize: 16}]}
+          numberOfLines={1}
+          ellipsizeMode="tail">
+          {props.item.subject}{' '}
+          <Text style={{color: '#99BFA5'}}>{props.item.level}</Text>
+        </Text>
+        <Text style={styles.text}>
+          {props.item.name} {props.item.role == 1 ? '멘토' : '멘티'}
+        </Text>
         <Text style={styles.text} numberOfLines={1} ellipsizeMode="tail">
-          {props.item.content}
+          : {props.item.content}
         </Text>
       </View>
     </TouchableOpacity>
@@ -301,12 +309,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'white',
     display: 'flex',
-    justifyContent: 'center',
+    //justifyContent: 'center',
     //alignItems: 'center',
     marginVertical: 8,
     flexGrow: 0,
     marginHorizontal: 15,
     elevation: 10,
+    justifyContent: 'space-around',
+    paddingVertical: 13,
   },
   find: {
     width: '85%',

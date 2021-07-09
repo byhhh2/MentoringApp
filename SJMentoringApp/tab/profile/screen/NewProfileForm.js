@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
   },
   gender_text: {
     color: 'white',
-    fontFamily: 'GmarketSansTTFBold',
+    fontFamily: 'GmarketSansTTFMedium',
   },
   save_button: {
     backgroundColor: '#498C5A',
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
   },
   save_text: {
     color: 'white',
-    fontFamily: 'GmarketSansTTFBold',
+    fontFamily: 'GmarketSansTTFMedium',
   },
 });
 

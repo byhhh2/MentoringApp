@@ -29,6 +29,8 @@ class ChatScreen extends PureComponent {
       .then((response) => {
         this.setState({data: response.data.data});
         this.setState({page: this.state.page + 1});
+        //console.log(response.data.data);
+        //console.log(this.state.data);
         //page++;
       })
       .catch((error) => {
@@ -39,6 +41,20 @@ class ChatScreen extends PureComponent {
   render() {
     return (
       <View style={styles.container}>
+        {this.state.data == null ? (
+          <View style={styles.no_chat}>
+            <Text
+              style={{
+                fontFamily: 'GmarketSansTTFMedium',
+                fontSize: 16,
+                color: 'gray',
+              }}>
+              채팅이 존재하지 않습니다.
+            </Text>
+          </View>
+        ) : (
+          <></>
+        )}
         <FlatList
           data={this.state.data}
           renderItem={(item) => {
@@ -185,6 +201,13 @@ const styles = StyleSheet.create({
     fontFamily: 'GmarketSansTTFBold',
     fontSize: 18,
     marginBottom: 5,
+  },
+  no_chat: {
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
   },
 });
 

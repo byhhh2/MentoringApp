@@ -36,6 +36,7 @@ export default class UploadInput extends Component {
                 //this.props.info(this.state.value);
               }}
               onEndEditing={() => this.props.info(this.state.value)}
+              style={{fontFamily: 'GmarketSansTTFMedium'}}
             />
           </View>
         );
@@ -120,7 +121,9 @@ export default class UploadInput extends Component {
   render() {
     return (
       <View style={styles.inputView}>
-        <Text style={[styles.text, {fontSize: 19}]}>{this.props.type} : </Text>
+        <Text style={[styles.text, {fontSize: 19}]}>
+          {this.props.type} {'  '}
+        </Text>
         {this.inputType(this.props.type)}
       </View>
     );
@@ -139,7 +142,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     display: 'flex',
     alignItems: 'center',
-    borderBottomColor: 'lightgray',
-    borderBottomWidth: 1,
+    borderBottomColor: '#F2F2F2',
+    borderBottomWidth: 2,
   },
 });
