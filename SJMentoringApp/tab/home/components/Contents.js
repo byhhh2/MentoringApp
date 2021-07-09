@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, Text, TouchableOpacity, Modal} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  Modal,
+  ScrollView,
+} from 'react-native';
 //Icon
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -124,14 +131,18 @@ const Contents = (props) => {
                   },
                 });
               }}>
-              <FontAwesome name={'pencil-square-o'} size={24} />
+              <FontAwesome
+                name={'pencil-square-o'}
+                size={24}
+                color={'#498C5A'}
+              />
             </TouchableOpacity>
             <TouchableOpacity
               style={{marginLeft: '6%'}}
               onPress={() => {
                 setDeleted(true);
               }}>
-              <AntDesign name={'delete'} size={23} color={'red'} />
+              <AntDesign name={'delete'} size={23} color={'#E07570'} />
             </TouchableOpacity>
           </View>
         ) : (
@@ -145,24 +156,28 @@ const Contents = (props) => {
         <Text style={[styles.text, styles.base_font]}>
           {props.route.params.user_info.name}
           <Text style={styles.white_font}>
-            {'     '}
-            {/*{props.route.params.user_info.gender}*/}
-            여성
+            {'    '}
+            {props.route.params.user_info.gender}
           </Text>
         </Text>
       </View>
       {/* class info */}
       <View style={styles.base_view}>
         <View style={styles.flex_direction_row}>
-          <Text style={styles.class_font}>
+          <Text
+            style={styles.class_font}
+            numberOfLines={1}
+            ellipsizeMode="tail">
             {props.route.params.user_info.subject}
-          </Text>
-          <Text style={styles.small_font}>수준</Text>
-          <Text style={styles.green_font}>
-            {props.route.params.user_info.level}
           </Text>
         </View>
         <View>
+          <View style={styles.flex_direction_row}>
+            <Text style={styles.green_font}>수준 </Text>
+            <Text style={styles.small_font}>
+              {props.route.params.user_info.level}
+            </Text>
+          </View>
           <View style={styles.flex_direction_row}>
             <Text style={styles.green_font}>기간 </Text>
             <Text style={styles.small_font}>
@@ -186,9 +201,11 @@ const Contents = (props) => {
       </View>
       {/* text */}
       <View style={styles.text_view}>
-        <Text style={styles.base_font}>
-          {props.route.params.user_info.content}
-        </Text>
+        <ScrollView>
+          <Text style={styles.base_font}>
+            {props.route.params.user_info.content}
+          </Text>
+        </ScrollView>
       </View>
       <View>
         {props.route.params.user_id !=
@@ -261,7 +278,7 @@ const styles = StyleSheet.create({
     color: '#498C5A',
     //fontWeight: 'bold',
     margin: 10,
-    fontFamily: 'GmarketSansTTFBold',
+    fontFamily: 'GmarketSansTTFMedium',
   },
   user_info_view: {
     backgroundColor: '#AFDCBD',
@@ -289,7 +306,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     margin: 10,
     //fontWeight: 'bold',
-    fontFamily: 'GmarketSansTTFBold',
+    fontFamily: 'GmarketSansTTFMedium',
   },
   text_view: {
     padding: 20,

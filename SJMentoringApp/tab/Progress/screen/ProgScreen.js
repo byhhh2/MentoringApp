@@ -78,13 +78,16 @@ class MentoringList extends PureComponent {
         }>
         <View style={styles.list}>
           <View style={styles.contentView}>
-            <Text style={styles.nameText}>
+            <Text
+              style={styles.nameText}
+              numberOfLines={1}
+              ellipsizeMode="tail">
               📝 {this.props.item.item.subject}
             </Text>
-            <Text style={styles.text}>
+            <Text style={styles.list_text}>
               🐥 멘토 : {this.props.item.item.mentor}
             </Text>
-            <Text style={styles.text}>
+            <Text style={styles.list_text}>
               🐣 멘티 : {this.props.item.item.mentee}
             </Text>
           </View>
@@ -100,7 +103,11 @@ class MentoringList extends PureComponent {
                     })
                   }>
                   <View style={styles.ReviewButton}>
-                    <Text style={{fontFamily: 'GmarketSansTTFMedium'}}>
+                    <Text
+                      style={{
+                        fontFamily: 'GmarketSansTTFMedium',
+                        color: '#498C5A',
+                      }}>
                       평가하기
                     </Text>
                   </View>
@@ -131,7 +138,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   list: {
-    height: 77,
+    height: 95,
     borderBottomColor: 'lightgray',
     borderBottomWidth: 1,
     paddingLeft: '3%',
@@ -140,6 +147,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    //paddingVertical: 30,
   },
   contentView: {
     width: '72%',
@@ -159,5 +167,10 @@ const styles = StyleSheet.create({
     height: 35,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  list_text: {
+    fontFamily: 'GmarketSansTTFMedium',
+    fontSize: 14,
+    marginVertical: 2,
   },
 });

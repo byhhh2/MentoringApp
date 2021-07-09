@@ -200,6 +200,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderColor: '#AFDCBD',
     borderBottomWidth: 1,
+    fontFamily: 'GmarketSansTTFMedium',
   },
   loginBtn: {
     width: '80%',

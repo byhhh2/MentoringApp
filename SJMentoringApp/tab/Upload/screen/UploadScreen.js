@@ -175,14 +175,18 @@ export default class UploadScreen extends PureComponent {
           <UploadInput type={'시간대'} info={this.getTimeInfo} />
           <UploadInput type={'기간'} info={this.getPeriodInfo} />
           <View style={styles.inputAreaView}>
-            <Text style={[styles.text, {fontSize: 19}]}>하고 싶은 말 : </Text>
+            <Text style={[styles.text, {fontSize: 19}]}>하고 싶은 말 </Text>
             <TextInput
               placeholder={'하고 싶은 말을 입력하세요.'}
+              multiline={true}
               style={{
                 paddingLeft: '3%',
                 paddingRight: '3%',
                 height: '70%',
                 marginTop: '3%',
+                fontFamily: 'GmarketSansTTFMedium',
+                fontSize: 16,
+                color: 'gray',
               }}
               value={this.state.value}
               onChangeText={(text) => this.setState({value: text})}
@@ -214,7 +218,7 @@ export default class UploadScreen extends PureComponent {
                 this.state.value,
               );
             }}>
-            <Text style={[styles.bold, {fontSize: 17}]}>등록하기</Text>
+            <Text style={[styles.text, {fontSize: 17}]}>등록하기</Text>
           </TouchableOpacity>
         </View>
       </KeyboardAwareScrollView>
@@ -270,7 +274,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 20,
-    fontFamily: 'GmarketSansTTFBold',
+    fontFamily: 'GmarketSansTTFMedium',
   },
   uploadView: {
     height: '70%',
@@ -282,8 +286,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     //alignItems: 'center',
     paddingTop: '3%',
-    borderBottomColor: 'lightgray',
-    borderBottomWidth: 1,
+    borderBottomColor: '#F2F2F2',
+    borderBottomWidth: 2,
   },
   btnView: {
     height: '17%',

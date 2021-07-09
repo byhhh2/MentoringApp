@@ -207,14 +207,18 @@ export default class UploadScreen extends PureComponent {
             endValue={this.state.end}
           />
           <View style={styles.inputAreaView}>
-            <Text style={[styles.text, {fontSize: 19}]}>하고 싶은 말 : </Text>
+            <Text style={[styles.text, {fontSize: 19}]}>하고 싶은 말 </Text>
             <TextInput
               placeholder={'하고 싶은 말을 입력하세요.'}
+              multiline={true}
               style={{
                 paddingLeft: '3%',
                 paddingRight: '3%',
                 height: '70%',
                 marginTop: '3%',
+                fontFamily: 'GmarketSansTTFMedium',
+                fontSize: 16,
+                color: 'gray',
               }}
               value={this.state.value}
               onChangeText={(text) => this.setState({value: text})}
@@ -315,7 +319,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 20,
     //fontWeight: 'bold',
-    fontFamily: 'GmarketSansTTFBold',
+    fontFamily: 'GmarketSansTTFMedium',
   },
   uploadView: {
     height: '70%',
@@ -327,8 +331,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     //alignItems: 'center',
     paddingTop: '3%',
-    borderBottomColor: 'lightgray',
-    borderBottomWidth: 1,
+    borderBottomColor: '#F2F2F2',
+    borderBottomWidth: 2,
   },
   btnView: {
     height: '17%',

@@ -90,27 +90,24 @@ const List = ({item}) => {
       <View style={styles.list}>
         <View style={styles.info}>
           <View style={styles.lecture}>
-            <Text style={[styles.text, {fontSize: 18}]}>
-              📝 과목 : {item.item.subject}
+            <Text
+              style={[styles.text, {fontSize: 18}]}
+              numberOfLines={1}
+              ellipsizeMode="tail">
+              📝 {item.item.subject}
             </Text>
           </View>
           <View style={styles.nameView}>
-            <Text
-              style={[
-                styles.bold,
-                {
-                  fontSize: 16,
-                  color: '#498C5A',
-                  marginRight: '3%',
-                },
-              ]}>
-              {item.item.role === 1 ? '멘토' : '멘티'}
+            <Text style={styles.text}>
+              {item.item.name} {item.item.role === 1 ? '멘토' : '멘티'}
             </Text>
-            <Text style={styles.text}>{item.item.name}</Text>
           </View>
 
           <Text style={styles.text}>수준 : {item.item.level}</Text>
-          <Text style={[styles.text, {color: 'gray'}]}>
+          <Text
+            style={[styles.text, {color: 'gray'}]}
+            numberOfLines={1}
+            ellipsizeMode="tail">
             {item.item.content}
           </Text>
         </View>
@@ -128,6 +125,7 @@ const List = ({item}) => {
 const styles = StyleSheet.create({
   text: {
     fontFamily: 'GmarketSansTTFMedium',
+    marginVertical: 3,
   },
   bold: {
     fontFamily: 'GmarketSansTTFBold',
@@ -147,7 +145,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   listView: {
-    marginTop: '2%',
+    //marginTop: '2%',
     height: '91%',
   },
   noneView: {
@@ -158,13 +156,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   list: {
-    height: 90,
-    paddingTop: '1%',
+    height: 125,
     paddingLeft: '2%',
     paddingRight: '2%',
     borderBottomColor: '#AFDCBD',
     borderBottomWidth: 1,
     flexDirection: 'row',
+    paddingVertical: '3%',
   },
   info: {
     width: '80%',

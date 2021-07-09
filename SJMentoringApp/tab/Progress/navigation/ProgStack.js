@@ -22,9 +22,9 @@ const ProgStack = () => {
           },
           headerTitleStyle: {
             alignSelf: 'center',
-            fontFamily: 'GmarketSansTTFBold',
+            fontFamily: 'GmarketSansTTFMedium',
           },
-          headerTintColor: '#498C5A',
+          headerTintColor: 'black',
         }}
       />
       <Stack.Screen

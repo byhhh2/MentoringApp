@@ -51,7 +51,7 @@ const ChatStack = (props) => {
             alignSelf: 'center',
             fontFamily: 'GmarketSansTTFMedium',
           },
-          headerTintColor: '#498C5A',
+          headerTintColor: 'black',
         }}>
         {({navigation}) => (
           <ChatScreen

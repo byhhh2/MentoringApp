@@ -53,10 +53,10 @@ const HomeStack = (props) => {
           headerStyle: {
             backgroundColor: '#AFDCBD',
           },
-          headerTintColor: '#498C5A',
+          headerTintColor: 'black',
           headerTitleStyle: {
-            fontFamily: 'GmarketSansTTFBold',
-            marginLeft: '30%',
+            fontFamily: 'GmarketSansTTFMedium',
+            marginLeft: '27%',
           },
         }}
       />
@@ -70,8 +70,9 @@ const HomeStack = (props) => {
           },
           headerTintColor: '#498C5A',
           headerTitleStyle: {
-            fontWeight: 'bold',
+            fontFamily: 'GmarketSansTTFMedium',
             marginLeft: '20%',
+            color: 'black',
           },
         }}
       />

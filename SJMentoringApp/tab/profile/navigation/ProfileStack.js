@@ -47,7 +47,6 @@ const ProfileStack = (props) => {
                   style={{
                     fontSize: 17,
                     color: '#498C5A',
-                    fontWeight: 'bold',
                     fontFamily: 'GmarketSansTTFMedium',
                   }}>
                   편집
