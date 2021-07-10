@@ -236,7 +236,10 @@ const Contents = (props) => {
                     : props.route.params.user_info.name,
               });
             }}>
-            <Text style={{fontFamily: 'GmarketSansTTFMedium'}}>채팅하기</Text>
+            <Text
+              style={{fontFamily: 'GmarketSansTTFMedium', color: '#498C5A'}}>
+              채팅하기
+            </Text>
           </TouchableOpacity>
         ) : (
           <></>
@@ -259,9 +262,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   base_font: {
-    fontSize: 20,
+    fontSize: 18,
     margin: 10,
     fontFamily: 'GmarketSansTTFMedium',
+    textAlign: 'justify',
+    lineHeight: 30,
   },
   small_font: {
     fontSize: 18,
@@ -315,7 +320,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     //backgroundColor: '#F0F2AE',
     width: '90%',
-    height: '30%',
+    height: '27%',
     marginLeft: 5,
     marginRight: 5,
     alignSelf: 'center',
@@ -366,11 +371,13 @@ const styles = StyleSheet.create({
     width: '90%',
     height: 35,
     //borderWidth: 1,
-    margin: 16,
+    //margin: 16,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
     backgroundColor: '#AFDCBD',
+    alignSelf: 'center',
+    marginVertical: 10,
   },
 });
 

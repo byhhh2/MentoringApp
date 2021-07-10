@@ -45,7 +45,32 @@ class Chat extends Component {
     setInterval(() => this.onMsg(), 3000);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.navigation.setOptions({
+      title: ``,
+      headerRight: () => (
+        <View style={styles.edit}>
+          <TouchableOpacity
+            style={{marginRight: 165}}
+            onPress={() => {
+              this.props.navigation.navigate('상대 프로필', {
+                other_student_id: this.props.route.params.you,
+              });
+            }}>
+            <Text
+              style={{
+                fontSize: 20,
+                fontFamily: 'GmarketSansTTFMedium',
+              }}>
+              {this.props.route.params.mentor_name == this.props.user_name
+                ? this.props.route.params.mentee_name
+                : this.props.route.params.mentor_name}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      ),
+    });
+  }
 
   loadMsg = () => {
     let page_test = 1;
@@ -118,6 +143,7 @@ class Chat extends Component {
     //console.log(this.props.route.params.mine, this.props.route.params.you);
     //console.log(this.props.route.params.info);
     //console.log(this.props.user_id, this.props.route.params.post_student_id);
+
     return (
       <View style={styles.container}>
         <View style={styles.infoBox}>
@@ -159,7 +185,10 @@ class Chat extends Component {
                 paddingLeft: '1%',
                 paddingRight: '1%',
               }}>
-              <Text style={[styles.text, {color: 'gray'}]}>
+              <Text
+                style={[styles.text, {color: 'gray'}]}
+                numberOfLines={1}
+                ellipsizeMode="tail">
                 {this.props.route.params.text}
               </Text>
             </View>
@@ -182,7 +211,7 @@ class Chat extends Component {
                       mentee_name: this.props.route.params.mentee_name,
                     });
                   }}>
-                  <Text style={styles.bold}>멘토링 신청서 작성하기</Text>
+                  <Text style={styles.text}>멘토링 신청서 작성하기</Text>
                 </TouchableOpacity>
               ) : (
                 <TouchableOpacity
@@ -192,7 +221,7 @@ class Chat extends Component {
                       other_student_id: this.props.route.params.you,
                     });
                   }}>
-                  <Text style={styles.bold}>상대 프로필 보러가기</Text>
+                  <Text style={styles.text}>상대 프로필 보러가기</Text>
                 </TouchableOpacity>
               )}
             </View>
@@ -234,7 +263,7 @@ class Chat extends Component {
             }}
           />
           <TouchableOpacity onPress={this.sentMsg}>
-            <Text style={[styles.bold, {color: '#498C5A', fontSize: 15}]}>
+            <Text style={[styles.text, {color: '#498C5A', fontSize: 15}]}>
               전송
             </Text>
           </TouchableOpacity>
@@ -301,6 +330,7 @@ const styles = StyleSheet.create({
     marginRight: 20,
     padding: 15,
     fontSize: 15,
+    fontFamily: 'GmarketSansTTFMedium',
   },
   speech_bubble_mine: {
     width: 'auto',
@@ -329,6 +359,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => ({
   socket: state.userReducer.socket,
   user_id: state.userReducer.user_id,
+  user_name: state.userReducer.user_name,
 });
 
 export default connect(mapStateToProps, null)(Chat);

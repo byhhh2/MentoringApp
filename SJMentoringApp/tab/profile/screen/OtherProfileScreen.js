@@ -104,7 +104,7 @@ const OtherProfileScreen = (props) => {
           <Text style={styles.text}>{major}</Text>
         </View>
         <View style={styles.bio}>
-          <Text>
+          <Text style={{fontFamily: 'GmarketSansTTFMedium'}}>
             <Text style={styles.bold}>소개 |</Text> {bio}
           </Text>
         </View>

@@ -132,7 +132,7 @@ class ChatList extends PureComponent {
         }}>
         <View style={styles.list}>
           <View style={styles.matchedView}>
-            <Text style={[styles.bold, {fontSize: 14, color: '#498C5A'}]}>
+            <Text style={[styles.text, {fontSize: 14, color: '#498C5A'}]}>
               {this.props.item.item.is_matched == 1 ? '매칭 완료' : '모집중'}
             </Text>
           </View>
@@ -140,7 +140,9 @@ class ChatList extends PureComponent {
             <Text style={styles.nameText}>
               {this.props.item.item.room_name}
             </Text>
-            <Text style={styles.text}>{this.props.item.item.msg}</Text>
+            <Text style={styles.text} numberOfLines={1} ellipsizeMode="tail">
+              {this.props.item.item.msg}
+            </Text>
           </View>
           <View style={styles.timeView}>
             <Text style={styles.text}>
