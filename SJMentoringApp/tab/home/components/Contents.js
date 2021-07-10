@@ -229,7 +229,7 @@ const Contents = (props) => {
                 text: props.route.params.user_info.content,
                 matched:
                   props.route.params.user_info.is_matched === 0 ? false : true,
-                mine: props.route.params.user_id, //로그인 한 사람 id
+                mine: props.user_id, //로그인 한 사람 id
                 you: props.route.params.user_info.student_id, //글을 쓴 사람 학번
                 post_id: props.route.params.user_info.id,
                 info: props.route.params.user_info,
@@ -392,6 +392,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => ({
   socket: state.userReducer.socket,
   user_name: state.userReducer.user_name,
+  user_id: state.userReducer.user_id,
 });
 
 export default connect(mapStateToProps, null)(Contents);
