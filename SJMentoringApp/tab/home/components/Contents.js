@@ -64,6 +64,7 @@ const Contents = (props) => {
     //   console.log(roomId);
     // });
   };
+  //console.log(props.route.params.user_info);
   //console.log(props.user_id, props.route.params.user_info.student_id);
   return (
     <View style={styles.container}>
@@ -114,30 +115,36 @@ const Contents = (props) => {
               backgroundColor: '#AFDCBD',
               width: '100%',
             }}>
-            <TouchableOpacity
-              onPress={() => {
-                props.navigation.navigate('수정하기', {
-                  user_info: {
-                    level: props.route.params.user_info.level,
-                    subject: props.route.params.user_info.subject,
-                    role: props.route.params.user_info.role,
-                    start_date: props.route.params.user_info.start_date,
-                    end_date: props.route.params.user_info.end_date,
-                    time: props.route.params.user_info.time,
-                    day: props.route.params.user_info.day,
-                    content: props.route.params.user_info.content,
-                    id: props.route.params.user_info.id,
-                    name: props.route.params.user_info.name,
-                    student_id: props.route.params.user_info.student_id,
-                  },
-                });
-              }}>
-              <FontAwesome
-                name={'pencil-square-o'}
-                size={24}
-                color={'#498C5A'}
-              />
-            </TouchableOpacity>
+            {props.route.params.user_info.is_matched === 0 ? (
+              <TouchableOpacity
+                onPress={() => {
+                  props.navigation.navigate('수정하기', {
+                    user_info: {
+                      level: props.route.params.user_info.level,
+                      subject: props.route.params.user_info.subject,
+                      role: props.route.params.user_info.role,
+                      start_date: props.route.params.user_info.start_date,
+                      end_date: props.route.params.user_info.end_date,
+                      time: props.route.params.user_info.time,
+                      day: props.route.params.user_info.day,
+                      content: props.route.params.user_info.content,
+                      id: props.route.params.user_info.id,
+                      name: props.route.params.user_info.name,
+                      student_id: props.route.params.user_info.student_id,
+                      is_matched: props.route.params.user_info.is_matched,
+                    },
+                  });
+                }}>
+                <FontAwesome
+                  name={'pencil-square-o'}
+                  size={24}
+                  color={'#498C5A'}
+                />
+              </TouchableOpacity>
+            ) : (
+              <></>
+            )}
+
             <TouchableOpacity
               style={{marginLeft: '6%'}}
               onPress={() => {

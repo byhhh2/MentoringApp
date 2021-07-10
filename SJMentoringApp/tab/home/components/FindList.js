@@ -79,7 +79,7 @@ const List = ({item}) => {
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate('Contents', {
+        navigation.navigate('업로드한 게시물', {
           lecture: item.item.lecture,
           name: item.item.name,
           level: item.item.level,

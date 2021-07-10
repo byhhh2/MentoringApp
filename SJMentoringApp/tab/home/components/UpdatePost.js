@@ -125,7 +125,7 @@ export default class UploadScreen extends PureComponent {
         },
       )
       .then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
         if (
           response.data.message ===
           `Post ID: '${this.props.route.params.user_info.id}' has been updated successfully.`
@@ -142,6 +142,7 @@ export default class UploadScreen extends PureComponent {
               content: text,
               name: this.props.route.params.user_info.name,
               id: this.props.route.params.user_info.id,
+              is_matched: this.props.route.params.user_info.is_matched,
               student_id: this.props.route.params.user_info.student_id,
             },
           });
@@ -153,7 +154,7 @@ export default class UploadScreen extends PureComponent {
       });
   }
   render() {
-    //console.log(this.props);
+    console.log(this.props.route.params.user_info);
     return (
       <KeyboardAwareScrollView contentContainerStyle={styles.container}>
         <View style={styles.settingView}>
