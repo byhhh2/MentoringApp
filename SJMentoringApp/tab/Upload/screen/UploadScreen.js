@@ -27,6 +27,7 @@ export default class UploadScreen extends PureComponent {
       time: '',
       start: '',
       end: '',
+      uploaded: false,
     };
     this.getLevelInfo = this.getLevelInfo.bind(this);
     this.getDaysInfo = this.getDaysInfo.bind(this);
@@ -100,7 +101,7 @@ export default class UploadScreen extends PureComponent {
         },
       )
       .then((response) => {
-        //console.log(response.data.data[0].id);
+        //console.log(response.data.data[0]);
         this.props.navigation.navigate('업로드한 게시물', {
           user_info: {
             name: this.props.name,
@@ -113,8 +114,10 @@ export default class UploadScreen extends PureComponent {
             day: this.state.selectedDays,
             content: this.state.value,
             id: response.data.data[0].id,
+            is_matched: response.data.data[0].is_matched,
           },
         });
+        this.setState({uploaded: true, selected: 0, value: ''});
       })
       .catch((error) => {
         console.log('wrong!');
@@ -169,11 +172,31 @@ export default class UploadScreen extends PureComponent {
           </TouchableOpacity>
         </View>
         <View style={styles.uploadView}>
-          <UploadInput type={'과목'} info={this.getLectureInfo} />
-          <UploadInput type={'수준'} info={this.getLevelInfo} />
-          <UploadInput type={'요일'} info={this.getDaysInfo} />
-          <UploadInput type={'시간대'} info={this.getTimeInfo} />
-          <UploadInput type={'기간'} info={this.getPeriodInfo} />
+          <UploadInput
+            type={'과목'}
+            info={this.getLectureInfo}
+            refresh={this.state.uploaded}
+          />
+          <UploadInput
+            type={'수준'}
+            info={this.getLevelInfo}
+            refresh={this.state.uploaded}
+          />
+          <UploadInput
+            type={'요일'}
+            info={this.getDaysInfo}
+            refresh={this.state.uploaded}
+          />
+          <UploadInput
+            type={'시간대'}
+            info={this.getTimeInfo}
+            refresh={this.state.uploaded}
+          />
+          <UploadInput
+            type={'기간'}
+            info={this.getPeriodInfo}
+            refresh={this.state.uploaded}
+          />
           <View style={styles.inputAreaView}>
             <Text style={[styles.text, {fontSize: 19}]}>하고 싶은 말 </Text>
             <TextInput
@@ -217,6 +240,7 @@ export default class UploadScreen extends PureComponent {
                 this.state.selectedDays,
                 this.state.value,
               );
+              this.setState({uploaded: true});
             }}>
             <Text style={[styles.text, {fontSize: 17}]}>등록하기</Text>
           </TouchableOpacity>

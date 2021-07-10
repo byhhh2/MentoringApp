@@ -20,7 +20,7 @@ export default class TimeModal extends Component {
             setTime: false,
           });
         }}>
-        {this.state.setTime ? (
+        {this.state.setTime && this.props.refresh === false ? (
           <Text
             style={[
               styles.text,
