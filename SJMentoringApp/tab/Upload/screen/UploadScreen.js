@@ -101,7 +101,7 @@ export default class UploadScreen extends PureComponent {
         },
       )
       .then((response) => {
-        //console.log(response.data.data[0].id);
+        //console.log(response.data.data[0]);
         this.props.navigation.navigate('업로드한 게시물', {
           user_info: {
             name: this.props.name,
@@ -114,6 +114,7 @@ export default class UploadScreen extends PureComponent {
             day: this.state.selectedDays,
             content: this.state.value,
             id: response.data.data[0].id,
+            is_matched: response.data.data[0].is_matched,
           },
         });
         this.setState({uploaded: true, selected: 0, value: ''});
