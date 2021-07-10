@@ -130,7 +130,7 @@ export default class Matching extends Component {
             onPress={() => {
               this.matchingComplete();
             }}>
-            <Text style={[styles.bold, {fontSize: 18}]}>멘토링 매칭 완료</Text>
+            <Text style={[styles.text, {fontSize: 18}]}>멘토링 매칭 완료</Text>
           </TouchableOpacity>
         </View>
       </View>

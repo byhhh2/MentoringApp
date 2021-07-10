@@ -219,6 +219,7 @@ export default class UploadScreen extends PureComponent {
                 fontFamily: 'GmarketSansTTFMedium',
                 fontSize: 16,
                 color: 'gray',
+                textAlign: 'justify',
               }}
               value={this.state.value}
               onChangeText={(text) => this.setState({value: text})}
