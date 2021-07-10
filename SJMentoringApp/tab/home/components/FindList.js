@@ -37,6 +37,7 @@ export default class FindList extends Component {
       });
   }
   render() {
+    console.log('hi');
     return (
       <View style={styles.container}>
         <View style={styles.findThisView}>
