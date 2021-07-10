@@ -32,7 +32,7 @@ const HomeStack = (props) => {
         )}
       </Stack.Screen>
       <Stack.Screen
-        name="Contents"
+        name="업로드한 게시물"
         component={Contents}
         options={{
           title: '',

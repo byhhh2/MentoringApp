@@ -142,6 +142,7 @@ export default class UploadScreen extends PureComponent {
               content: text,
               name: this.props.route.params.user_info.name,
               id: this.props.route.params.user_info.id,
+              student_id: this.props.route.params.user_info.student_id,
             },
           });
         }
