@@ -10,7 +10,9 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 
-export default class FindList extends Component {
+import {connect} from 'react-redux';
+
+class FindList extends Component {
   constructor(props) {
     super(props);
     this.findPost = this.findPost.bind(this);
@@ -59,7 +61,7 @@ export default class FindList extends Component {
             <FlatList
               data={this.state.DATA}
               renderItem={(item) => {
-                return renderList({item});
+                return renderList({item}, this.props.user_id);
               }}
               keyExtractor={(item) => item.id}
             />
@@ -70,21 +72,21 @@ export default class FindList extends Component {
   }
 }
 
-const renderList = ({item}) => {
-  return <List item={item} />;
+const renderList = ({item}, user_id_) => {
+  return <List item={item} user_id_={user_id_} />;
 };
 
-const List = ({item}) => {
+const List = ({item}, user_id_) => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate('업로드한 게시물', {
+        navigation.navigate('Contents', {
           lecture: item.item.lecture,
           name: item.item.name,
           level: item.item.level,
           user_info: item.item,
-          user_id: item.item.student_id,
+          user_id: user_id_,
         });
       }}>
       <View style={styles.list}>
@@ -183,3 +185,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+const mapStateToProps = (state) => ({
+  user_id: state.userReducer.user_id,
+});
+
+export default connect(mapStateToProps, null)(FindList);

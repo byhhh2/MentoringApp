@@ -20,7 +20,6 @@ export default class UploadInput extends Component {
     this.inputType = this.inputType.bind(this);
   }
   inputType(type) {
-    //console.log(this.props.refresh);
     switch (type) {
       case '과목':
         return (
@@ -36,10 +35,7 @@ export default class UploadInput extends Component {
                 this.setState({value: text});
                 //this.props.info(this.state.value);
               }}
-              onEndEditing={() => {
-                this.props.info(this.state.value);
-              }}
-              value={this.props.refresh ? '' : this.state.value}
+              onEndEditing={() => this.props.info(this.state.value)}
               style={{fontFamily: 'GmarketSansTTFMedium'}}
             />
           </View>
@@ -59,7 +55,6 @@ export default class UploadInput extends Component {
                 level={type}
                 key={i}
                 id={i}
-                refresh={this.props.refresh}
                 selectedAlready={this.props.value}
                 callback={(id) => {
                   let array = this.state.selectedLevel;
@@ -84,7 +79,6 @@ export default class UploadInput extends Component {
         return (
           <DateModal
             info={this.props.info}
-            refresh={this.props.refresh}
             startValue={this.props.startValue}
             endValue={this.props.endValue}
           />
@@ -92,11 +86,7 @@ export default class UploadInput extends Component {
         break;
       case '시간대':
         return (
-          <TimeModal
-            info={this.props.info}
-            refresh={this.props.refresh}
-            initValue={this.props.value}
-          />
+          <TimeModal info={this.props.info} initValue={this.props.value} />
         );
         break;
       case '요일':
@@ -113,7 +103,6 @@ export default class UploadInput extends Component {
                 day={type}
                 key={i}
                 id={i}
-                refresh={this.props.refresh}
                 selectedAlready={this.props.value}
                 callback={(id) => {
                   let array = this.state.selectedDays;

@@ -10,7 +10,6 @@ export default class LevelButton extends Component {
     super(props);
   }
   render() {
-    //console.log(this.props.refresh);
     let index = [false, false, false];
     if (this.props.selectedAlready === '상') index = [true, false, false];
     else if (this.props.selectedAlready === '중') index = [false, true, false];
@@ -18,8 +17,7 @@ export default class LevelButton extends Component {
     return (
       <TouchableOpacity
         style={
-          (this.props.click[this.props.id] || index[this.props.id]) &&
-          (this.props.refresh === false || this.props.refresh === undefined)
+          this.props.click[this.props.id] || index[this.props.id]
             ? [styles.levelButton, styles.levelButtonSelected]
             : styles.levelButton
         }

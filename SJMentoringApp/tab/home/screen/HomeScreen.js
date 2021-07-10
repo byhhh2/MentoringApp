@@ -185,7 +185,7 @@ const List = (props) => {
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate('업로드한 게시물', {
+        navigation.navigate('Contents', {
           lecture: props.item.lecture,
           name: props.item.name,
           level: props.item.level,
