@@ -128,6 +128,7 @@ const Contents = (props) => {
                     content: props.route.params.user_info.content,
                     id: props.route.params.user_info.id,
                     name: props.route.params.user_info.name,
+                    student_id: props.route.params.user_info.student_id,
                   },
                 });
               }}>
