@@ -240,7 +240,7 @@ export default class UploadScreen extends PureComponent {
                 this.state.selectedDays,
                 this.state.value,
               );
-              this.setState({uploaded: true});
+              //this.setState({uploaded: true});
             }}>
             <Text style={[styles.text, {fontSize: 17}]}>등록하기</Text>
           </TouchableOpacity>

@@ -26,6 +26,8 @@ export default class MentoringDiary extends Component {
       date: '',
       content: '',
       DATA: [],
+      preDate: '',
+      preContent: '',
     };
     this.handleDate = this.handleDate.bind(this);
     this.saveRecord = this.saveRecord.bind(this);
@@ -39,11 +41,11 @@ export default class MentoringDiary extends Component {
   handleDate(e) {
     if (e.length === 4) {
       e = e + '-';
-      this.setState({date: e});
+      this.setState({date: e, preDate: e});
     }
     if (e.length === 7) {
       e = e + '-';
-      this.setState({date: e});
+      this.setState({date: e, preDate: e});
     }
   }
   postRecord() {
@@ -101,8 +103,8 @@ export default class MentoringDiary extends Component {
       .put(
         `${axios.defaults.baseURL}/mentoring/${this.state.selectedRecord}/record`,
         {
-          date: this.state.date,
-          content: this.state.content,
+          date: this.state.preDate,
+          content: this.state.preContent,
         },
         {
           headers: {
@@ -154,7 +156,12 @@ export default class MentoringDiary extends Component {
       <Pressable
         delayLongPress={500}
         onLongPress={() => {
-          this.setState({setModal: true, selectedRecord: item.item.id});
+          this.setState({
+            setModal: true,
+            selectedRecord: item.item.id,
+            preDate: item.item.date,
+            preContent: item.item.content,
+          });
         }}
         style={({pressed}) => [
           {
@@ -195,7 +202,6 @@ export default class MentoringDiary extends Component {
     );
   };
   render() {
-    //console.log(this.state.DATA);
     return (
       <View style={styles.container}>
         <View style={styles.infoView}>
@@ -377,14 +383,22 @@ export default class MentoringDiary extends Component {
                   </Text>
                   <TextInput
                     keyboardType="numeric"
-                    value={this.state.date}
+                    value={
+                      this.state.preDate.length === 0
+                        ? this.state.date
+                        : this.state.preDate
+                    }
                     placeholder={'날짜를 입력하세요. (yyyy-mm-dd)'}
                     onChangeText={(value) => {
-                      this.setState({date: value});
+                      this.setState({date: value, preDate: value});
                       this.handleDate(value);
                     }}
                     maxLength={10}
-                    style={{fontFamily: 'GmarketSansTTFMedium', width: '100%'}}
+                    style={{
+                      color: 'gray',
+                      fontFamily: 'GmarketSansTTFMedium',
+                      width: '100%',
+                    }}
                   />
                 </View>
                 <View
@@ -397,14 +411,19 @@ export default class MentoringDiary extends Component {
                   </Text>
                   <TextInput
                     placeholder={'내용을 입력하세요. '}
-                    value={this.state.content}
+                    value={
+                      this.state.preContent === 0
+                        ? this.state.content
+                        : this.state.preContent
+                    }
                     onChangeText={(value) => {
-                      this.setState({content: value});
+                      this.setState({content: value, preContent: value});
                     }}
                     multiline={true}
                     style={{
                       width: '90%',
                       fontFamily: 'GmarketSansTTFMedium',
+                      color: 'gray',
                     }}
                   />
                 </View>
