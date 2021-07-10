@@ -24,8 +24,7 @@ export default class DaysButton extends Component {
     return (
       <TouchableOpacity
         style={
-          (this.props.click[this.props.id] || array[this.props.id]) &&
-          (this.props.refresh === false || this.props.refresh === undefined)
+          this.props.click[this.props.id] || array[this.props.id]
             ? [styles.daysButton, styles.daysButtonSelected]
             : styles.daysButton
         }
