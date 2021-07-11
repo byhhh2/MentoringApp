@@ -14,7 +14,8 @@ import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 
 const EditBio = (props) => {
-  const [bio, setBio] = useState();
+  //console.log(props.prevBio);
+  const [bio, setBio] = useState(props.prevBio);
 
   const editClick = () => {
     axios
@@ -126,7 +127,8 @@ const styles = StyleSheet.create({
     borderStyle: 'dashed',
     borderColor: '#498C5A',
     padding: 10,
-    color: 'black',
+    color: '#498C5A',
+    fontFamily: 'GmarketSansTTFMedium',
   },
 });
 
