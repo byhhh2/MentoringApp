@@ -88,6 +88,7 @@ export default class Matching extends Component {
             start: this.state.start,
             end: this.state.end,
             finished: this.props.route.params.matched,
+            id: response.data.data[0].id,
           });
         })
         .catch((error) => {
