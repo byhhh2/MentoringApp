@@ -60,7 +60,7 @@ class FindList extends Component {
           ) : (
             <FlatList
               data={this.state.DATA}
-              renderItem={(item) => {
+              renderItem={({item}) => {
                 return renderList({item}, this.props.user_id);
               }}
               keyExtractor={(item) => item.id}
@@ -76,18 +76,17 @@ const renderList = ({item}, user_id_) => {
   return <List item={item} user_id_={user_id_} />;
 };
 
-const List = ({item}, user_id_) => {
+const List = (props) => {
   const navigation = useNavigation();
-  //console.log(item);
   return (
     <TouchableOpacity
       onPress={() => {
         navigation.navigate('업로드한 게시물', {
-          lecture: item.item.lecture,
-          name: item.item.name,
-          level: item.item.level,
-          user_info: item.item,
-          user_id: user_id_,
+          lecture: props.item.lecture,
+          name: props.item.name,
+          level: props.item.level,
+          user_info: props.item,
+          user_id: props.user_id_,
         });
       }}>
       <View style={styles.list}>
@@ -97,27 +96,27 @@ const List = ({item}, user_id_) => {
               style={[styles.text, {fontSize: 18}]}
               numberOfLines={1}
               ellipsizeMode="tail">
-              📝 {item.item.subject}
+              📝 {props.item.subject}
             </Text>
           </View>
           <View style={styles.nameView}>
             <Text style={styles.text}>
-              {item.item.name} {item.item.role === 1 ? '멘토' : '멘티'}
+              {props.item.name} {props.item.role === 1 ? '멘토' : '멘티'}
             </Text>
           </View>
 
-          <Text style={styles.text}>수준 : {item.item.level}</Text>
+          <Text style={styles.text}>수준 : {props.item.level}</Text>
           <Text
             style={[styles.text, {color: 'gray'}]}
             numberOfLines={1}
             ellipsizeMode="tail">
-            {item.item.content}
+            {props.item.content}
           </Text>
         </View>
         <View style={styles.timeView}>
           <Text style={[styles.text, {fontSize: 11}]}>
-            {item.item.start_date.toString().slice(0, 10)}~
-            {item.item.end_date.toString().slice(0, 10)}
+            {props.item.start_date.toString().slice(0, 10)}~
+            {props.item.end_date.toString().slice(0, 10)}
           </Text>
         </View>
       </View>

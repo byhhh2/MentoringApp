@@ -65,7 +65,6 @@ const Contents = (props) => {
     // });
   };
   //console.log(props.route.params.user_info);
-  //console.log(props.user_id, props.route.params.user_info.student_id);
   return (
     <View style={styles.container}>
       {deleted ? (
