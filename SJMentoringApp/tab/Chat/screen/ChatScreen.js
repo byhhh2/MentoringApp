@@ -14,12 +14,13 @@ class ChatScreen extends PureComponent {
       data: [],
       page: 1,
     };
+  }
+
+  componentDidMount() {
     this.loadMsgList();
-    //console.log(this.props.socket); //내학번
   }
 
   loadMsgList = () => {
-    //let page = 1;
     axios
       .get(`${axios.defaults.baseURL}/chat?page=${this.state.page}`, {
         headers: {
@@ -27,14 +28,15 @@ class ChatScreen extends PureComponent {
         },
       })
       .then((response) => {
-        this.setState({data: response.data.data});
-        this.setState({page: this.state.page + 1});
-        //console.log(response.data.data);
-        //console.log(this.state.data);
-        //page++;
+        if (response.data.data != null) {
+          this.setState({data: this.state.data.concat(response.data.data)});
+          this.setState({page: this.state.page + 1});
+        } else {
+          return;
+        }
       })
       .catch((error) => {
-        console.log(error.response);
+        console.log(error);
       });
   };
 
@@ -66,7 +68,9 @@ class ChatScreen extends PureComponent {
             );
           }}
           keyExtractor={(item) => item.room_id}
-          onEndReached={this.loadMsgList}
+          onEndReached={() => {
+            this.loadMsgList();
+          }}
         />
       </View>
     );
@@ -88,10 +92,8 @@ class ChatList extends PureComponent {
   constructor(props) {
     super(props);
     //console.log(props);
-    //console.log(this.props);
   }
   render() {
-    //console.log('채팅 리스트 ', this.props.item.item);
     return (
       <TouchableOpacity
         onPress={() => {
