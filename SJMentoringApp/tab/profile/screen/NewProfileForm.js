@@ -6,6 +6,7 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
+  BackHandler,
 } from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
@@ -18,7 +19,26 @@ import {initId, initName} from '../../../redux/action';
 const NewProfileForm = (props) => {
   const [gender, setGender] = useState('여성');
   const [bio, setBio] = useState('');
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert('알림', '정말로 앱을 종료하시겠습니까?', [
+        {
+          text: 'Cancel',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        {text: 'YES', onPress: () => BackHandler.exitApp()},
+      ]);
+      return true;
+    };
 
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
   const initProfile = () => {
     axios
       .put(

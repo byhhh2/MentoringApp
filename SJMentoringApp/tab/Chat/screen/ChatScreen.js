@@ -15,11 +15,9 @@ class ChatScreen extends PureComponent {
       page: 1,
     };
   }
-
   componentDidMount() {
     this.loadMsgList();
   }
-
   loadMsgList = () => {
     axios
       .get(`${axios.defaults.baseURL}/chat?page=${this.state.page}`, {

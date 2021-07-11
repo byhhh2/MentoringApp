@@ -5,6 +5,8 @@ import {
   Text,
   TouchableOpacity,
   Modal,
+  Alert,
+  BackHandler,
   ScrollView,
 } from 'react-native';
 //Icon
@@ -21,7 +23,19 @@ const Contents = (props) => {
   //   //console.log(props.route.params.user_info);
   //   console.log(props.user_name);
   // }, []);
+  useEffect(() => {
+    const backAction = () => {
+      props.navigation.goBack();
+      return true;
+    };
 
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
   const [deleted, setDeleted] = useState(false);
 
   const deletePost = () => {

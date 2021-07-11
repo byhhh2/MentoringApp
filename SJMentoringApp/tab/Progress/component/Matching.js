@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   ToastAndroid,
+  BackHandler,
 } from 'react-native';
 import axios from 'axios';
 import SetTime from '../../Chat/component/SetTime';
@@ -21,6 +22,19 @@ export default class Matching extends Component {
     this.getTimeInfo = this.getTimeInfo.bind(this);
     this.getDaysInfo = this.getDaysInfo.bind(this);
     this.matchingComplete = this.matchingComplete.bind(this);
+  }
+  backAction = () => {
+    this.props.navigation.goBack();
+    return true;
+  };
+  componentWillUnmount() {
+    this.backHandler.remove();
+  }
+  componentDidMount() {
+    this.backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      this.backAction,
+    );
   }
   getTimeInfo(time) {
     let tmp = new Date();

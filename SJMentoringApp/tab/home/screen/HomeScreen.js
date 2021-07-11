@@ -6,8 +6,9 @@ import {
   View,
   FlatList,
   TouchableOpacity,
-  Image,
+  ToastAndroid,
   ImageBackground,
+  BackHandler,
 } from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
@@ -28,33 +29,56 @@ export default class HomeScreen extends Component {
       filter: 'popular',
       DATA: [],
       findValue: '',
+      page: 1,
     };
   }
+  /*backAction = () => {
+    if (this.exitApp == undefined || !this.exitApp) {
+      ToastAndroid.show('한번 더 누르시면 종료됩니다.', ToastAndroid.SHORT);
+      this.exitApp = true;
+
+      this.timeout = setTimeout(
+        () => {
+          this.exitApp = false;
+        },
+        2000, // 2초
+      );
+    } else {
+      clearTimeout(this.timeout);
+
+      BackHandler.exitApp(); // 앱 종료
+    }
+    return true;
+  };*/
   componentDidMount() {
     this._rerender = this.props.navigation.addListener('focus', () => {
       this.getPost('popular');
       this.setState({selected: [true, false, false]});
     });
+    /*this.backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      this.backAction,
+    );*/
   }
   /*componentWillUnmount() {
-    this._rerender();
-  }
-  componentDidMount() {
-    this.getPost('popular');
+    //this._rerender();
+    this.backHandler.remove();
   }*/
+
   getPost(role) {
     this.setState({DATA: []});
-    let page = 1;
     axios
-      .get(`${axios.defaults.baseURL}/post/${role}/list?page=${page}`, {
-        headers: {
-          Authorization: axios.defaults.headers.common['Authorization'],
+      .get(
+        `${axios.defaults.baseURL}/post/${role}/list?page=${this.state.page}`,
+        {
+          headers: {
+            Authorization: axios.defaults.headers.common['Authorization'],
+          },
         },
-      })
+      )
       .then((response) => {
         //console.log(response.data);
         this.setState({DATA: this.state.DATA.concat(response.data.data)});
-        page++;
       })
       .catch((error) => {
         console.log(error);
@@ -161,6 +185,9 @@ export default class HomeScreen extends Component {
               resizeMode="center">
               <FlatList
                 data={this.state.DATA}
+                onEndReached={() => {
+                  this.setState({page: this.state.page + 1});
+                }}
                 renderItem={({item}) => {
                   return renderList({item}, this.props.student_id);
                 }}

@@ -8,6 +8,7 @@ import {
   TextInput,
   FlatList,
   ToastAndroid,
+  BackHandler,
   Pressable,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -33,7 +34,18 @@ export default class MentoringDiary extends Component {
     this.deleteRecord = this.deleteRecord.bind(this);
     this.renderList = this.renderList.bind(this);
   }
+  backAction = () => {
+    this.props.navigation.popToTop();
+    return true;
+  };
+  componentWillUnmount() {
+    this.backHandler.remove();
+  }
   componentDidMount() {
+    this.backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      this.backAction,
+    );
     this.getRecord();
   }
   handleDate(e) {

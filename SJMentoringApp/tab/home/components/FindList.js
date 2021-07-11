@@ -5,6 +5,7 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  BackHandler,
   FlatList,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
@@ -16,23 +17,37 @@ class FindList extends Component {
   constructor(props) {
     super(props);
     this.findPost = this.findPost.bind(this);
-    this.state = {DATA: []};
+    this.state = {DATA: [], page: 1};
+  }
+  backAction = () => {
+    this.props.navigation.goBack();
+    return true;
+  };
+  componentWillUnmount() {
+    this.backHandler.remove();
   }
   componentDidMount() {
+    this.backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      this.backAction,
+    );
     this.findPost(this.props.route.params.findThis);
   }
   findPost(search) {
-    let page = 1;
     this.setState({DATA: []});
     axios
-      .get(`${axios.defaults.baseURL}/search/?search=${search}&page=${page}`, {
-        headers: {
-          Authorization: axios.defaults.headers.common['Authorization'],
+      .get(
+        `${axios.defaults.baseURL}/search/?search=${search}&page=${this.state.page}`,
+        {
+          headers: {
+            Authorization: axios.defaults.headers.common['Authorization'],
+          },
         },
-      })
+      )
       .then((response) => {
-        this.setState({DATA: this.state.DATA.concat(response.data.data)});
-        page++;
+        this.setState({
+          DATA: this.state.DATA.concat(response.data.data),
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -64,6 +79,9 @@ class FindList extends Component {
                 return renderList({item}, this.props.user_id);
               }}
               keyExtractor={(item) => item.id}
+              onEndReached={() => {
+                this.setState({page: this.state.page + 1});
+              }}
             />
           )}
         </View>

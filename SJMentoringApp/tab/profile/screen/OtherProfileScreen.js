@@ -7,6 +7,7 @@ import {
   Button,
   TouchableOpacity,
   ScrollView,
+  BackHandler,
 } from 'react-native';
 
 //navigation
@@ -38,10 +39,24 @@ const OtherProfileScreen = (props) => {
   var mentor_list;
   var mentee_list;
 
-  useEffect(() => {
+  /*useEffect(() => {
     getProfile();
     getReview();
     //console.log(props.socket);
+  }, []);*/
+  useEffect(() => {
+    const backAction = () => {
+      props.navigation.goBack();
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+    getProfile();
+    getReview();
+    return () => backHandler.remove();
   }, []);
 
   const getProfile = () => {

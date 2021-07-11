@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
+import {BackHandler, Alert} from 'react-native';
 
 //Screen
 import ChatScreen from '../screen/ChatScreen';
@@ -19,7 +20,26 @@ const Stack = createStackNavigator();
 
 const ChatStack = (props) => {
   //console.log(props);
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert('알림', '정말로 앱을 종료하시겠습니까?', [
+        {
+          text: 'Cancel',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        {text: 'YES', onPress: () => BackHandler.exitApp()},
+      ]);
+      return true;
+    };
 
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
   return (
     <Stack.Navigator initialRouteName="채팅">
       {/* ChatScreen */}

@@ -6,6 +6,7 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
+  BackHandler,
   FlatList,
 } from 'react-native';
 
@@ -21,8 +22,21 @@ const MyContentsList = (props) => {
   const [student_id, setStudent_id] = useState('');
   const [myContents, setMyContents] = useState([]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     getProfile();
+  }, []);*/
+  useEffect(() => {
+    const backAction = () => {
+      props.navigation.goBack();
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+    getProfile();
+    return () => backHandler.remove();
   }, []);
 
   const getProfile = () => {

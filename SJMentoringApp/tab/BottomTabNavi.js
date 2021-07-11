@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {Text, View, StyleSheet, BackHandler, Alert} from 'react-native';
 
 //Stacks
 import HomeStack from './home/navigation/HomeStack';
@@ -17,6 +18,7 @@ const Tab = createBottomTabNavigator();
 const BottomTabNavi = (props) => {
   return (
     <Tab.Navigator
+      backBehavior="none"
       tabBarOptions={{
         inactiveBackgroundColor: '#AFDCBD',
         activeBackgroundColor: '#99bfa5',

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
+import {BackHandler, Alert} from 'react-native';
 
 //Screen
 import UploadScreen from '../screen/UploadScreen';
@@ -11,6 +12,26 @@ import HomeStack from '../../home/navigation/HomeStack';
 const Stack = createStackNavigator();
 
 const UploadStack = (props) => {
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert('알림', '정말로 앱을 종료하시겠습니까?', [
+        {
+          text: 'Cancel',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        {text: 'YES', onPress: () => BackHandler.exitApp()},
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
   return (
     <Stack.Navigator initialRouteName="UploadScreen">
       <Stack.Screen

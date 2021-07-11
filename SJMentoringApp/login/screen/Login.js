@@ -5,6 +5,7 @@ import {
   View,
   TextInput,
   ToastAndroid,
+  BackHandler,
   Image,
   TouchableOpacity,
   ActivityIndicator,
@@ -42,6 +43,33 @@ class Login extends Component {
       isLoading: false,
     };
     this.signin = this.signin.bind(this);
+  }
+  backAction = () => {
+    if (this.exitApp == undefined || !this.exitApp) {
+      ToastAndroid.show('한번 더 누르시면 종료됩니다.', ToastAndroid.SHORT);
+      this.exitApp = true;
+
+      this.timeout = setTimeout(
+        () => {
+          this.exitApp = false;
+        },
+        2000, // 2초
+      );
+    } else {
+      clearTimeout(this.timeout);
+
+      BackHandler.exitApp(); // 앱 종료
+    }
+    return true;
+  };
+  componentDidMount() {
+    this.backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      this.backAction,
+    );
+  }
+  componentWillUnmount() {
+    this.backHandler.remove();
   }
   signin(id, pwd) {
     axios
