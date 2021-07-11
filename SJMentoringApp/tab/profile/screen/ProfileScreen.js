@@ -312,6 +312,7 @@ const ProfileScreen = (props) => {
           setFlag={props.setFlag}
           student_id={student_id}
           setBio={setBio}
+          prevBio={bio}
         />
       ) : (
         <></>
