@@ -37,14 +37,6 @@ export default class MentoringDiary extends Component {
     this.getRecord();
   }
   handleDate(e) {
-    /*if (e.length === 4) {
-      e = e + '-';
-      this.setState({date: e, preDate: e});
-    }
-    if (e.length === 7) {
-      e = e + '-';
-      this.setState({date: e, preDate: e});
-    }*/
     if (e.length === 8) {
       e = e.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
       this.setState({date: e, preDate: e});
@@ -70,6 +62,7 @@ export default class MentoringDiary extends Component {
       .catch((error) => {
         console.log('wrong!');
         console.log(error.response);
+        console.log(this.props.route.params.id);
       });
   }
   getRecord() {
@@ -196,6 +189,7 @@ export default class MentoringDiary extends Component {
     );
   };
   render() {
+    //console.log(this.state.DATA);
     return (
       <View style={styles.container}>
         <View style={styles.infoView}>
