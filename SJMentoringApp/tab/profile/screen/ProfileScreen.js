@@ -10,6 +10,7 @@ import {
   FlatList,
   SectionList,
   VirtualizedList,
+  BackHandler,
 } from 'react-native';
 
 //navigation
@@ -58,12 +59,25 @@ const ProfileScreen = (props) => {
   //   }
   // ]
 
-  useEffect(() => {
+  /*useEffect(() => {
     getProfile();
     //console.log(props.socket);
     getReview();
-  }, []);
+  }, []);*/
+  useEffect(() => {
+    const backAction = () => {
+      props.navigation.goBack();
+      return true;
+    };
 
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+    getProfile();
+    getReview();
+    return () => backHandler.remove();
+  }, []);
   const getProfile = () => {
     axios
       .get(`${axios.defaults.baseURL}/profile/${student_id}`, {

@@ -7,6 +7,7 @@ import {
   Button,
   TouchableOpacity,
   ToastAndroid,
+  BackHandler,
 } from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
@@ -16,7 +17,6 @@ import axios from 'axios';
 const EditBio = (props) => {
   //console.log(props.prevBio);
   const [bio, setBio] = useState(props.prevBio);
-
   const editClick = () => {
     axios
       .put(

@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   ToastAndroid,
+  BackHandler,
 } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
@@ -36,6 +37,19 @@ export default class UploadScreen extends PureComponent {
     this.getTimeInfo = this.getTimeInfo.bind(this);
     this.upload = this.upload.bind(this);
     this.checkInfo = this.checkInfo.bind(this);
+  }
+  backAction = () => {
+    this.props.navigation.goBack();
+    return true;
+  };
+  componentWillUnmount() {
+    this.backHandler.remove();
+  }
+  componentDidMount() {
+    this.backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      this.backAction,
+    );
   }
   getLevelInfo(lev) {
     let level = '';

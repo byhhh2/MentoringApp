@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,6 +7,8 @@ import {
   Button,
   TouchableOpacity,
   FlatList,
+  BackHandler,
+  Alert,
 } from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -21,7 +23,26 @@ const Stack = createStackNavigator();
 const ProfileStack = (props) => {
   const student_id = props.student_id;
   const [flag, setFlag] = useState(false);
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert('알림', '정말로 앱을 종료하시겠습니까?', [
+        {
+          text: 'Cancel',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        {text: 'YES', onPress: () => BackHandler.exitApp()},
+      ]);
+      return true;
+    };
 
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
   return (
     <Stack.Navigator initialRouteName="ProfileScreen">
       <Stack.Screen

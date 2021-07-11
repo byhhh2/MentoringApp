@@ -6,6 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
   ScrollView,
+  BackHandler,
 } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
@@ -18,12 +19,25 @@ import {connect} from 'react-redux';
 const Review = (props) => {
   const [reviewArray, setRiviewArray] = useState([]);
 
+  //useEffect(() => {
+  //connectSocket();
+  //console.log(props.navigation);
+  //props.user_name
+  //props.route.params.mentor_name
+  //console.log(props.route.params.mentoring_id);
+  //}, []);
   useEffect(() => {
-    //connectSocket();
-    //console.log(props.navigation);
-    //props.user_name
-    //props.route.params.mentor_name
-    //console.log(props.route.params.mentoring_id);
+    const backAction = () => {
+      props.navigation.goBack();
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
   }, []);
 
   const postReview = () => {

@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
   FlatList,
+  BackHandler,
 } from 'react-native';
 
 import io from 'socket.io-client';
@@ -44,7 +45,13 @@ class Chat extends Component {
     this.loadMsg();
     setInterval(() => this.onMsg(), 3000);
   }
-
+  backAction = () => {
+    this.props.navigation.goBack();
+    return true;
+  };
+  componentWillUnmount() {
+    this.backHandler.remove();
+  }
   componentDidMount() {
     this.props.navigation.setOptions({
       title: ``,
@@ -70,6 +77,10 @@ class Chat extends Component {
         </View>
       ),
     });
+    this.backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      this.backAction,
+    );
   }
 
   loadMsg = () => {

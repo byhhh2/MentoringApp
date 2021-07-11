@@ -1,29 +1,46 @@
 import React, {Component, PureComponent} from 'react';
-import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+  BackHandler,
+} from 'react-native';
 import axios from 'axios';
 export default class ProgScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       DATA: [],
+      page: 1,
     };
     this.getMatchedMentoring = this.getMatchedMentoring.bind(this);
   }
+  backAction = () => {
+    this.props.navigation.goBack();
+    return true;
+  };
+  componentWillUnmount() {
+    this.backHandler.remove();
+  }
   componentDidMount() {
+    this.backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      this.backAction,
+    );
     this.getMatchedMentoring();
   }
   getMatchedMentoring() {
-    let page = 1;
     this.setState({DATA: []});
     axios
-      .get(`${axios.defaults.baseURL}/mentoring?page=${page}`, {
+      .get(`${axios.defaults.baseURL}/mentoring?page=${this.state.page}`, {
         headers: {
           Authorization: axios.defaults.headers.common['Authorization'],
         },
       })
       .then((response) => {
         this.setState({DATA: this.state.DATA.concat(response.data.data)});
-        page++;
       })
       .catch((error) => {
         console.log('wrong!');
@@ -47,6 +64,9 @@ export default class ProgScreen extends PureComponent {
               return renderList({item}, this.props.navigation);
             }}
             keyExtractor={(item) => item.id}
+            onEndReached={() => {
+              this.setState({page: this.state.page + 1});
+            }}
           />
         )}
       </View>

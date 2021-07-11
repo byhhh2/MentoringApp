@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {TouchableOpacity, Text, View} from 'react-native';
+import {Text, View, StyleSheet, BackHandler, Alert} from 'react-native';
 //Screen
 import HomeScreen from '../screen/HomeScreen';
 import Contents from '../components/Contents';
@@ -13,6 +13,26 @@ import OtherProfileScreen from '../../profile/screen/OtherProfileScreen';
 const Stack = createStackNavigator();
 
 const HomeStack = (props) => {
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert('알림', '정말로 앱을 종료하시겠습니까?', [
+        {
+          text: 'Cancel',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        {text: 'YES', onPress: () => BackHandler.exitApp()},
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
   return (
     <Stack.Navigator initialRouteName="HomeScreen">
       <Stack.Screen
