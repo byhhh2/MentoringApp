@@ -13,8 +13,6 @@ import {
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import axios from 'axios';
 
-var cnt = 0;
-
 export default class MentoringDiary extends Component {
   constructor(props) {
     super(props);
@@ -28,9 +26,9 @@ export default class MentoringDiary extends Component {
       DATA: [],
       preDate: '',
       preContent: '',
+      cnt: 0,
     };
     this.handleDate = this.handleDate.bind(this);
-    this.saveRecord = this.saveRecord.bind(this);
     this.updateRecord = this.updateRecord.bind(this);
     this.deleteRecord = this.deleteRecord.bind(this);
     this.renderList = this.renderList.bind(this);
@@ -39,12 +37,16 @@ export default class MentoringDiary extends Component {
     this.getRecord();
   }
   handleDate(e) {
-    if (e.length === 4) {
+    /*if (e.length === 4) {
       e = e + '-';
       this.setState({date: e, preDate: e});
     }
     if (e.length === 7) {
       e = e + '-';
+      this.setState({date: e, preDate: e});
+    }*/
+    if (e.length === 8) {
+      e = e.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
       this.setState({date: e, preDate: e});
     }
   }
@@ -63,7 +65,7 @@ export default class MentoringDiary extends Component {
         },
       )
       .then((response) => {
-        //console.log(response.data);
+        this.getRecord();
       })
       .catch((error) => {
         console.log('wrong!');
@@ -83,27 +85,20 @@ export default class MentoringDiary extends Component {
       .then((response) => {
         //console.log(response.data);
         this.setState({DATA: response.data.data});
-        cnt = response.data.data.length + 1;
       })
       .catch((error) => {
         console.log('wrong!');
         console.log(error.response);
       });
   }
-  saveRecord() {
-    let data = {
-      id: cnt + 1,
-      date: this.state.date,
-      content: this.state.content,
-    };
-    this.setState({DATA: this.state.DATA.concat(data)});
-  }
   updateRecord() {
+    let tmpDate = '';
+    tmpDate = this.state.preDate.slice(0, 10);
     axios
       .put(
         `${axios.defaults.baseURL}/mentoring/${this.state.selectedRecord}/record`,
         {
-          date: this.state.preDate,
+          date: tmpDate,
           content: this.state.preContent,
         },
         {
@@ -113,12 +108,12 @@ export default class MentoringDiary extends Component {
         },
       )
       .then((response) => {
-        //console.log(response.data);
         if (
           response.data.message ===
           `Record ID: '${this.state.selectedRecord}' has been updated successfully.`
         ) {
           this.getRecord();
+          this.setState({preContent: '', preDate: ''});
         }
       })
       .catch((error) => {
@@ -137,7 +132,6 @@ export default class MentoringDiary extends Component {
         },
       )
       .then((response) => {
-        //console.log(response.data);
         if (
           response.data.message ===
           `Record ID: '${this.state.selectedRecord}' has been deleted successfully.`
@@ -431,7 +425,14 @@ export default class MentoringDiary extends Component {
                   <TouchableOpacity
                     style={[styles.Btn, styles.LeftBtn]}
                     onPress={() => {
-                      this.setState({modalVisible: false, isUpdate: false});
+                      this.setState({
+                        modalVisible: false,
+                        isUpdate: false,
+                        preDate: '',
+                        preContent: '',
+                        date: '',
+                        content: '',
+                      });
                     }}>
                     <Text style={{fontFamily: 'GmarketSansTTFMedium'}}>
                       취소
@@ -440,10 +441,12 @@ export default class MentoringDiary extends Component {
                   <TouchableOpacity
                     style={[styles.Btn, styles.RightBtn]}
                     onPress={() => {
-                      if (this.state.content && this.state.date) {
+                      if (
+                        (this.state.content && this.state.date) ||
+                        (this.state.preDate && this.state.preContent)
+                      ) {
                         if (!this.state.isUpdate) {
                           this.postRecord();
-                          this.saveRecord();
                         } else {
                           this.updateRecord();
                         }
