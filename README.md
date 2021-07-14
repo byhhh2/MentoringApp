@@ -1,6 +1,7 @@
 # Mentos
 ## Sejong Univ. Mentoring Matching Application 
 ### 세종대학교 멘토멘티 매칭 애플리케이션
+
 --------------
 ### 개발 기술
 React-Native, Redux, Socket.io
@@ -18,6 +19,7 @@ react-native run-android
 #### 2. 게시물 관련 기능
 * GET 
   * 인기멘토(멘토링 온도 높은 멘토). 멘토, 멘티 게시물 filtering 가능
+  * 게시물 검색(Search) 가능
 * POST
 * DELETE
 * UPDATE
